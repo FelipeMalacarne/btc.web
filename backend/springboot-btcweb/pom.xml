@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.demolib</groupId>
-	<artifactId>spring-boot-library</artifactId>
+	<artifactId>springboot-btcweb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-library</name>
 	<description>springboot application for react</description>
