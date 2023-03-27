@@ -11,7 +11,7 @@ public class Drink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "drink_id")
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
