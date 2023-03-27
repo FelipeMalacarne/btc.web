@@ -1,9 +1,8 @@
+@import "./../node_modules/bootstrap/scss/bootstrap.scss";
+
 :root{
   --mainOpacity: rgba(0, 0, 0, 0.55);
 }
-
-
-
 .dark-overlay {
   background-color: rgba(0, 0, 0, 0.35);
   position: absolute;
@@ -15,6 +14,10 @@
 
 .main-color {
   background-color: #2C2B2B ;
+}
+
+.sec-color{
+  background-color: #D9D9D9;
 }
 
 .homepage-carousel-title {
@@ -32,3 +35,9 @@
   pointer-events: none;
   cursor: default;
 }
+$primary:#2C2B2B;
+
+$theme-colors: (
+  "primary": $primary,
+  "danger": #ff4136
+);

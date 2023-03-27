@@ -8,7 +8,7 @@ export const Footer = () => {
                     <a className="nav-link px-2 text-white" href="#"> Home</a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link px-2 text-white" href="#">Search Books</a>
+                    <a className="nav-link px-2 text-white" href="#">Search Drinks</a>
                 </li>
             </ul>
             </footer>
