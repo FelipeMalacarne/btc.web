@@ -11,7 +11,7 @@
 	<groupId>com.demolib</groupId>
 	<artifactId>springboot-btcweb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-library</name>
+	<name>spring-boot-btcweb</name>
 	<description>springboot application for react</description>
 	<properties>
 		<java.version>17</java.version>
