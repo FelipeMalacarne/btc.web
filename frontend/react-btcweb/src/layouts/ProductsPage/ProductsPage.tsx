@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { Table } from "react-bootstrap";
-import DrinkModel from "../../models/DrinkModel";
+import ProductModel from "../../models/ProductModel";
 import { Pagination } from "../Utils/Pagination";
 
-export const DrinksPage = () => {
-  const [drinks, setDrinks] = useState<DrinkModel[]>([]);
+export const ProductsPage = () => {
+  const [drinks, setDrinks] = useState<ProductModel[]>([]);
   const [isLoading, setIsloading] = useState(true);
   const [httpError, setHttpError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [drinksPerPage] = useState(10);
+  const [drinksPerPage] = useState(20);
   const [totalAmountOfDrinks, setTotalAmountOfDrinks] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [search, setSearch] = useState('');
@@ -18,7 +18,7 @@ export const DrinksPage = () => {
 
   useEffect(() => {
     const fetchDrinks = async () => {
-      const baseUrl: string = 'http://localhost:8080/api/drinks'
+      const baseUrl: string = 'http://localhost:8080/api/products'
 
       let url: string = `${baseUrl}?page=${currentPage - 1}&size=${drinksPerPage}`;
 
@@ -37,13 +37,13 @@ export const DrinksPage = () => {
 
       const responseJson = await response.json();
 
-      const responseData = responseJson._embedded.drinks;
+      const responseData = responseJson._embedded.products;
 
       setTotalAmountOfDrinks(responseJson.page.totalElements);
       setTotalPages(responseJson.page.totalPages);
 
 
-      const loadedDrinks: DrinkModel[] = [];
+      const loadedDrinks: ProductModel[] = [];
 
       for (const key in responseData) {
         loadedDrinks.push({
@@ -51,11 +51,10 @@ export const DrinksPage = () => {
           name: responseData[key].name,
           description: responseData[key].description,
           price: responseData[key].price,
-          category: responseData[key].category,
-          img: responseData[key].img
+          isActive: responseData[key].isActive,
         });
       }
-
+      console.log(loadedDrinks)
       setDrinks(loadedDrinks);
       setIsloading(false);
     };
@@ -160,7 +159,7 @@ export const DrinksPage = () => {
             <tr>
               <th>Id</th>
               <th>Name</th>
-              <th>Category</th>
+              <th>?</th>
               <th>Price</th>
             </tr>
           </thead>
@@ -172,7 +171,7 @@ export const DrinksPage = () => {
                     <tr>
                       <td>{drink.id}</td>
                       <td>{drink.name}</td>
-                      <td>{drink.category}</td>
+                      <td>?</td>
                       <td>R$ {drink.price}</td>
                     </tr>
                   ))}
