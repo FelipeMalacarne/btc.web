@@ -125,14 +125,14 @@ export const DrinksPage = () => {
                 onChange={e => setSearch(e.target.value)}
               />
               <button
-                className="btn  btn-outline-dark"
+                className="btn  btn-outline-primary"
                 onClick={() => searchHandleChange()}
               >Search</button>
             </div>
           </div>
           <div className="col-4">
             <div className="dropdown">
-              <button className="btn btn-dark dropdown-toggle" type="button"
+              <button className="btn btn-primary dropdown-toggle" type="button"
                 id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 {categorySelection}
               </button>
