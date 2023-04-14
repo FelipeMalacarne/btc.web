@@ -5,28 +5,25 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "drink")
+@Table(name = "product")
 @Data
-public class Drink {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "drink_id")
+    @Column(name = "prod_id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "prod_name")
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "prod_description")
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "prod_price")
     private Double price;
 
-    @Column(name = "category")
-    private String category;
-
-    @Column(name = "img")
-    private String img;
+    @Column(name = "prod_active")
+    private boolean isActive;
 
 
 }

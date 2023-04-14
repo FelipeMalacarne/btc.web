@@ -1,6 +1,6 @@
 package com.demobtc.springbootbtc.config;
 
-import com.demobtc.springbootbtc.entity.Drink;
+import com.demobtc.springbootbtc.entity.Product;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -19,9 +19,9 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 HttpMethod.PATCH,
                 HttpMethod.PUT
         };
-        config.exposeIdsFor(Drink.class);
+        config.exposeIdsFor(Product.class);
 
-        disableHttpMethods(Drink.class, config, theUnsupportedActions);
+        disableHttpMethods(Product.class, config, theUnsupportedActions);
     /* Configure CORS Mapping*/
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(theAllowedOrigins   );

@@ -1,4 +1,8 @@
-@import "./../node_modules/bootstrap/scss/bootstrap.scss";
+// Custom variables
+$primary: #2C2B2B;
+
+// Bootstrap import
+@import "./../node_modules/bootstrap/scss/bootstrap";
 
 :root{
   --mainOpacity: rgba(0, 0, 0, 0.55);
@@ -35,9 +39,6 @@
   pointer-events: none;
   cursor: default;
 }
-$primary:#2C2B2B;
 
-$theme-colors: (
-  "primary": $primary,
-  "danger": #ff4136
-);
+
+

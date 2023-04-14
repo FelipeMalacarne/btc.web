@@ -2,7 +2,8 @@ import React from 'react';
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
 import { HomePage } from './layouts/HomePage/HomePage';
-import { DrinksPage } from './layouts/DrinksPage/DrinksPage';
+import {ProductsPage } from './layouts/ProductsPage/ProductsPage';
+import './style.scss'
 
 export const App = () => {
   return (
@@ -12,8 +13,7 @@ export const App = () => {
       <div className='flex-grow-1'>
         {/* <HomePage/> */}
 
-        <DrinksPage/>
-
+        <ProductsPage/>
 
       </div>
 
