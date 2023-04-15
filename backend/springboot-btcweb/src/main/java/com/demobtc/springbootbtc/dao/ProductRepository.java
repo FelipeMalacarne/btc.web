@@ -1,6 +1,6 @@
 package com.demobtc.springbootbtc.dao;
 
-import com.demobtc.springbootbtc.entity.Product;
+import com.demobtc.springbootbtc.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,6 @@
 package com.demobtc.springbootbtc.security.services;
 
-import com.demobtc.springbootbtc.entity.Account;
+import com.demobtc.springbootbtc.models.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

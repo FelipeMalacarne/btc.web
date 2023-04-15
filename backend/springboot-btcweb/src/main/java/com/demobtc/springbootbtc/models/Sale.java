@@ -1,4 +1,4 @@
-package com.demobtc.springbootbtc.entity;
+package com.demobtc.springbootbtc.models;
 
 import com.sun.istack.NotNull;
 import lombok.Data;

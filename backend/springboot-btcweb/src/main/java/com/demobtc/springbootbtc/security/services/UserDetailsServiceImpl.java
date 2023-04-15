@@ -1,7 +1,7 @@
 package com.demobtc.springbootbtc.security.services;
 
 import com.demobtc.springbootbtc.dao.AccountRepository;
-import com.demobtc.springbootbtc.entity.Account;
+import com.demobtc.springbootbtc.models.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,7 @@
 package com.demobtc.springbootbtc.dao;
 
-import com.demobtc.springbootbtc.entity.ERole;
-import com.demobtc.springbootbtc.entity.Job;
+import com.demobtc.springbootbtc.models.ERole;
+import com.demobtc.springbootbtc.models.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

@@ -2,9 +2,9 @@ package com.demobtc.springbootbtc.controllers;
 
 import com.demobtc.springbootbtc.dao.AccountRepository;
 import com.demobtc.springbootbtc.dao.JobRepository;
-import com.demobtc.springbootbtc.entity.Account;
-import com.demobtc.springbootbtc.entity.ERole;
-import com.demobtc.springbootbtc.entity.Job;
+import com.demobtc.springbootbtc.models.Account;
+import com.demobtc.springbootbtc.models.ERole;
+import com.demobtc.springbootbtc.models.Job;
 import com.demobtc.springbootbtc.payload.request.LoginRequest;
 import com.demobtc.springbootbtc.payload.request.SignupRequest;
 import com.demobtc.springbootbtc.payload.response.JwtResponse;

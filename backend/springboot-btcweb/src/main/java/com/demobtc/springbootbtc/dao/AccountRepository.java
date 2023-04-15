@@ -1,6 +1,6 @@
 package com.demobtc.springbootbtc.dao;
 
-import com.demobtc.springbootbtc.entity.Account;
+import com.demobtc.springbootbtc.models.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
