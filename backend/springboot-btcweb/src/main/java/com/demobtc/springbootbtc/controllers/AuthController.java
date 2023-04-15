@@ -3,7 +3,7 @@ package com.demobtc.springbootbtc.controllers;
 import com.demobtc.springbootbtc.dao.AccountRepository;
 import com.demobtc.springbootbtc.dao.JobRepository;
 import com.demobtc.springbootbtc.entity.Account;
-import com.demobtc.springbootbtc.entity.EJob;
+import com.demobtc.springbootbtc.entity.ERole;
 import com.demobtc.springbootbtc.entity.Job;
 import com.demobtc.springbootbtc.payload.request.LoginRequest;
 import com.demobtc.springbootbtc.payload.request.SignupRequest;
@@ -90,26 +90,26 @@ public class AuthController {
         Set<Job> jobs = new HashSet<>();
 
         if (strJobs == null) {
-            Job userJob = jobRepository.findByName(EJob.JOB_USER)
+            Job userJob = jobRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
             jobs.add(userJob);
         } else {
             strJobs.forEach(job -> {
                 switch (job) {
                     case "admin":
-                        Job adminJob = jobRepository.findByName(EJob.JOB_ADMIN)
+                        Job adminJob = jobRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
                         jobs.add(adminJob);
 
                         break;
                     case "mod":
-                        Job modJob = jobRepository.findByName(EJob.JOB_MODERATOR)
+                        Job modJob = jobRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
                         jobs.add(modJob);
 
                         break;
                     default:
-                        Job userJob = jobRepository.findByName(EJob.JOB_USER)
+                        Job userJob = jobRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
                         jobs.add(userJob);
                 }

@@ -16,6 +16,6 @@ public class Job {
 
     @Column(name = "job_name")
     @Enumerated(EnumType.STRING)
-    private EJob name;
+    private ERole name;
 
 }
