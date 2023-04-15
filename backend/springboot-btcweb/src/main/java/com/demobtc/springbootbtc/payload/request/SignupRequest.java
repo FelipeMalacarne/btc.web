@@ -8,14 +8,18 @@ import java.util.Set;
 @Data
 public class SignupRequest {
     @NotNull
-    private String username;
+    private String name;
+
+    @NotNull
+    private String cpf;
 
     @NotNull
     private String email;
 
-    private Set<String> role;
-
     @NotNull
     private String password;
+
+
+    private Set<String> job;
 
 }

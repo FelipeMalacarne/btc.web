@@ -12,6 +12,14 @@ import java.util.Set;
 @Table(name = "account")
 public class Account {
 
+    public Account(){}
+    public Account(String name, String cpf, String email, String password) {
+        this.name = name;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "acc_id")
@@ -37,6 +45,6 @@ public class Account {
     @JoinTable(	name = "account_job",
             joinColumns = @JoinColumn(name = "acc_id"),
             inverseJoinColumns = @JoinColumn(name = "job_id"))
-    private Set<Job> roles = new HashSet<>();
+    private Set<Job> jobs = new HashSet<>();
 
 }
