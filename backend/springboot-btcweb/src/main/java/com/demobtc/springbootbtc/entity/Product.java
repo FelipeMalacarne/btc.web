@@ -3,11 +3,14 @@ package com.demobtc.springbootbtc.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "product")
 @Data
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id")
@@ -24,6 +27,9 @@ public class Product {
 
     @Column(name = "prod_active")
     private boolean isActive;
+
+    @OneToMany(mappedBy = "product")
+    private List<Category> category;
 
 
 }
