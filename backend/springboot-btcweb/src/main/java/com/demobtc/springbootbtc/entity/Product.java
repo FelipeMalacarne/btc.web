@@ -1,5 +1,6 @@
 package com.demobtc.springbootbtc.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,10 +13,12 @@ import java.util.Set;
 public class Product {
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id")
     private Long id;
 
+    @NotNull
     @Column(name = "prod_name")
     private String name;
 
@@ -24,12 +27,12 @@ public class Product {
 
     @Column(name = "prod_price")
     private Double price;
-
+    @NotNull
     @Column(name = "prod_active")
     private boolean isActive;
 
     @OneToMany(mappedBy = "product")
-    private List<Category> category;
+    private Set<Category> categorySet;
 
 
 }
