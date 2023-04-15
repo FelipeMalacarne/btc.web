@@ -4,7 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,12 +27,17 @@ public class Product {
 
     @Column(name = "prod_price")
     private Double price;
+
     @NotNull
     @Column(name = "prod_active")
     private boolean isActive;
 
-    @OneToMany(mappedBy = "product")
-    private Set<Category> categorySet;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "product_category",
+            joinColumns = @JoinColumn(name = "prod_id"),
+            inverseJoinColumns = @JoinColumn(name = "cat_id"))
+    private Set<Category> categories = new HashSet<>();
+
 
 
 }

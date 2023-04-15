@@ -19,7 +19,7 @@ public class Request {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "acc_id")
     private Account account;
 
     @Column(name = "req_time")
@@ -29,8 +29,8 @@ public class Request {
     private Double total;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable (name = "request_product", joinColumns = @JoinColumn(name="request_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JoinTable (name = "request_product", joinColumns = @JoinColumn(name="req_id"),
+            inverseJoinColumns = @JoinColumn(name = "prod_id"))
     private Set<Product> requestProdutoSet;
 
 }

@@ -12,7 +12,6 @@ import java.util.Set;
 @Table(name = "account")
 public class Account {
 
-    public Account(){}
     public Account(String name, String cpf, String email, String password) {
         this.name = name;
         this.cpf = cpf;
