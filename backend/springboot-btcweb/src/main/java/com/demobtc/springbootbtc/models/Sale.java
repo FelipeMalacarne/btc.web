@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Sale {
     private Account account;
 
     @Column(name = "sale_time")
-    private Date time;
+    private Timestamp time;
 
     @Column(name = "sale_total")
     private Double total;
@@ -31,6 +32,6 @@ public class Sale {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable (name = "sale_product", joinColumns = @JoinColumn(name="sale_id"),
             inverseJoinColumns = @JoinColumn(name = "prod_id"))
-    private Set<Product> requestProdutoSet;
+    private Set<Product> saleProdutoSet;
 
 }

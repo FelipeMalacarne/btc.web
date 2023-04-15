@@ -3,6 +3,9 @@ package com.demobtc.springbootbtc.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -21,11 +24,14 @@ public class Ingredient {
     private Integer stockQuantity;
 
     @Column(name = "ing_expiration_date")
-    private String expirationDate;
+    private Timestamp expirationDate;
 
     @ManyToOne
     @JoinColumn(name = "un_id")
     private Unit unitOfMeasure;
+
+    @OneToMany(mappedBy = "ingredient")
+    private List<ProductIngredient> products;
 
 
 

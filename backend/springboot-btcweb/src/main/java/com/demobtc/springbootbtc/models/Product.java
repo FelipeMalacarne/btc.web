@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +39,8 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "cat_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "product")
+    private List<ProductIngredient> ingredients;
 
 
 }
