@@ -1,9 +1,10 @@
-package com.demobtc.springbootbtc.entity;
+package com.demobtc.springbootbtc.models;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -27,12 +28,19 @@ public class Product {
 
     @Column(name = "prod_price")
     private Double price;
+
     @NotNull
     @Column(name = "prod_active")
     private boolean isActive;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "product_category",
+            joinColumns = @JoinColumn(name = "prod_id"),
+            inverseJoinColumns = @JoinColumn(name = "cat_id"))
+    private Set<Category> categories = new HashSet<>();
+
     @OneToMany(mappedBy = "product")
-    private Set<Category> categorySet;
+    private List<ProductIngredient> ingredients;
 
 
 }

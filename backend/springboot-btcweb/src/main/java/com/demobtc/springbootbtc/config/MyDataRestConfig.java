@@ -1,6 +1,6 @@
 package com.demobtc.springbootbtc.config;
 
-import com.demobtc.springbootbtc.entity.Product;
+import com.demobtc.springbootbtc.models.Product;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;

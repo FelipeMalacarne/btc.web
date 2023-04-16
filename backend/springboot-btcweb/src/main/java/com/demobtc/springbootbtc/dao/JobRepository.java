@@ -1,0 +1,12 @@
+package com.demobtc.springbootbtc.dao;
+
+import com.demobtc.springbootbtc.models.ERole;
+import com.demobtc.springbootbtc.models.Job;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import java.util.Optional;
+
+public interface JobRepository extends JpaRepository<Job, Long> {
+    Optional<Job> findByName(ERole name);
+}
