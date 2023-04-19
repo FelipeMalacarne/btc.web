@@ -5,7 +5,6 @@ package com.demobtc.springbootbtc.controller;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/accounts")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class AccountsController {
+public class AccountController {
 
     @Autowired
     private AccountService accountService;
