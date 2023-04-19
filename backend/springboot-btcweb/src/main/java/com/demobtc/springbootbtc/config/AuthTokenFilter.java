@@ -1,7 +1,7 @@
 package com.demobtc.springbootbtc.config;
 
 import com.demobtc.springbootbtc.service.UserDetailsServiceImpl;
-import com.demobtc.springbootbtc.utils.jwt.JwtUtils;
+import com.demobtc.springbootbtc.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

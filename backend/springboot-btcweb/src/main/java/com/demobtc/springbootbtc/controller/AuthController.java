@@ -9,7 +9,7 @@ import com.demobtc.springbootbtc.dto.request.LoginRequest;
 import com.demobtc.springbootbtc.dto.request.SignupRequest;
 import com.demobtc.springbootbtc.dto.response.JwtResponse;
 import com.demobtc.springbootbtc.dto.response.MessageResponse;
-import com.demobtc.springbootbtc.utils.jwt.JwtUtils;
+import com.demobtc.springbootbtc.utils.JwtUtils;
 import com.demobtc.springbootbtc.model.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
