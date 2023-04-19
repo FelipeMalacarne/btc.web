@@ -1,13 +1,12 @@
 package com.demobtc.springbootbtc.controller;
 
 
-import com.demobtc.springbootbtc.model.Product;
-import com.demobtc.springbootbtc.repository.ProductRepository;
+
+import com.demobtc.springbootbtc.model.Account;
+import com.demobtc.springbootbtc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,11 +16,32 @@ import java.util.List;
 public class AccountsController {
 
     @Autowired
-    private ProductRepository productRepository;
+    private AccountService accountService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<Account> getAllAccounts() {
+        return accountService.getAllAccounts();
+    }
+
+    @GetMapping("/{id}")
+    public Account getAccountById(@PathVariable(value = "id") Long id) {
+        return accountService.getAccountById(id);
+    }
+
+
+    @PostMapping
+    public Account createAccount(@RequestBody Account account) {
+        return accountService.createAccount(account);
+    }
+
+    @PutMapping("/{id}")
+    public Account updateAccount(@RequestBody Account account, @PathVariable(value = "id") Long id) {
+        return accountService.updateAccount(account, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAccount(@PathVariable(value = "id") Long id) {
+        accountService.deleteAccount(id);
     }
 
 }
