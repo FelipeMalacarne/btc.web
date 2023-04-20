@@ -1,24 +1,25 @@
-import React from 'react';
+
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
-import { HomePage } from './layouts/HomePage/HomePage';
-import {ProductsPage } from './layouts/ProductsPage/ProductsPage';
-import './style.scss'
+import { DarkTheme, Theme } from './Theme';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { SignInPage } from './layouts/SignInAndSignUp/SignInPage';
+import { Outlet, RouterProvider } from 'react-router-dom';
+
+
 
 export const App = () => {
   return (
-    <div className='d-flex flex-column min-vh-100' >
-      <Navbar/> 
-      
-      <div className='flex-grow-1'>
-        {/* <HomePage/> */}
+    <ThemeProvider theme={DarkTheme} >
+      <CssBaseline />
+      <div className='d-flex flex-column min-vh-100' >
+        <Navbar />
+        <div className='flex-grow-1'>
+          <Outlet />
 
-        <ProductsPage/>
-
+        </div>
+        <Footer />
       </div>
-
-      <Footer/>
-    </div>
-    
+    </ThemeProvider>
   );
 }
