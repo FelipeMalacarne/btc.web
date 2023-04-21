@@ -20,6 +20,6 @@ public class SignupRequest {
     private String password;
 
 
-    private Set<String> job;
+    private Set<String> role;
 
 }

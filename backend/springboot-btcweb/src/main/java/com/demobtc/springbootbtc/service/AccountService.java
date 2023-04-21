@@ -35,7 +35,7 @@ public class AccountService {
         accountToUpdate.setCpf(account.getCpf());
         accountToUpdate.setEmail(account.getEmail());
         accountToUpdate.setPassword(account.getPassword());
-        accountToUpdate.setJobs(account.getJobs());
+        accountToUpdate.setRoles(account.getRoles());
         return accountRepository.save(accountToUpdate);
     }
 

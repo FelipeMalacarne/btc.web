@@ -45,6 +45,6 @@ public class Account {
     @JoinTable(	name = "account_job",
             joinColumns = @JoinColumn(name = "acc_id"),
             inverseJoinColumns = @JoinColumn(name = "job_id"))
-    private Set<Job> jobs = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
 }

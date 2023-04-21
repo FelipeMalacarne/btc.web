@@ -1,10 +1,10 @@
 package com.demobtc.springbootbtc.controller;
 
 import com.demobtc.springbootbtc.repository.AccountRepository;
-import com.demobtc.springbootbtc.repository.JobRepository;
+import com.demobtc.springbootbtc.repository.RoleRepository;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.model.ERole;
-import com.demobtc.springbootbtc.model.Job;
+import com.demobtc.springbootbtc.model.Role;
 import com.demobtc.springbootbtc.dto.request.LoginRequest;
 import com.demobtc.springbootbtc.dto.request.SignupRequest;
 import com.demobtc.springbootbtc.dto.response.JwtResponse;
@@ -38,7 +38,7 @@ public class AuthController {
     AccountRepository accountRepository;
 
     @Autowired
-    JobRepository jobRepository;
+    RoleRepository roleRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -55,7 +55,7 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        List<String> jobs = userDetails.getAuthorities().stream()
+        List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
@@ -63,7 +63,7 @@ public class AuthController {
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
-                jobs));
+                roles));
     }
 
     @PostMapping("/signup")
@@ -86,37 +86,37 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strJobs = signUpRequest.getJob();
-        Set<Job> jobs = new HashSet<>();
+        Set<String> strRoles = signUpRequest.getRole();
+        Set<Role> roles = new HashSet<>();
 
-        if (strJobs == null) {
-            Job userJob = jobRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
-            jobs.add(userJob);
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
         } else {
-            strJobs.forEach(job -> {
-                switch (job) {
+            strRoles.forEach(role -> {
+                switch (role) {
                     case "admin":
-                        Job adminJob = jobRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
-                        jobs.add(adminJob);
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
 
                         break;
                     case "mod":
-                        Job modJob = jobRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
-                        jobs.add(modJob);
+                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
 
                         break;
                     default:
-                        Job userJob = jobRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Job is not found."));
-                        jobs.add(userJob);
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
                 }
             });
         }
 
-        account.setJobs(jobs);
+        account.setRoles(roles);
         accountRepository.save(account);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

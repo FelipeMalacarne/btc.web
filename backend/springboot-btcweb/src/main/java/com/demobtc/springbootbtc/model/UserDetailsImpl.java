@@ -34,8 +34,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(Account account) {
-        List<GrantedAuthority> authorities = account.getJobs().stream()
-                .map(job -> new SimpleGrantedAuthority(job.getName().name()))
+        List<GrantedAuthority> authorities = account.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
