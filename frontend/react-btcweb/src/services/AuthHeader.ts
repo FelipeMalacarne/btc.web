@@ -1,4 +1,4 @@
-export default function AuthHeader(){
+export default function authHeader(){
   const userStr = localStorage.getItem("user");
   let user = null;
 
