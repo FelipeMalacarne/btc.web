@@ -4,6 +4,7 @@ import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     public List<Account> getAllAccounts() {
         return accountRepository.findAll();
@@ -34,7 +38,8 @@ public class AccountService {
         accountToUpdate.setName(account.getName());
         accountToUpdate.setCpf(account.getCpf());
         accountToUpdate.setEmail(account.getEmail());
-        accountToUpdate.setPassword(account.getPassword());
+
+        accountToUpdate.setPassword(encoder.encode(account.getPassword()));
         accountToUpdate.setRoles(account.getRoles());
         return accountRepository.save(accountToUpdate);
     }

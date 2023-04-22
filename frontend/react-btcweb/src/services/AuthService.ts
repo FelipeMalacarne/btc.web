@@ -6,20 +6,22 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 class AuthService {
   async login(signinRequest: SigninRequestModel) {
-    const url = `${API_URL}/signin`;
+    const url = `${API_URL}/api/auth/signin`;
 
     const requestOptions = {
       method: "POST",
-      Headers: {
+      headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(signinRequest)
     };
 
+
     const signinResponse = await fetch(url, requestOptions);
     if(!signinResponse.ok){
       throw new Error(signinResponse.statusText);
     }
+
     const signinResponseJson = await signinResponse.json();
 
     const signinData = new SigninResponseModel (
@@ -43,7 +45,7 @@ class AuthService {
   }
 
   async register(name: string, cpf: string, email: string, password: string){
-    const url = `${API_URL}/signup`;
+    const url = `${API_URL}/api/auth/signup`;
 
     const signupRequest = new SignupRequestModel(
       name,
@@ -55,7 +57,7 @@ class AuthService {
 
     const requestOptions = {
       method: "POST",
-      Headers: {
+      headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(signupRequest)

@@ -1,11 +1,9 @@
-
 import { Navbar } from './layouts/NavbarAndFooter/Navbar';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
 import { DarkTheme, Theme } from './Theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { SignInPage } from './layouts/SignInAndSignUp/SignInPage';
 import { Outlet, RouterProvider } from 'react-router-dom';
-
 
 
 export const App = () => {
@@ -16,7 +14,6 @@ export const App = () => {
         <Navbar />
         <div className='flex-grow-1'>
           <Outlet />
-
         </div>
         <Footer />
       </div>

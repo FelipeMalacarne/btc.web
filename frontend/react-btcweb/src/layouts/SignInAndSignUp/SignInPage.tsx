@@ -1,4 +1,3 @@
-import React from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,8 +10,13 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material';
-import { Theme } from '../../Theme';
+import { ThemeProvider, FormControl} from '@mui/material';
+import { DarkTheme, Theme } from '../../Theme';
+import { useState } from 'react';
+import * as Yup from 'yup';
+import SigninRequestModel from "../../models/auth/SigninRequestModel";
+import AuthService from "../../services/AuthService";
+import {Navigate, redirect} from "react-router-dom";
 
 function Copyright(props: any) {
   return (
@@ -28,18 +32,40 @@ function Copyright(props: any) {
 }
 
 export const SignInPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [displayWarning, setDisplayWarning] = useState(false);
+  const [error, setError] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const schema = Yup.object().shape({
+      username: Yup.string().required('Username is required'),
+      password: Yup.string().required('Password is required')
+  });
+
+
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    try {
+        await schema.validate({username, password});
+
+        const response = await AuthService.login(new SigninRequestModel(username, password));
+        setDisplayWarning(false);
+        setError('');
+        setLoggedIn(true);
+    } catch (err: any){
+        setDisplayWarning(true);
+        setError('Usuario ou senha inválidos');
+    }
   };
 
+  if (loggedIn) {
+        return <Navigate to="/"/>
+  }
+
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={DarkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -57,38 +83,51 @@ export const SignInPage = () => {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                onChange={e => {
+                  setUsername(e.target.value)
+                }}
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={e => {
+                  setPassword(e.target.value)
+                }}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              {displayWarning && (
+                  <FormControl error>
+                      <Typography variant="body2" color="error" align="center">
+                          {error}
+                      </Typography>
+                  </FormControl>
+              )}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -103,6 +142,7 @@ export const SignInPage = () => {
             </Grid>
           </Box>
         </Box>
+
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
