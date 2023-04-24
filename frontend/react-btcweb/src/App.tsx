@@ -27,6 +27,7 @@ export const App = () => {
             <CssBaseline/>
             <Routes>
                 <Route path='*' element={<NotFoundPage/>}/>
+                <Route path='/' element={<Navigate to='/signin'/>}/>
                 <Route path='/signin' element={<SignInPage/>}/>
                 <Route path='/signup' element={<SignUpPage/>}/>
 
