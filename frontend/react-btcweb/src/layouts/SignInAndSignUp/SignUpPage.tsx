@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Theme } from '../../Theme';
+import {DarkTheme, Theme} from '../../Theme';
 
 
 function Copyright(props: any) {
@@ -42,7 +42,7 @@ export const SignUpPage = () => {
 
   };
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={DarkTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

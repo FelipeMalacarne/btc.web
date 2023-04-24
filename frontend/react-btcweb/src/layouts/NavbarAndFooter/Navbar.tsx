@@ -2,6 +2,9 @@ import React from "react";
 import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Stack, Toolbar, Tooltip, Typography } from "@mui/material"
 import SportsBarIcon from '@mui/icons-material/SportsBar';
 import MenuIcon from '@mui/icons-material/Menu';
+import AuthService from "../../services/AuthService";
+import {useAuth} from "../../services/useAuth";
+import {Navigate} from "react-router-dom";
 
 const pages = ['Inventory', 'Products', 'Sales'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -10,6 +13,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const { authState, logout } = useAuth();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -22,8 +26,12 @@ export const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e: any) => {
     setAnchorElUser(null);
+    const clickedItem = e.target.textContent;
+    if (clickedItem === 'Logout') {
+         logout();
+    }
   };
   
   return (
@@ -119,7 +127,7 @@ export const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Felipe Malacarnew" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={authState.user?.username} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
