@@ -11,12 +11,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {ThemeProvider, FormControl} from '@mui/material';
-import {DarkTheme, Theme} from '../../Theme';
 import {useState} from 'react';
 import * as Yup from 'yup';
 import SigninRequestModel from "../../models/auth/SigninRequestModel";
 import {Navigate} from "react-router-dom";
-import {useAuth} from "../../services/useAuth";
+import {useAuth} from "../../hooks/useAuth";
 
 function Copyright(props: any) {
     return (
@@ -69,7 +68,6 @@ export const SignInPage = () => {
     // }
 
     return (
-        <ThemeProvider theme={DarkTheme}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline/>
                 <Box
@@ -149,6 +147,5 @@ export const SignInPage = () => {
 
                 <Copyright sx={{mt: 8, mb: 4}}/>
             </Container>
-        </ThemeProvider>
     );
 }

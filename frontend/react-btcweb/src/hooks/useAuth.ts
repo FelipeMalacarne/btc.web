@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import AuthService from "./AuthService";
+import AuthService from "../services/AuthService";
 import SigninRequestModel from "../models/auth/SigninRequestModel";
 
 interface User {
