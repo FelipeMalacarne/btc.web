@@ -6,7 +6,7 @@ import {Navigate, Outlet, Route, Router, RouterProvider, Routes} from 'react-rou
 
 import {SignInPage} from "./layouts/SignInAndSignUp/SignInPage";
 import {SignUpPage} from "./layouts/SignInAndSignUp/SignUpPage";
-import React, {createContext, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import {InventoryPage} from "./layouts/InventoryPage/InventoryPage";
 import {SecureLayout} from "./layouts/SecureLayout";
 import {NotFoundPage} from "./layouts/NotFoundPage";
@@ -14,7 +14,14 @@ import {NotFoundPage} from "./layouts/NotFoundPage";
 export const App = () => {
 
     const [themeMode, setThemeMode] = useState(lightTheme);
-
+    useEffect(() => {
+        const localTheme = localStorage.getItem('theme');
+        if (localTheme === 'darkTheme') {
+            setThemeMode(darkTheme);
+        } else {
+            setThemeMode(lightTheme);
+        }
+    }, [themeMode])
     return (
         <ThemeProvider theme={themeMode}>
             <CssBaseline/>

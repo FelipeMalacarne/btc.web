@@ -51,8 +51,10 @@ export const Navbar: React.FC<{ themeMode: any,  setThemeMode: any } > = (props)
     const handleTheme = () => {
         if (props.themeMode === lightTheme) {
             props.setThemeMode(darkTheme);
+            localStorage.setItem('theme', 'darkTheme');
         } else {
             props.setThemeMode(lightTheme);
+            localStorage.setItem('theme', 'lightTheme');
         }
     }
 
