@@ -22,15 +22,9 @@ public class Ingredient {
     @Column(name = "ing_stock_quanti")
     private Integer stockQuantity;
 
-    @Column(name = "ing_expiration_date")
-    private Timestamp expirationDate;
-
     @ManyToOne
     @JoinColumn(name = "un_id")
     private Unit unitOfMeasure;
-
-    @OneToMany(mappedBy = "ingredient")
-    private List<ProductIngredient> products;
 
 
 

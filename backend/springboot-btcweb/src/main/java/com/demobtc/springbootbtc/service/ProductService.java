@@ -6,6 +6,7 @@ import com.demobtc.springbootbtc.model.Product;
 import com.demobtc.springbootbtc.model.ProductIngredient;
 import com.demobtc.springbootbtc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Product not found with id: " + id));
+                () -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     public Product createProduct(PostNewProductRequest request) {
@@ -39,8 +40,7 @@ public class ProductService {
     }
 
     public Product updateProduct(Product product, Long id) {
-        Product productToUpdate = productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Product not found with id: " + id));
+        Product productToUpdate = getProductById(id);
         productToUpdate.setName(product.getName());
         productToUpdate.setDescription(product.getDescription());
         productToUpdate.setPrice(product.getPrice());
@@ -52,8 +52,7 @@ public class ProductService {
     }
 
     public Product deleteProduct(Long id) {
-        Product productToDelete = productRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Product not found with id: " + id));
+        Product productToDelete = getProductById(id);
         productRepository.delete(productToDelete);
         return productToDelete;
     }
