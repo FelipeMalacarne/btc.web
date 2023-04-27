@@ -41,8 +41,7 @@ public class AccountService {
     }
 
     public Account updateAccount(Account account, Long id) {
-        Account accountToUpdate = accountRepository.findById(id)
-                                                  .orElseThrow(() -> new ResourceNotFoundException("Account not found with id: " + id));
+        Account accountToUpdate = getAccountById(id);
         accountToUpdate.setName(account.getName());
         accountToUpdate.setCpf(account.getCpf());
         accountToUpdate.setEmail(account.getEmail());
@@ -52,10 +51,10 @@ public class AccountService {
         return accountRepository.save(accountToUpdate);
     }
 
-    public void deleteAccount(Long id) {
-        Account accountToDelete = accountRepository.findById(id)
-                                                  .orElseThrow(() -> new ResourceNotFoundException("Account not found with id: " + id));
+    public Account deleteAccount(Long id) {
+        Account accountToDelete = getAccountById(id);
         accountRepository.delete(accountToDelete);
+        return accountToDelete;
     }
 
 

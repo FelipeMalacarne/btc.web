@@ -6,6 +6,9 @@ import com.demobtc.springbootbtc.dto.request.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +28,15 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public Account getAccountById(@PathVariable(value = "id") Long id) {
-        return accountService.getAccountById(id);
+    public ResponseEntity<Account> getAccountById(@PathVariable(value = "id") Long id) {
+        try{
+            Account account = accountService.getAccountById(id);
+            return ResponseEntity.ok().body(account);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 
@@ -38,14 +48,28 @@ public class AccountController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public Account updateAccount(@RequestBody Account account, @PathVariable(value = "id") Long id) {
-        return accountService.updateAccount(account, id);
+    public ResponseEntity<Account> updateAccount(@RequestBody Account account, @PathVariable(value = "id") Long id) {
+        try{
+            Account updatedAccount = accountService.updateAccount(account, id);
+            return ResponseEntity.ok(updatedAccount);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public void deleteAccount(@PathVariable(value = "id") Long id) {
-        accountService.deleteAccount(id);
+    public ResponseEntity<Account> deleteAccount(@PathVariable(value = "id") Long id) {
+        try{
+            Account deletedAccount = accountService.deleteAccount(id);
+            return ResponseEntity.ok(deletedAccount);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }
