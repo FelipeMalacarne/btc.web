@@ -1,5 +1,6 @@
 package com.demobtc.springbootbtc.service;
 
+import com.demobtc.springbootbtc.dto.request.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,15 @@ public class AccountService {
 
     }
 
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
+    public Account createAccount(PostNewAccountRequest request) {
+        Account accountToCreate = new Account();
+        accountToCreate.setName(request.getUsername());
+        accountToCreate.setCpf(request.getCpf());
+        accountToCreate.setEmail(request.getEmail());
+        accountToCreate.setPassword(encoder.encode(request.getPassword()));
+        accountToCreate.setRoles(request.getRoles());
+
+        return accountRepository.save(accountToCreate);
     }
 
     public Account updateAccount(Account account, Long id) {

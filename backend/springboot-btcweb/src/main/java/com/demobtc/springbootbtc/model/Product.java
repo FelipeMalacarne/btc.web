@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.security.PublicKey;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,8 +14,9 @@ import java.util.Set;
 @Data
 public class Product {
 
+    public Product(){}
+
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id")
     private Long id;

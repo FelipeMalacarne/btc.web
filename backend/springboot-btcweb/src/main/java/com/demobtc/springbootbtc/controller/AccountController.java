@@ -2,10 +2,11 @@ package com.demobtc.springbootbtc.controller;
 
 
 
+import com.demobtc.springbootbtc.dto.request.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,16 +30,19 @@ public class AccountController {
     }
 
 
+    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping
-    public Account createAccount(@RequestBody Account account) {
+    public Account createAccount(@RequestBody PostNewAccountRequest account) {
         return accountService.createAccount(account);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Account updateAccount(@RequestBody Account account, @PathVariable(value = "id") Long id) {
         return accountService.updateAccount(account, id);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteAccount(@PathVariable(value = "id") Long id) {
         accountService.deleteAccount(id);
