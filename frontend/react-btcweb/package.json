@@ -8,6 +8,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.1",
+    "@mui/x-data-grid": "^6.3.0",
     "@react-buddy/ide-toolbox": "^2.3.1",
     "@react-buddy/palette-mui": "^5.0.1",
     "@testing-library/jest-dom": "^5.16.5",
