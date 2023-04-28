@@ -19,6 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 import {useAuth} from "../../hooks/useAuth";
 import {lightTheme, darkTheme} from "../../Theme";
+import { useNavigate } from "react-router-dom";
 
 const pages = ['Inventory', 'Products', 'Sales'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -36,8 +37,20 @@ export const Navbar: React.FC<{ themeMode: any,  setThemeMode: any } > = (props)
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+
+    const navigate = useNavigate();
+    const handleCloseNavMenu = (event: any) => {
         setAnchorElNav(null);
+        const clickedItem = event.target.textContent;
+
+        if (clickedItem === 'Inventory') {
+            navigate('/secure/inventory');
+        } else if (clickedItem === 'Products') {
+            navigate('/secure/products');
+        } else if (clickedItem === 'Sales') {
+            navigate('/secure/sales');
+        }
+
     };
 
     const handleCloseUserMenu = (e: any) => {
