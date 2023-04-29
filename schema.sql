@@ -1,85 +1,143 @@
-CREATE TABLE IF NOT EXISTS ACCOUNT (
-	ACC_ID SERIAL NOT NULL,
-	ACC_NAME VARCHAR(255) NOT NULL,
-	ACC_CPF VARCHAR(15) NOT NULL,
-	ACC_EMAIL VARCHAR(150) NOT NULL,
-	ACC_PASSWORD VARCHAR(100) NOT NULL,
-	CONSTRAINT PK_ACC_ID PRIMARY KEY(ACC_ID)
+/**
+* Tables
+*/
+create table account (
+	acc_id serial not null,
+	acc_name varchar(255) not null,
+	acc_cpf varchar(15) not null,
+	acc_email varchar(150) not null,
+	acc_password varchar(100) not null,
+	constraint pk_acc_id primary key(acc_id)
 );
-CREATE TABLE IF NOT EXISTS JOB (
-	JOB_ID SERIAL NOT NULL,
-	JOB_NAME VARCHAR(255) NOT NULL,
-	CONSTRAINT PK_JOB_ID PRIMARY KEY(JOB_ID)
+create table job (
+	job_id serial not null,
+	job_name varchar(255) not null,
+	constraint pk_job_id primary key(job_id)
 );
-CREATE TABLE IF NOT EXISTS ACCOUNT_JOB (
-	ACC_JOB_ID SERIAL NOT NULL,
-	ACC_ID SERIAL NOT NULL,
-	JOB_ID SERIAL NOT NULL,
-	CONSTRAINT PK_ACC_JOB_ID PRIMARY KEY(ACC_JOB_ID)
+create table account_job (
+	acc_job_id serial not null,
+	acc_id integer not null,
+	job_id integer not null,
+	constraint pk_acc_job_id primary key(acc_job_id)
 );
-
-
-CREATE TABLE IF NOT EXISTS REQUEST (
-	REQ_ID SERIAL NOT NULL,
-	ACC_ID INTEGER NOT NULL,
-	REQ_TIME TIMESTAMP,
-	REQ_TOTAL DECIMAL(10,2),
-	CONSTRAINT PK_REQ_ID PRIMARY KEY(REQ_ID)
+create table sale (
+	sale_id serial not null,
+	acc_id integer not null,
+	sale_time timestamp,
+	sale_total decimal(10,2),
+	constraint pk_sale_id primary key(sale_id)
 );
-
-CREATE TABLE IF NOT EXISTS PRODUCT(
-	PROD_ID SERIAL NOT NULL,
-	PROD_NAME VARCHAR(255) NOT NULL,
-	PROD_DESCRIPTION TEXT,
-	PROD_PRICE NUMERIC(10,2) NOT NULL,
-	PROD_ACTIVE BOOLEAN NOT NULL,
-	CONSTRAINT PK_PROD_ID PRIMARY KEY(PROD_ID)
+create table category(
+	cat_id serial not null,
+	cat_name varchar(255) not null,
+	constraint pk_cat_id primary key(cat_id)
 );
-
-CREATE TABLE IF NOT EXISTS REQUEST_PRODUCT(
-	REQ_PROD_ID SERIAL NOT NULL,
-	REQ_PROD_AMOUNT INTEGER NOT NULL,
-	REQ_ID INTEGER NOT NULL,
-	PROD_ID INTEGER NOT NULL,
-	CONSTRAINT PK_REQ_PROD_ID  PRIMARY KEY(REQ_PROD_ID )
+create table product(
+	prod_id serial not null,
+	prod_name varchar(255) not null,
+	prod_description text,
+	prod_price numeric(10,2) not null,
+	prod_active boolean not null,
+	constraint pk_prod_id primary key(prod_id)
 );
-
-CREATE TABLE IF NOT EXISTS UNIT (
-	UN_ID SERIAL NOT NULL,
-	UN_NAME VARCHAR(255) NOT NULL,
-	UN_SYMBOL VARCHAR(4) NOT NULL,
-	CONSTRAINT PK_UN_ID PRIMARY KEY (UN_ID)
+create table product_category(
+	prod_cat_id serial not null,
+	prod_id integer not null,
+	cat_id integer not null,
+	constraint pk_prod_cat_id primary key(prod_cat_id )
 );
-
-CREATE TABLE IF NOT EXISTS INGREDIENT (
-	ING_ID SERIAL NOT NULL,
-	ING_NAME VARCHAR (255) NOT NULL,
-	ING_STOCK_QUANTI INTEGER NOT NULL,
-	ING_EXPIRATION_DATE TIMESTAMP,
-	UN_ID INTEGER NOT NULL,
-	CONSTRAINT PK_ING_ID PRIMARY KEY (ING_ID)
+create table sale_product(
+	sale_prod_id serial not null,
+	sale_prod_amount integer not null,
+	sale_id integer not null,
+	prod_id integer not null,
+	constraint pk_sale_prod_id primary key(sale_prod_id )
 );
-
-CREATE TABLE IF NOT EXISTS PRODUCT_INGREDIENT (
-	PROD_ING_ID SERIAL NOT NULL,
-	ING_ID INTEGER NOT NULL,
-	PROD_ID INTEGER NOT NULL,
-	PROD_ING_AMOUNT DECIMAL (10,2),
-	CONSTRAINT PK_PROD_ING_ID PRIMARY KEY (PROD_ING_ID)
+create table unit (
+	un_id serial not null,
+	un_name varchar(255) not null,
+	un_symbol varchar(4) not null,
+	constraint pk_un_id primary key (un_id)
+);	
+create table ingredient (
+	ing_id serial not null,
+	ing_name varchar (255) not null,
+	ing_stock_quanti integer not null,
+	un_id integer not null,
+	constraint pk_ing_id primary key (ing_id)
 );
-
-
-
-ALTER TABLE ACCOUNT_JOB  ADD CONSTRAINT FK_ACC_ID FOREIGN KEY(ACC_ID) REFERENCES ACCOUNT (ACC_ID);
-ALTER TABLE ACCOUNT_JOB  ADD CONSTRAINT FK_JOB_ID FOREIGN KEY(JOB_ID) REFERENCES JOB (JOB_ID);
-
-ALTER TABLE REQUEST_PRODUCT ADD CONSTRAINT FK_REQ_ID FOREIGN KEY(REQ_ID) REFERENCES REQUEST (REQ_ID);
-ALTER TABLE REQUEST_PRODUCT ADD CONSTRAINT FK_PROD_ID FOREIGN KEY(PROD_ID) REFERENCES PRODUCT (PROD_ID);
-
-ALTER TABLE INGREDIENT  ADD CONSTRAINT FK_UN_ID FOREIGN KEY(UN_ID) REFERENCES UNIT (UN_ID);
-
-ALTER TABLE PRODUCT_INGREDIENT ADD CONSTRAINT FK_ING_ID FOREIGN KEY(ING_ID) REFERENCES INGREDIENT (ING_ID);
-ALTER TABLE PRODUCT_INGREDIENT ADD CONSTRAINT FK_PROD_ID FOREIGN KEY(PROD_ID) REFERENCES PRODUCT (PROD_ID);
+create table product_ingredient (
+	prod_ing_id serial not null,
+	ing_id integer not null,
+	prod_id integer not null,
+	prod_ing_amount decimal (10,2),
+	constraint pk_prod_ing_id primary key (prod_ing_id)
+);
+/**
+* Alter table fks
+*/
+alter table account_job add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
+alter table account_job add constraint fk_job_id foreign key(job_id) references job (job_id);
+alter table sale_product add constraint fk_sale_id foreign key(sale_id) references sale (sale_id);
+alter table sale_product add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
+alter table sale add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
+alter table ingredient add constraint fk_un_id foreign key(un_id) references unit (un_id);
+alter table product_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
+alter table product_ingredient add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
+alter table product_category add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
+alter table product_category add constraint fk_cat_id foreign key(cat_id) references category (cat_id);
+/**
+* Insert Jobs
+*
+*/
+INSERT INTO job(job_name) VALUES('ROLE_USER');
+INSERT INTO job(job_name) VALUES('ROLE_MODERATOR');
+INSERT INTO job(job_name) VALUES('ROLE_ADMIN');
+/**
+* Insert TestUsers
+* Senha: 12345678!
+*
+*/
+INSERT INTO account(acc_name, acc_cpf, acc_email, acc_password) VALUES
+('testeadmin', 12345678910, 'testeadmin@email.com','$2a$10$sNKMKmk.Qv7.9gsmUGzBW.5s.Hj0I8s1FgPP3aKJb6EtxtGf9eGUG'),
+('testemod', 12345678911, 'testemod@email.com','$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve'),
+('testeuser', 12345678912, 'testeuser@email.com', '$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve');
+INSERT INTO account_job(acc_id, job_id) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 2),
+(3, 1);
+/**
+* Insert Categories
+*
+*/
+INSERT INTO category(cat_name) VALUES('FOOD');
+INSERT INTO category(cat_name) VALUES('DRINK');
+/**
+* Insert Products
+*
+*/
+INSERT INTO product(prod_name, prod_description, prod_price, prod_active) values
+('Batata Rústica Inteira', 'Batata previamente cozida, frita e temperada com sal e pimenta preta. Acompanha maionese caseira.', 21.50, true),
+('Batata Rústica Meia', 'Batata previamente cozida, frita e temperada com sal e pimenta preta. Acompanha maionese caseira.', 16.50, true),
+('Filé de Tilápia Inteira', 'Iscas de tilápia empanadas. Acompanha molho tártaro e limão.', 56.50, true),
+('Filé de Tilápia Meia', 'Iscas de tilápia empanadas. Acompanha molho tártaro e limão.', 35.00, true),
+('Porção de Hambúrgueres Barbecue Inteira', 'Pão, hambúrguer (80g), mussarela, cebola no shoyu e molho barbecue. (4 unidades + fritas)', 45.50, true),
+('Porção de Hambúrgueres Barbecue Meia', 'Pão, hambúrguer (80g), mussarela, cebola no shoyu e molho barbecue. (2 unidades + fritas)', 29.50, true),
+('Porção de Hambúrgueres Cheddar Inteira', 'Pão, hambúrguer (80g), mussarela, molho cheddar, cebola no shoyu, alface e tomate. (4 unidades + fritas)', 53.50, true),
+('Porção de Hambúrgueres Cheddar Meia', 'Pão, hambúrguer (80g), mussarela, molho cheddar, cebola no shoyu, alface e tomate. (2 unidades + fritas)', 33.50, true),
+('Porção de Hambúrgueres Gorgonzola Inteira', 'Pão, hambúrguer (80g), mussarela, molho gorgonzola, cebola roxa, alface e tomate. (4 unidades + fritas)', 53.50, true),
+('Porção de Hambúrgueres Cheddar Meia', 'Pão, hambúrguer (80g), mussarela, molho gorgonzola, cebola roxa, alface e tomate. (2 unidades + fritas)', 33.50, true),
+('Salada Italiana', 'Rúcula, tomate seco, queijo parmesão, croutons e redução de balsâmico.', 35.00, true),
+('Salada Summer', 'Alface, cenoura, tomate cereja, croutons e redução de balsâmico.', 32.00, true),
+('Caipirinha de Morango', 'Vodka, morango, açúcar e gelo.', 16.00, true),
+('Caipirinha de Limão', 'Vodka, limão, açúcar e gelo.', 16.00, true),
+('Caipirinha de Kiwi', 'Vodka, kiwi, açúcar e gelo.', 16.00, true),
+('Drink Safira', 'Vodka, limão, açúcar, xarope de curaçau, suco de laranja e gelo.', 22.00, true),
+('Caipirinha John Lemon', 'Cachaça ouro, limão, açúcar, espuma de gengibre e gelo.', 20.00, true),
+('Drink Turquesa', 'Gin, xarope de curaçau, limão, água tônica e gelo', 22.00, false);
 
 
 

@@ -1,24 +1,44 @@
-import React from 'react';
-import { Navbar } from './layouts/NavbarAndFooter/Navbar';
-import { Footer } from './layouts/NavbarAndFooter/Footer';
-import { HomePage } from './layouts/HomePage/HomePage';
-import {ProductsPage } from './layouts/ProductsPage/ProductsPage';
-import './style.scss'
+import {darkTheme, lightTheme} from './Theme';
+import {Box, CssBaseline, ThemeProvider} from '@mui/material';
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {SignInPage} from "./layouts/SignInAndSignUp/SignInPage";
+import {SignUpPage} from "./layouts/SignInAndSignUp/SignUpPage";
+import React, {createContext, useEffect, useState} from "react";
+import {InventoryPage} from "./layouts/InventoryPage/InventoryPage";
+import {SecureLayout} from "./layouts/SecureLayout";
+import {NotFoundPage} from "./layouts/NotFoundPage";
+import { ProductsPage } from './layouts/ProductsPage/ProductsPage';
 
 export const App = () => {
-  return (
-    <div className='d-flex flex-column min-vh-100' >
-      <Navbar/> 
-      
-      <div className='flex-grow-1'>
-        {/* <HomePage/> */}
 
-        <ProductsPage/>
+    const [themeMode, setThemeMode] = useState(lightTheme);
+    useEffect(() => {
+        const localTheme = localStorage.getItem('theme');
+        if (localTheme === 'darkTheme') {
+            setThemeMode(darkTheme);
+        } else {
+            setThemeMode(lightTheme);
+        }
+    }, [themeMode])
+    return (
+        <ThemeProvider theme={themeMode}>
+            <CssBaseline/>
 
-      </div>
+            <Routes>
+                <Route path='*' element={<NotFoundPage/>}/>
+                <Route path='/' element={<Navigate to='/signin'/>}/>
+                <Route path='/signin' element={<SignInPage/>}/>
+                <Route path='/signup' element={<SignUpPage/>}/>
 
-      <Footer/>
-    </div>
-    
-  );
+                <Route path='/secure' element={<SecureLayout themeMode={themeMode} setThemeMode={setThemeMode}/>}>
+                    <Route path='/secure/inventory' element={<InventoryPage/>}/>
+                    <Route path='/secure/products' element={<ProductsPage/>} />
+                </Route>
+
+
+
+            </Routes>
+        </ThemeProvider>
+
+    );
 }
