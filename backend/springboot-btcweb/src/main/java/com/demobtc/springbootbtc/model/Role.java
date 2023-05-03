@@ -19,10 +19,4 @@ public class Role {
     private ERole name;
 
 
-    public Role(){}
-    public Role(ERole name) {
-        this.id = (long) name.ordinal() + 1;
-        this.name = name;
-    }
-
 }

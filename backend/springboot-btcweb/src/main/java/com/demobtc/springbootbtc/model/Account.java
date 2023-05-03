@@ -41,7 +41,7 @@ public class Account {
     @Column(name = "acc_password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(	name = "account_job",
             joinColumns = @JoinColumn(name = "acc_id"),
             inverseJoinColumns = @JoinColumn(name = "job_id"))

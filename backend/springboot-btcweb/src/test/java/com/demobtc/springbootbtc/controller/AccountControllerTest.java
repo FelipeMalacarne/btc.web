@@ -2,6 +2,7 @@ package com.demobtc.springbootbtc.controller;
 
 
 import com.demobtc.springbootbtc.dto.request.account.PostNewAccountRequest;
+import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.model.ERole;
 import com.demobtc.springbootbtc.model.Role;
 import com.demobtc.springbootbtc.repository.RoleRepository;
@@ -63,7 +64,9 @@ public class AccountControllerTest {
         mockMvc.perform(get("/api/accounts/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(1));
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("testeadmin"))
+                .andExpect(jsonPath("$.cpf").value("12345678910"));
     }
 
     @Test
@@ -82,8 +85,8 @@ public class AccountControllerTest {
         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 
-        accountDto.setUsername("test");
-        accountDto.setEmail("test@test");
+        accountDto.setUsername("testCreated");
+        accountDto.setEmail("testCreated@test");
         accountDto.setCpf("12345678901");
         accountDto.setPassword("12345678!");
         accountDto.setRoles(Set.of(userRole));
@@ -91,6 +94,7 @@ public class AccountControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         String accountJson = objectMapper.writeValueAsString(accountDto);
+        // perform post and set variables to be tested
 
         mockMvc.perform(post("/api/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -98,8 +102,8 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.name").value("test"))
-                .andExpect(jsonPath("$.email").value("test@test"))
+                .andExpect(jsonPath("$.name").value("testCreated"))
+                .andExpect(jsonPath("$.email").value("testCreated@test"))
                 .andExpect(jsonPath("$.cpf").value("12345678901"))
                 .andExpect(jsonPath("$.roles[0].name").value("ROLE_USER"));
 
@@ -108,14 +112,53 @@ public class AccountControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testPutAccount() throws Exception {
-        mockMvc.perform(put("/api/accounts/1")
+        mockMvc.perform(put("/api/accounts/5")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\": \"test\"}"))
+                .content("{\"name\": \"testPUT\"" +
+                        ",\"cpf\": \"69696969696\"" +
+                        ",\"email\": \"testPUT@test\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("test"));
+                .andExpect(jsonPath("$.id").value(5))
+                .andExpect(jsonPath("$.name").value("testPUT"))
+                .andExpect(jsonPath("$.email").value("testPUT@test"))
+                .andExpect(jsonPath("$.cpf").value("69696969696"));
 
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testDeleteAccount() throws Exception {
+        // create a new account to delete
+        PostNewAccountRequest accountDto = new PostNewAccountRequest();
+
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+        accountDto.setUsername("testCreated");
+        accountDto.setEmail("testCreated@test");
+        accountDto.setCpf("12345678901");
+        accountDto.setPassword("12345678!");
+        accountDto.setRoles(Set.of(userRole));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String accountJson = objectMapper.writeValueAsString(accountDto);
+
+        String accountJsonString = mockMvc.perform(post("/api/accounts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(accountJson))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        Account createdAccount = objectMapper.readValue(accountJsonString, Account.class);
+        Long createdAccountId = createdAccount.getId();
+
+
+        mockMvc.perform(delete("/api/accounts/" + createdAccountId))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/accounts/" + createdAccountId))
+                .andExpect(status().isNotFound());
     }
 
 }
