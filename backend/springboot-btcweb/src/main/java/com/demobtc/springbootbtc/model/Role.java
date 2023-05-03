@@ -18,4 +18,11 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private ERole name;
 
+
+    public Role(){}
+    public Role(ERole name) {
+        this.id = (long) name.ordinal() + 1;
+        this.name = name;
+    }
+
 }

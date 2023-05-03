@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Data
 public class PostNewAccountRequest {
+
     @NotNull
     String username;
 
@@ -22,4 +23,14 @@ public class PostNewAccountRequest {
 
     @NotNull
     Set<Role> roles;
+
+    public PostNewAccountRequest(){}
+
+    public PostNewAccountRequest(String username, String cpf, String email, String password, Set<Role> roles) {
+        this.username = username;
+        this.cpf = cpf;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 }

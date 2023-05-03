@@ -28,19 +28,18 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<?> getAccountById(@PathVariable(value = "id") Long id) {
         try{
             Account account = accountService.getAccountById(id);
             return ResponseEntity.ok().body(account);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
 
-    @PreAuthorize("hasRole('MODERATOR')")
     @PostMapping
     public Account createAccount(@RequestBody PostNewAccountRequest account) {
         return accountService.createAccount(account);

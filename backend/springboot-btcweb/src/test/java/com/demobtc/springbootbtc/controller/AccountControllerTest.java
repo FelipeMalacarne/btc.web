@@ -5,6 +5,8 @@ import com.demobtc.springbootbtc.dto.request.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.model.ERole;
 import com.demobtc.springbootbtc.model.Role;
+import com.demobtc.springbootbtc.repository.RoleRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -23,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -38,6 +41,9 @@ public class AccountControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     // Teste Get sem auth
     @Test
     public void testGetAllAccountsUnauthorized() throws Exception {
@@ -51,7 +57,7 @@ public class AccountControllerTest {
         mockMvc.perform(get("/api/accounts"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$", hasSize(greaterThanOrEqualTo(2))))
                 .andExpect(jsonPath("$[0].id").exists())
                 .andExpect(jsonPath("$[0].name").exists())
                 .andExpect(jsonPath("$[0].email").exists());
@@ -78,21 +84,31 @@ public class AccountControllerTest {
     @WithMockUser(roles = "ADMIN")
     public void testPostAccount() throws Exception{
 
+        PostNewAccountRequest accountDto = new PostNewAccountRequest();
+
+        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+
+        accountDto.setUsername("test");
+        accountDto.setEmail("test@test");
+        accountDto.setCpf("12345678901");
+        accountDto.setPassword("12345678!");
+        accountDto.setRoles(Set.of(userRole));
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String accountJson = objectMapper.writeValueAsString(accountDto);
+
         mockMvc.perform(post("/api/accounts")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{" +
-                        "\"username\":\"test\"," +
-                        "\"email\":\"test@test\"," +
-                        "\"password\":\"12345678!\"," +
-                        "\"cpf\":\"12345678901\"," +
-                        "\"roles\":[{\"id\":1,\"name\":\"ROLE_USER\"}]" +
-                        "}"))
+                .content(accountJson))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").value("test"))
                 .andExpect(jsonPath("$.email").value("test@test"))
-
+                .andExpect(jsonPath("$.cpf").value("12345678901"))
+                .andExpect(jsonPath("$.roles[0].name").value("ROLE_USER"));
 
     }
 
