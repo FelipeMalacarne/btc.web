@@ -1,28 +1,21 @@
 package com.demobtc.springbootbtc.controller;
 
 
-import com.demobtc.springbootbtc.dto.request.PostNewAccountRequest;
-import com.demobtc.springbootbtc.model.Account;
+import com.demobtc.springbootbtc.dto.request.account.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.ERole;
 import com.demobtc.springbootbtc.model.Role;
 import com.demobtc.springbootbtc.repository.RoleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import springfox.documentation.service.RequestBody;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -109,6 +102,19 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.email").value("test@test"))
                 .andExpect(jsonPath("$.cpf").value("12345678901"))
                 .andExpect(jsonPath("$.roles[0].name").value("ROLE_USER"));
+
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testPutAccount() throws Exception {
+        mockMvc.perform(put("/api/accounts/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\": \"test\"}"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("test"));
 
     }
 

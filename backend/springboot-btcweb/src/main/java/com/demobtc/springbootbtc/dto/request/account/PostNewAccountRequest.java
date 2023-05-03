@@ -1,4 +1,4 @@
-package com.demobtc.springbootbtc.dto.request;
+package com.demobtc.springbootbtc.dto.request.account;
 
 import com.demobtc.springbootbtc.model.Role;
 import com.sun.istack.NotNull;
