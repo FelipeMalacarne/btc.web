@@ -1,4 +1,4 @@
-package com.demobtc.springbootbtc.dto.request;
+package com.demobtc.springbootbtc.dto.request.auth;
 
 import com.sun.istack.NotNull;
 import lombok.Data;

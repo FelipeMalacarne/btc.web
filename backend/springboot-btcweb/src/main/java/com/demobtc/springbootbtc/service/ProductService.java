@@ -1,16 +1,14 @@
 package com.demobtc.springbootbtc.service;
 
-import com.demobtc.springbootbtc.dto.request.PostNewProductRequest;
-import com.demobtc.springbootbtc.model.Category;
+import com.demobtc.springbootbtc.dto.request.product.PostNewProductRequest;
+import com.demobtc.springbootbtc.dto.request.product.UpdateProductRequest;
 import com.demobtc.springbootbtc.model.Product;
-import com.demobtc.springbootbtc.model.ProductIngredient;
 import com.demobtc.springbootbtc.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ProductService {
@@ -29,6 +27,7 @@ public class ProductService {
 
     public Product createProduct(PostNewProductRequest request) {
         Product productToCreate = new Product();
+
         productToCreate.setName(request.getName());
         productToCreate.setDescription(request.getDescription());
         productToCreate.setPrice(request.getPrice());
@@ -39,14 +38,26 @@ public class ProductService {
         return productRepository.save(productToCreate);
     }
 
-    public Product updateProduct(Product product, Long id) {
+    public Product updateProduct(UpdateProductRequest request, Long id) {
         Product productToUpdate = getProductById(id);
-        productToUpdate.setName(product.getName());
-        productToUpdate.setDescription(product.getDescription());
-        productToUpdate.setPrice(product.getPrice());
-        productToUpdate.setActive(product.isActive());
-        productToUpdate.setCategories(product.getCategories());
-        productToUpdate.setIngredients(product.getIngredients());
+
+        if(request.getName() != null){
+            productToUpdate.setName(request.getName());
+        }
+        if(request.getDescription() != null) {
+            productToUpdate.setDescription(request.getDescription());
+        }
+        if(request.getPrice() != null) {
+            productToUpdate.setPrice(request.getPrice());
+        }
+        if(request.getCategories() != null) {
+            productToUpdate.setCategories(request.getCategories());
+        }
+        if(request.getIngredients() != null) {
+            productToUpdate.setIngredients(request.getIngredients());
+        }
+
+        productToUpdate.setActive(request.isActive());
 
         return productRepository.save(productToUpdate);
     }
