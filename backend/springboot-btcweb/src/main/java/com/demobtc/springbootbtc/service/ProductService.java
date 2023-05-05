@@ -29,11 +29,19 @@ public class ProductService {
         Product productToCreate = new Product();
 
         productToCreate.setName(request.getName());
-        productToCreate.setDescription(request.getDescription());
+        if (request.getDescription() != null){
+            productToCreate.setDescription(request.getDescription());
+        }
+        if (request.getCategories() != null){
+            productToCreate.setCategories(request.getCategories());
+        }
+        if(request.getIngredients() != null ){
+            productToCreate.setIngredients(request.getIngredients());
+        }
+
         productToCreate.setPrice(request.getPrice());
         productToCreate.setActive(request.isActive());
-        productToCreate.setCategories(request.getCategories());
-        productToCreate.setIngredients(request.getIngredients());
+
 
         return productRepository.save(productToCreate);
     }

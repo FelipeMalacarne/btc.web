@@ -30,7 +30,7 @@ public class AccountService {
 
     }
 
-    public Account createAccount(PostNewAccountRequest request) {
+    public Account createAccount(PostNewAccountRequest request){
         Account accountToCreate = new Account();
 
         accountToCreate.setName(request.getUsername());

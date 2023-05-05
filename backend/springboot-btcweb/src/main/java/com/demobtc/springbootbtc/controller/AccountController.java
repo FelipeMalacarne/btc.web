@@ -41,8 +41,13 @@ public class AccountController {
 
 
     @PostMapping
-    public Account createAccount(@RequestBody PostNewAccountRequest account) {
-        return accountService.createAccount(account);
+    public ResponseEntity<Account> createAccount(@RequestBody PostNewAccountRequest account) {
+        try {
+            Account createdAccount = accountService.createAccount(account);
+            return ResponseEntity.ok(createdAccount);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 

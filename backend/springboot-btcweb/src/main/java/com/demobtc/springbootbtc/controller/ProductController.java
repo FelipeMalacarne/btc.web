@@ -37,9 +37,14 @@ public class ProductController {
 
     }
 
-    @PostMapping
-    public Product createProduct(@RequestBody PostNewProductRequest request){
-        return productService.createProduct(request);
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> createProduct(@RequestBody PostNewProductRequest request){
+        try {
+            Product createdProduct = productService.createProduct(request);
+            return ResponseEntity.ok(createdProduct);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
@@ -55,14 +60,14 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Product>  deleteProduct(@PathVariable(value = "id") Long id){
+    public ResponseEntity<?>  deleteProduct(@PathVariable(value = "id") Long id){
         try{
             Product deletedProduct = productService.deleteProduct(id);
             return ResponseEntity.ok(deletedProduct);
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 

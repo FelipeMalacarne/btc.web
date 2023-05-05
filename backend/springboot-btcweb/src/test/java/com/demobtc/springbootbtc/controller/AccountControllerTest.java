@@ -112,14 +112,14 @@ public class AccountControllerTest {
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testPutAccount() throws Exception {
-        mockMvc.perform(put("/api/accounts/5")
+        mockMvc.perform(put("/api/accounts/3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"testPUT\"" +
                         ",\"cpf\": \"69696969696\"" +
                         ",\"email\": \"testPUT@test\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(5))
+                .andExpect(jsonPath("$.id").value(3))
                 .andExpect(jsonPath("$.name").value("testPUT"))
                 .andExpect(jsonPath("$.email").value("testPUT@test"))
                 .andExpect(jsonPath("$.cpf").value("69696969696"));
