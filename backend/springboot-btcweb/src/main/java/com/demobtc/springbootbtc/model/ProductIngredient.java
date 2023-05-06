@@ -23,6 +23,6 @@ public class ProductIngredient {
     private Ingredient ingredient;
 
     @Column(name = "prod_ing_amount")
-    private BigDecimal amount;
+    private Double amount;
 
 }
