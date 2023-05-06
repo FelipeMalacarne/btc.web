@@ -19,9 +19,6 @@ public class Ingredient {
     @Column(name = "ing_name")
     private String name;
 
-    @Column(name = "ing_stock_quanti")
-    private Integer stockQuantity;
-
     @ManyToOne
     @JoinColumn(name = "un_id")
     private Unit unitOfMeasure;

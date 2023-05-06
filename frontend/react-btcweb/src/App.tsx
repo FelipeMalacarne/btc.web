@@ -8,6 +8,8 @@ import {InventoryPage} from "./layouts/InventoryPage/InventoryPage";
 import {SecureLayout} from "./layouts/SecureLayout";
 import {NotFoundPage} from "./layouts/NotFoundPage";
 import { ProductsPage } from './layouts/ProductsPage/ProductsPage';
+import { IngredientsPage } from './layouts/IngredientsPage/IngredientsPage';
+import { SalesPage } from './layouts/SalesPage/SalesPage';
 
 export const App = () => {
 
@@ -33,6 +35,8 @@ export const App = () => {
                 <Route path='/secure' element={<SecureLayout themeMode={themeMode} setThemeMode={setThemeMode}/>}>
                     <Route path='/secure/inventory' element={<InventoryPage/>}/>
                     <Route path='/secure/products' element={<ProductsPage/>} />
+                    <Route path='/secure/ingredients' element={<IngredientsPage/>}/>
+                    <Route path='/secure/sales' element={<SalesPage/>}/>
                 </Route>
 
 
