@@ -35,13 +35,13 @@ public class Product {
     @Column(name = "prod_active")
     private boolean isActive;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(	name = "product_category",
             joinColumns = @JoinColumn(name = "prod_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id"))
     private Set<Category> categories = new HashSet<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
     private List<ProductIngredient> ingredients;
 
 

@@ -1,6 +1,7 @@
 package com.demobtc.springbootbtc.service;
 
-import com.demobtc.springbootbtc.dto.request.PostNewAccountRequest;
+import com.demobtc.springbootbtc.dto.request.account.UpdateAccountRequest;
+import com.demobtc.springbootbtc.dto.request.account.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,9 @@ public class AccountService {
 
     }
 
-    public Account createAccount(PostNewAccountRequest request) {
+    public Account createAccount(PostNewAccountRequest request){
         Account accountToCreate = new Account();
+
         accountToCreate.setName(request.getUsername());
         accountToCreate.setCpf(request.getCpf());
         accountToCreate.setEmail(request.getEmail());
@@ -40,14 +42,27 @@ public class AccountService {
         return accountRepository.save(accountToCreate);
     }
 
-    public Account updateAccount(Account account, Long id) {
+    public Account updateAccount(UpdateAccountRequest request, Long id) {
+        // only update if values are not null
         Account accountToUpdate = getAccountById(id);
-        accountToUpdate.setName(account.getName());
-        accountToUpdate.setCpf(account.getCpf());
-        accountToUpdate.setEmail(account.getEmail());
 
-        accountToUpdate.setPassword(encoder.encode(account.getPassword()));
-        accountToUpdate.setRoles(account.getRoles());
+        if (request.getName() != null) {
+            accountToUpdate.setName(request.getName());
+        }
+        if (request.getCpf() != null) {
+            accountToUpdate.setCpf(request.getCpf());
+        }
+        if (request.getEmail() != null) {
+            accountToUpdate.setEmail(request.getEmail());
+        }
+        if (request.getPassword() != null) {
+            accountToUpdate.setPassword(encoder.encode(request.getPassword()));
+        }
+        if (request.getRoles() != null) {
+            accountToUpdate.setRoles(request.getRoles());
+        }
+
+
         return accountRepository.save(accountToUpdate);
     }
 
