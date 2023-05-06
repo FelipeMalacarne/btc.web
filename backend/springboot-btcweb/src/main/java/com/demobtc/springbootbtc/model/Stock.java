@@ -1,2 +1,7 @@
-package com.demobtc.springbootbtc.model;public class Stock {
+package com.demobtc.springbootbtc.model;
+
+import lombok.Data;
+
+@Data
+public class Stock {
 }

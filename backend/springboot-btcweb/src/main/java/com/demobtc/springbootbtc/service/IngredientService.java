@@ -1,5 +1,6 @@
 package com.demobtc.springbootbtc.service;
 
+import com.demobtc.springbootbtc.dto.request.ingredient.PostNewIngredientRequest;
 import com.demobtc.springbootbtc.model.Ingredient;
 import com.demobtc.springbootbtc.repository.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,4 @@ public class IngredientService {
         );
     }
 
-    public ResponseEntity<?> postNewIngredient
 }
