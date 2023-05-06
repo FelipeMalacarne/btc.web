@@ -39,10 +39,10 @@ public class Product {
     @JoinTable(	name = "product_category",
             joinColumns = @JoinColumn(name = "prod_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id"))
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categorieSet = new HashSet<>();
 
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private List<ProductIngredient> ingredients;
+    private List<ProductIngredient> ingredientsList;
 
 
 }
