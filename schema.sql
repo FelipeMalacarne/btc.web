@@ -1,6 +1,3 @@
-/**
-* Tables
-*/
 create table account (
 	acc_id serial not null,
 	acc_name varchar(255) not null,
@@ -22,9 +19,9 @@ create table account_job (
 );
 create table sale (
 	sale_id serial not null,
-	acc_id integer not null,
 	sale_time timestamp,
 	sale_total decimal(10,2),
+	acc_id integer not null,
 	constraint pk_sale_id primary key(sale_id)
 );
 create table category(
@@ -62,16 +59,39 @@ create table unit (
 create table ingredient (
 	ing_id serial not null,
 	ing_name varchar (255) not null,
-	ing_stock_quanti integer not null,
+	stock_id integer not null,
 	un_id integer not null,
 	constraint pk_ing_id primary key (ing_id)
 );
 create table product_ingredient (
 	prod_ing_id serial not null,
-	ing_id integer not null,
-	prod_id integer not null,
 	prod_ing_amount decimal (10,2),
+	prod_id integer not null,
+	ing_id integer not null,
 	constraint pk_prod_ing_id primary key (prod_ing_id)
+);
+create table entry_ingredient (
+	entry_id serial not null,
+	entry_amount decimal (10,2) not null,
+	entry_date timestamp not null,
+	entry_expiration_date timestamp not null,
+	ing_id integer not null,
+	acc_id integer not null,
+	constraint pk_entry_id primary key (entry_id)
+);
+create table leave_ingredient (
+	leave_id serial not null,
+	leave_amount decimal (10,2) not null,
+	leave_date timestamp not null,
+	ing_id integer not null,
+	acc_id integer not null,
+	constraint pk_leave_id primary key (leave_id)
+);
+create table stock(
+	stock_id serial not null,
+	stock_amount decimal (10,2) not null,
+	ing_id integer not null,
+	constraint pk_stock_id primary key(stock_id)
 );
 /**
 * Alter table fks
@@ -86,6 +106,11 @@ alter table product_ingredient add constraint fk_ing_id foreign key(ing_id) refe
 alter table product_ingredient add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
 alter table product_category add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
 alter table product_category add constraint fk_cat_id foreign key(cat_id) references category (cat_id);
+alter table entry_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
+alter table entry_ingredient add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
+alter table leave_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
+alter table leave_ingredient add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
+alter table stock add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
 /**
 * Insert Jobs
 *
@@ -115,6 +140,17 @@ INSERT INTO account_job(acc_id, job_id) VALUES
 */
 INSERT INTO category(cat_name) VALUES('FOOD');
 INSERT INTO category(cat_name) VALUES('DRINK');
+/**
+* Insert Units
+*
+*/
+INSERT INTO unit(un_name, un_symbol) VALUES('Kilogram', 'kg');
+INSERT INTO unit(un_name, un_symbol) VALUES('Gram', 'g');
+INSERT INTO unit(un_name, un_symbol) VALUES('Liter', 'l');
+INSERT INTO unit(un_name, un_symbol) VALUES('Milliliter', 'ml');
+INSERT INTO unit(un_name, un_symbol) VALUES('Unit', 'u');
+
+
 /**
 * Insert Products
 *
