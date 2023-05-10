@@ -3,7 +3,6 @@ package com.demobtc.springbootbtc.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product_ingredient")

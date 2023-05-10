@@ -3,8 +3,6 @@ package com.demobtc.springbootbtc.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Data

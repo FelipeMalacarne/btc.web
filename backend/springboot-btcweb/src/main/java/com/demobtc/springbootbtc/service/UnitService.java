@@ -4,9 +4,11 @@ import com.demobtc.springbootbtc.model.Unit;
 import com.demobtc.springbootbtc.repository.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UnitService {
 
     @Autowired

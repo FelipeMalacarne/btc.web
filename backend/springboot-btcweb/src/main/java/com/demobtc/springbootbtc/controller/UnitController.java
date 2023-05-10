@@ -39,7 +39,7 @@ public class UnitController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postNewUnit(Unit unit){
+    public ResponseEntity<?> postNewUnit(@RequestBody Unit unit){
         try{
             return ResponseEntity.ok(unitService.postNewUnit(unit));
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class UnitController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUnitById(@PathVariable(value = "id") Long id, Unit unit){
+    public ResponseEntity<?> updateUnitById(@PathVariable(value = "id") Long id, @RequestBody Unit unit){
         try{
             return ResponseEntity.ok(unitService.updateUniteById(id, unit));
         } catch (ResourceNotFoundException e) {
