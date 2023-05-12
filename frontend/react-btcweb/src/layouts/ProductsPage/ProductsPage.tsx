@@ -2,20 +2,31 @@ import { useEffect, useState, useContext } from 'react'
 import { useAuth } from '../../hooks/useAuth';
 import ProductModel from '../../models/ProductModel';
 import authHeader from '../../services/AuthHeader';
-import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { Margin, Padding } from '@mui/icons-material';
+import { Box, Button, ButtonGroup, CircularProgress, IconButton, TextField, Typography, useTheme } from '@mui/material';
+import { DataGrid, GridCellParams, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import {
+  DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
+  EditOutlined as EditOutlinedIcon,
+} from '@mui/icons-material';
 import { Header } from '../utils/Header';
+import { DeleteModal } from './components/DeleteModal';
 
 
 
 export const ProductsPage = () => {
-
+  const theme = useTheme();
   const { authState } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string | null>(null);
   const [products, setProducts] = useState<ProductModel[]>([])
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [idProductSelected, setIdProductSelected] = useState<number>(0);
 
+
+  const currencyFormatter = new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 
 
   useEffect(() => {
@@ -43,13 +54,13 @@ export const ProductsPage = () => {
           description: responseData[key].description,
           price: responseData[key].price,
           isActive: responseData[key].active,
-          categories: responseData[key].categories,
-          ingredientList: responseData[key].ingredients
+          categorySet: responseData[key].categorySet,
+          ingredientList: responseData[key].ingredientList
         })
       }
 
       setProducts(loadedProducts);
-      setIsLoading(false);  
+      setIsLoading(false);
     }
 
 
@@ -58,42 +69,121 @@ export const ProductsPage = () => {
       setHttpError(error.message);
     });
 
-  }, [authState])
+  }, [authState, showDeleteModal])
 
-  console.log(products)
+  const handleEditClick = () => {
+    // handle edit click
+
+    console.log('edit')
+  };
+  const handleDeleteClick = (params: GridCellParams) => {
+    const productId = params.id as number;
+    setIdProductSelected(productId);
+    setShowDeleteModal(true);
+  };
 
   if (httpError) {
     return <h1>{httpError}</h1>
   }
 
   if (isLoading && authState.isLoading) {
-    return <h1>Loading</h1>
+    return <CircularProgress />
   }
 
   const columns = [
-    { field: "id", headerName: "ID" },
-    { field: "name", headerName: "Name", flex: 1 },
-    { field: "description", headerName: "Description", flex: 2 },
-    { field: "price", headerName: "Price" },
+    {
+      field: "id",
+      headerName: "ID"
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 2
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      valueFormatter: ({ value }: any) => currencyFormatter.format(Number(value)),
+    },
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      sortable: false,
+      disableColumnMenu: true,
+      renderCell: (params: GridCellParams) => {
+        return (
+          <>
+            <IconButton onClick={handleEditClick}>
+              <EditOutlinedIcon sx={{
+                color: theme.palette.text.primary
+              }}/>
+            </IconButton>
+
+            <IconButton onClick={() => handleDeleteClick(params)}>
+              <DeleteOutlineOutlinedIcon sx={{
+                color: theme.palette.error.main,
+              }} />
+            </IconButton>
+
+          </>
+        );
+      },
+    },
+
   ]
 
   return (
-    <Box p={3}>
+    <Box m="1rem 3rem">
+      {showDeleteModal && (
+        <DeleteModal
+          open={showDeleteModal}
+          setOpen={setShowDeleteModal}
+          productId={idProductSelected}
+        />
+
+      )
+
+      }
       <Header title='Produtos' subtitle='Vizualização de produtos' />
-      <ButtonGroup fullWidth>
-        <Button>Adicionar</Button>
-        <Button>Remover</Button>
-        <Button>Editar</Button>
-        <Button>Registrar Novo Ingrediente</Button>
-      </ButtonGroup>
-      {/* Search bar */}
-      <Box display={"flex"}>
-        <TextField sx={{ flex: 1, m: 3}} fullWidth id="fullWidth" />
+      {/* <Button variant='outlined' sx={{
+        color: theme.palette.text.primary,
+        borderColor: theme.palette.text.primary,
+      }}>
+          Criar Novo Produto
+      </Button> */}
+      <Box mt='40px' height='75vh'
+        sx={{
+          '& .MuiDataGrid-root': {
+            border: 'none',
+            '& .MuiDataGrid-cell': {
+              border: 'none',
+            },
+            '& .MuiDataGrid-columnHeaderTitle': {
+              fontWeight: 'bold',
+              color: theme.palette.text.primary,
+            },
+            '& .MuiDataGrid-columnHeader': {
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              border: 'none',
+            },
+            '& .MuiDataGrid-row': {
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              border: 'none',
+            },
+
+          }
+
+        }}
+      >
+        <DataGrid
+          rows={products || []}
+          columns={columns}
+          getRowId={(row) => row.id}
+        />
+
       </Box>
-      <DataGrid
-        rows={products}
-        columns={columns}
-      />
     </Box>
   )
 }

@@ -1,6 +1,5 @@
 import { Navbar } from "./NavbarAndFooter/Navbar";
 import { Navigate, Outlet } from "react-router-dom";
-import { Footer } from "./NavbarAndFooter/Footer";
 import { useAuth } from "../hooks/useAuth";
 import { Box, useMediaQuery, Theme } from "@mui/material";
 import { Topbar } from "./NavbarAndFooter/Topbar";

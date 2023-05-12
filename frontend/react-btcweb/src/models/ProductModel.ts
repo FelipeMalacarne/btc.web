@@ -7,7 +7,7 @@ class ProductModel {
   description?: string;
   price: number;
   isActive?: boolean;
-  categories: CategoryModel[];
+  categorySet: CategoryModel[];
   ingredientList: IngredientListModel[];
 
 
@@ -26,7 +26,7 @@ class ProductModel {
     this.description = description;
     this.price = price;
     this.isActive = isActive;
-    this.categories = categories;
+    this.categorySet = categories;
     this.ingredientList = ingredientList;
   }
 

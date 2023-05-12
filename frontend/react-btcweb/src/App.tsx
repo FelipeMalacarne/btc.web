@@ -29,7 +29,7 @@ export const App = () => {
 
             <Routes>
                 <Route path='*' element={<NotFoundPage/>}/>
-                <Route path='/' element={<Navigate to='/signin'/>}/>
+                <Route path='/' element={<Navigate to='/secure/dashboard'/>}/>
                 <Route path='/signin' element={<SignInPage/>}/>
                 <Route path='/signup' element={<SignUpPage/>}/>
 

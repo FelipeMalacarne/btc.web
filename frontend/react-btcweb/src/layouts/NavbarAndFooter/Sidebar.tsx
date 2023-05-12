@@ -29,11 +29,15 @@ import {
   InventoryOutlined,
   Inventory2Outlined,
   SouthWestOutlined,
-  ArrowOutwardOutlined
+  ArrowOutwardOutlined,
+  SportsBar as SportsBarIcon,
+  AppRegistrationOutlined,
+  AssignmentOutlined
 } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from '../utils/FlexBetween'
+import { useAuth } from '../../hooks/useAuth'
 
 interface SidebarProps {
   drawerWidth: string,
@@ -71,6 +75,7 @@ const navItems = [
     text: "Saidas",
     icon: <ArrowOutwardOutlined />
   },
+  
   {
     text: "Vendas",
     icon: null
@@ -107,12 +112,33 @@ const navItems = [
     text: "Perfomance",
     icon: <TrendingUpOutlined />
   },
+  {
+    text: "Registration",
+    icon: null
+  },
+  {
+    text: "Product Registration",
+    icon: <AssignmentOutlined />
+  },
+  {
+    text: "Ingredient Registration",
+    icon: <AssignmentOutlined />
+  },
+  {
+    text: "Category Registration",
+    icon: <AssignmentOutlined />
+  },
+  {
+    text: "Account Registration",
+    icon: <AssignmentOutlined />
+  },
 
 
 ]
 
 export const Sidebar: React.FC<SidebarProps> = (props) => {
   const { pathname } = useLocation();
+  const { authState, logout } = useAuth();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
@@ -150,8 +176,23 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
             <Box m="1.5rem 2rem 2rem 3rem">
               <FlexBetween color={theme.palette.primary.contrastText}>
                 <Box display="flex" alignItems='center' gap='0.5rem'>
-                  <Typography variant='h4' fontWeight='bold'>
-                    Boteco
+                  <SportsBarIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 0 }} />
+                  <Typography
+                    variant="h4"
+                    noWrap
+                    component="a"
+                    href="/"
+                    sx={{
+                      mr: 2,
+                      display: { xs: 'none', md: 'flex' },
+                      fontFamily: 'monospace',
+                      fontWeight: 700,
+                      letterSpacing: '.3rem',
+                      color: 'inherit',
+                      textDecoration: 'none',
+                    }}
+                  >
+                    Boteco.
                   </Typography>
                 </Box>
                 {
@@ -220,6 +261,44 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
               }
             </List>
           </Box>
+          
+          <Box bottom="2rem">
+            <Divider/>
+            <FlexBetween textTransform='none' gap='1rem' m='1.5rem 2rem 1rem 3rem'>
+              <Box
+                component='img'
+                alt='profile'
+                src={require('./../../imgs/default-profile-picture.jpg')}
+                height='32px'
+                width='32px'
+                borderRadius='50%'
+                sx={{ objectFit: 'cover'}}
+              />
+                <Box textAlign='left'>
+                  <Typography 
+                    fontWeight='bold' 
+                    fontSize='0.85rem'
+                    sx={{color: theme.palette.secondary.light}}
+                    >
+                      {authState.user?.username}
+                  </Typography>
+                  <Typography 
+                    fontWeight='bold' 
+                    fontSize='0.75rem'
+                    sx={{color: theme.palette.secondary.main}}
+                    >
+                      {authState.user?.roles[0].substring(5)}
+                  </Typography>
+                </Box>
+                <SettingsOutlined
+                  sx={{
+                    color: theme.palette.secondary.main,
+                    fontSize: '25px' 
+                  }}
+                />
+            </FlexBetween>
+          </Box>
+
         </Drawer>
       )}
     </Box>
