@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import {useAuth} from "../../hooks/useAuth";
-import { Header } from "../Utils/Header";
+import { Header } from "../utils/Header";
 
 export const InventoryPage = () => {
     return (

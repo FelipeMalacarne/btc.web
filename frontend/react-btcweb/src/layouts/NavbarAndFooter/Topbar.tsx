@@ -6,12 +6,19 @@ import {
   SettingsOutlined,
   ArrowDropDownOutlined
 } from "@mui/icons-material"
-import { AppBar, IconButton, InputBase, Toolbar, useTheme } from "@mui/material"
+import { AppBar, IconButton, InputBase, Theme, Toolbar, useTheme } from "@mui/material"
 import FlexBetween from "../utils/FlexBetween"
 import { darkTheme, lightTheme } from "../../Theme"
 
 
-export const Topbar: React.FC<{ themeMode: any, setThemeMode: any }> = (props) => {
+interface TopbarProps {
+  themeMode: Theme,
+  setThemeMode: React.Dispatch<React.SetStateAction<Theme>>,
+  isSidebarOpen: boolean,
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const Topbar: React.FC<TopbarProps> = (props) => {
   const theme = useTheme();
 
   const handleTheme = () => {
@@ -39,8 +46,8 @@ export const Topbar: React.FC<{ themeMode: any, setThemeMode: any }> = (props) =
 
         {/* LEFTSIDE */}
         <FlexBetween>
-          <IconButton onClick={() => console.log("open side")}>
-            <MenuIcon />
+          <IconButton onClick={() => props.setIsSidebarOpen(!props.isSidebarOpen)}>
+            <MenuIcon sx={{color: theme.palette.text.primary}} />
           </IconButton>
           <FlexBetween
             backgroundColor={theme.palette.background.paper}
@@ -50,14 +57,14 @@ export const Topbar: React.FC<{ themeMode: any, setThemeMode: any }> = (props) =
           >
             <InputBase placeholder="Search" />
             <IconButton>
-              <SearchIcon />
+              <SearchIcon sx={{color: theme.palette.text.primary}}/>
             </IconButton>
           </FlexBetween>
         </FlexBetween>
 
         {/* RIGHTSIDE */}
         <FlexBetween gap='1.5rem'>
-          <IconButton onClick={handleTheme}>
+          <IconButton onClick={handleTheme} sx={{color: theme.palette.text.primary}}>
             {theme.palette.mode === 'dark' ? 
               <LightModeOutlined 
                 sx={{fontSize: '25px'}}
@@ -69,7 +76,10 @@ export const Topbar: React.FC<{ themeMode: any, setThemeMode: any }> = (props) =
             }
           </IconButton>
           <IconButton>
-            <SettingsOutlined sx={{fontSize: '25px'}} />
+            <SettingsOutlined sx={{
+              fontSize: '25px',
+              color: theme.palette.text.primary
+              }} />
           </IconButton>
         </FlexBetween>
 

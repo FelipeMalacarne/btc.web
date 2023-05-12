@@ -5,7 +5,7 @@ import authHeader from '../../services/AuthHeader';
 import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { Margin, Padding } from '@mui/icons-material';
-import { Header } from '../Utils/Header';
+import { Header } from '../utils/Header';
 
 
 
@@ -52,11 +52,11 @@ export const ProductsPage = () => {
       setIsLoading(false);  
     }
 
+
     fetchProducts().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-
 
   }, [authState])
 
@@ -93,9 +93,6 @@ export const ProductsPage = () => {
       <DataGrid
         rows={products}
         columns={columns}
-        pagination={true}
-        autoHeight
-        checkboxSelection
       />
     </Box>
   )

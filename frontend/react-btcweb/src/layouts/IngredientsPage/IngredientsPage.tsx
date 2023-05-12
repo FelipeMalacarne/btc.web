@@ -1,6 +1,6 @@
 import { Box, Button, ButtonGroup } from '@mui/material'
 import React from 'react'
-import { Header } from '../Utils/Header'
+import { Header } from '../utils/Header'
 
 export const IngredientsPage = () => {
   return (
