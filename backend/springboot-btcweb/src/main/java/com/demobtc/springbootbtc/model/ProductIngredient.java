@@ -1,5 +1,6 @@
 package com.demobtc.springbootbtc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class ProductIngredient {
 
     @ManyToOne
     @JoinColumn(name = "prod_id")
+    @JsonBackReference
     private Product product;
 
     @ManyToOne

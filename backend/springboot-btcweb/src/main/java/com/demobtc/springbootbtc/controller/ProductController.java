@@ -21,8 +21,14 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productService.getAllProducts();
+    public ResponseEntity<?> getAllProducts(){
+        try {
+            List<Product> productList = productService.getAllProducts();
+            return ResponseEntity.ok(productList);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
     }
 
     @GetMapping("/{id}")

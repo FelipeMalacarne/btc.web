@@ -33,10 +33,10 @@ public class ProductService {
             productToCreate.setDescription(request.getDescription());
         }
         if (request.getCategories() != null){
-            productToCreate.setCategorieSet(request.getCategories());
+            productToCreate.setCategorySet(request.getCategories());
         }
         if(request.getIngredients() != null ){
-            productToCreate.setIngredientsList(request.getIngredients());
+            productToCreate.setIngredientList(request.getIngredients());
         }
 
         productToCreate.setPrice(request.getPrice());
@@ -59,10 +59,10 @@ public class ProductService {
             productToUpdate.setPrice(request.getPrice());
         }
         if(request.getCategories() != null) {
-            productToUpdate.setCategorieSet(request.getCategories());
+            productToUpdate.setCategorySet(request.getCategories());
         }
         if(request.getIngredients() != null) {
-            productToUpdate.setIngredientsList(request.getIngredients());
+            productToUpdate.setIngredientList(request.getIngredients());
         }
 
         productToUpdate.setActive(request.isActive());

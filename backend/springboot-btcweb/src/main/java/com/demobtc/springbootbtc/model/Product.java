@@ -1,10 +1,10 @@
 package com.demobtc.springbootbtc.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.security.PublicKey;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,10 +39,11 @@ public class Product {
     @JoinTable(	name = "product_category",
             joinColumns = @JoinColumn(name = "prod_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id"))
-    private Set<Category> categorieSet = new HashSet<>();
+    private Set<Category> categorySet = new HashSet<>();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private List<ProductIngredient> ingredientsList;
+    private List<ProductIngredient> ingredientList;
 
 
 }
