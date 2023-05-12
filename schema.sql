@@ -144,12 +144,11 @@ INSERT INTO category(cat_name) VALUES('DRINK');
 * Insert Units
 *
 */
-INSERT INTO unit(un_name, un_symbol) VALUES('Kilogram', 'kg');
+INSERT INTO unit(un_name, un_symbol) VALUES('Kilogram', 'kg'); 
 INSERT INTO unit(un_name, un_symbol) VALUES('Gram', 'g');
 INSERT INTO unit(un_name, un_symbol) VALUES('Liter', 'l');
 INSERT INTO unit(un_name, un_symbol) VALUES('Milliliter', 'ml');
 INSERT INTO unit(un_name, un_symbol) VALUES('Unit', 'u');
-
 
 /**
 * Insert Products
@@ -174,6 +173,108 @@ INSERT INTO product(prod_name, prod_description, prod_price, prod_active) values
 ('Drink Safira', 'Vodka, limão, açúcar, xarope de curaçau, suco de laranja e gelo.', 22.00, true),
 ('Caipirinha John Lemon', 'Cachaça ouro, limão, açúcar, espuma de gengibre e gelo.', 20.00, true),
 ('Drink Turquesa', 'Gin, xarope de curaçau, limão, água tônica e gelo', 22.00, false);
+/**
+* Insert Products 
+* Categories
+*/
+INSERT INTO product_category (prod_id, cat_id) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1),
+(13, 2),
+(14, 2),
+(15, 2),
+(16, 2),
+(17, 2),
+(18, 2);
+/**
+* Insert Ingredients 
+* 
+*/
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Batata', 1, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Tilápia', 2, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Carne moída' , 3, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Pão de hambúrguer', 4, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo Mussarela', 5, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo Cheddar', 6, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo Gorgonzola', 7, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Cebola roxa', 8, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Alface', 9, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Tomate', 10, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Rúcula', 11, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo parmesão', 13, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Molho Shoyu', 14, 4);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Molho Balsâmico', 15, 4);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Cenoura', 16, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Tomate Cereja', 17, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Maionese', 18, 2);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Limão', 19, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Morango', 20, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Kiwi', 21, 5);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Vodka', 22, 4);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Gin', 23, 4);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Cachaça', 24, 4);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Xarope de curaçau', 25, 4);
+INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Suco de laranja', 26, 4);
+
+/**
+* Insert ProductIngrendient 
+* 
+*/
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (500, 1, 1); 
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (250, 2, 1);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (500, 3, 2);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 3, 17);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (1, 3, 18);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (250, 4, 2);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (75, 4, 17);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (1, 4, 18);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (320, 5, 3);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (2, 5, 8);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 5, 5);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 5, 13);
+
+/**
+* Insert Stock 
+* 
+*/
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (1, 1000, 1);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (2, 5000, 2);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (3, 5000, 3);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (4, 5000, 4);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (5, 5000, 5);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (6, 5000, 6);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (7, 5000, 7);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (8, 60, 8);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (9, 60, 9);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (10, 60, 10);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (11, 2000, 11);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (12, 4000, 12);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (13, 2000, 13);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (14, 2000, 14);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (15, 20, 15);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (16, 1000, 16);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (17, 1000, 17);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (18, 100, 18);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (19, 100, 19);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (20, 100, 20);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (21, 10000, 21);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (22, 10000, 22);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (23, 10000, 23);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (24, 1000, 24);
+INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (25, 3000, 25);
+
+
+
 
 
 
