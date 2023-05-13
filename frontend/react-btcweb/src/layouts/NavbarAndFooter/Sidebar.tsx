@@ -52,7 +52,7 @@ const navItems = [
     icon: <HomeOutlined />
   },
   {
-    text: "Estoque e Produtos",
+    text: "Stock and Products",
     icon: null
   },
   {
@@ -68,16 +68,16 @@ const navItems = [
     icon: <Inventory2Outlined />
   },
   {
-    text: "Entradas",
+    text: "Inflows",
     icon: <SouthWestOutlined />
   },
   {
-    text: "Saidas",
+    text: "Outflows",
     icon: <ArrowOutwardOutlined />
   },
   
   {
-    text: "Vendas",
+    text: "Sales",
     icon: null
   },
   {
@@ -97,11 +97,11 @@ const navItems = [
     icon: <PieChartOutlined />
   },
   {
-    text: "Realizar Venda",
+    text: "Make Sale",
     icon: <Inventory2Outlined />
   },
   {
-    text: "Admnistração",
+    text: "Admnistration",
     icon: null
   },
   {

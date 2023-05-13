@@ -7,9 +7,11 @@ import { DataGrid, GridCellParams, GridColDef, GridValueGetterParams } from '@mu
 import {
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
   EditOutlined as EditOutlinedIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon
 } from '@mui/icons-material';
 import { Header } from '../utils/Header';
-import { DeleteModal } from './components/DeleteModal';
+import { DeleteModal } from './components/DeleteDialog';
+import { ViewModal } from './components/ViewDialog';
 
 
 
@@ -20,8 +22,9 @@ export const ProductsPage = () => {
   const [httpError, setHttpError] = useState<string | null>(null);
   const [products, setProducts] = useState<ProductModel[]>([])
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [showViewModal, setShowViewModal] = useState<boolean>(false);
   const [idProductSelected, setIdProductSelected] = useState<number>(0);
-
+  const [productSelected, setProductSelected] = useState<ProductModel | undefined>(undefined);
 
   const currencyFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -81,6 +84,13 @@ export const ProductsPage = () => {
     setIdProductSelected(productId);
     setShowDeleteModal(true);
   };
+  const handleViewClick = (params: GridCellParams) => {
+    const productId = params.id as number;
+    const product = products.find(product => product.id === productId);
+    setProductSelected(product);
+    setShowViewModal(true);
+  }
+
 
   if (httpError) {
     return <h1>{httpError}</h1>
@@ -93,30 +103,38 @@ export const ProductsPage = () => {
   const columns = [
     {
       field: "id",
-      headerName: "ID"
+      headerName: "ID",
+      width: 40
     },
     {
       field: "name",
       headerName: "Name",
-      flex: 2
+      flex: 8
     },
     {
       field: "price",
       headerName: "Price",
       valueFormatter: ({ value }: any) => currencyFormatter.format(Number(value)),
+      width: 80
     },
     {
       field: 'actions',
       headerName: 'Actions',
       sortable: false,
       disableColumnMenu: true,
+      width: 150,
       renderCell: (params: GridCellParams) => {
         return (
           <>
+            <IconButton onClick={() => handleViewClick(params)}>
+              <VisibilityOutlinedIcon sx={{
+                color: theme.palette.text.primary
+              }} />
+            </IconButton>
             <IconButton onClick={handleEditClick}>
               <EditOutlinedIcon sx={{
                 color: theme.palette.text.primary
-              }}/>
+              }} />
             </IconButton>
 
             <IconButton onClick={() => handleDeleteClick(params)}>
@@ -124,7 +142,6 @@ export const ProductsPage = () => {
                 color: theme.palette.error.main,
               }} />
             </IconButton>
-
           </>
         );
       },
@@ -140,10 +157,14 @@ export const ProductsPage = () => {
           setOpen={setShowDeleteModal}
           productId={idProductSelected}
         />
+      )}
+      {showViewModal && (
+        <ViewModal
+          open={showViewModal}
+          setOpen={setShowViewModal}
+          product={productSelected}/>
+      )}
 
-      )
-
-      }
       <Header title='Produtos' subtitle='Vizualização de produtos' />
       {/* <Button variant='outlined' sx={{
         color: theme.palette.text.primary,

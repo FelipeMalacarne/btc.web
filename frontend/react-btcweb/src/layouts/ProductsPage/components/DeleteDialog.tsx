@@ -66,12 +66,21 @@ export const DeleteModal: React.FC<DeleteModalProps> = (props) => {
       </DialogTitle>
       <Divider />
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id="alert-dialog-description" sx={{
+          color: theme.palette.text.primary
+        }}>
           Tem certeza que deseja excluir o produto e todos os seus dados?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
+        <Button 
+          onClick={handleClose}
+          sx={{
+            color: theme.palette.text.primary
+          }}
+          >
+            Cancelar
+          </Button>
         <Button
           variant='contained'
           onClick={handleDelete}
