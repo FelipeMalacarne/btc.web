@@ -18,7 +18,7 @@ interface DeleteModalProps {
   // onDelete: (productId: number) => void
 }
 
-export const DeleteModal: React.FC<DeleteModalProps> = (props) => {
+export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
   const theme = useTheme();
   const handleClickOpen = () => {
     props.setOpen(true);
@@ -57,10 +57,11 @@ export const DeleteModal: React.FC<DeleteModalProps> = (props) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title" display={'flex'} alignItems='center'>
+      <DialogTitle id="alert-dialog-title" display={'flex'} alignItems='center' fontSize={'18px'} fontWeight={'bold'}>
         <WarningIcon sx={{ 
           color: 'red',
           mr: 1, 
+          fontSize: '24px'
           }} />
         {'Excluir produto'}
       </DialogTitle>

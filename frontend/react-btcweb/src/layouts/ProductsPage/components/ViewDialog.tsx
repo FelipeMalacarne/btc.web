@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, List, ListItem, ListItemText, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import ProductModel from '../../../models/ProductModel'
-import { number } from 'yup'
 
 interface ViewModalProps {
   open: boolean,
@@ -9,7 +8,7 @@ interface ViewModalProps {
   product: ProductModel | undefined
 }
 
-export const ViewModal: React.FC<ViewModalProps> = (props) => {
+export const ViewProductDialog: React.FC<ViewModalProps> = (props) => {
   const theme = useTheme();
 
   const handleClose = () => props.setOpen(false);
@@ -39,25 +38,45 @@ export const ViewModal: React.FC<ViewModalProps> = (props) => {
         {props.product?.name}
       </DialogTitle>
       <DialogContent dividers>
-        <Typography gutterBottom variant='subtitle1' fontWeight={'bold'}>
+        <Typography 
+          gutterBottom 
+          variant='subtitle1' 
+          fontWeight={'bold'} 
+          color={theme.palette.secondary.main}
+        >
           Description
         </Typography>
         <Typography gutterBottom variant='body1'>
           {props.product?.description}
         </Typography>
-        <Typography gutterBottom variant='subtitle1' fontWeight={'bold'}>
+        <Typography 
+          gutterBottom 
+          variant='subtitle1' 
+          fontWeight={'bold'}
+          color={theme.palette.secondary.main}
+          >
           Price
         </Typography>
         <Typography gutterBottom variant='body1'>
           {currencyFormatter.format(Number(props.product?.price))}
         </Typography>
-        <Typography gutterBottom variant='subtitle1' fontWeight={'bold'}>
+        <Typography 
+          gutterBottom 
+          variant='subtitle1' 
+          fontWeight={'bold'}
+          color={theme.palette.secondary.main}
+          >
           Categories:
         </Typography>
         <Typography gutterBottom variant='body1'>
           {props.product?.categorySet[0].name}
         </Typography>
-        <Typography gutterBottom variant='subtitle1' fontWeight={'bold'}>
+        <Typography 
+          gutterBottom
+          variant='subtitle1' 
+          fontWeight={'bold'}
+          color={theme.palette.secondary.main}
+        >
           Ingredients:
         </Typography>
         <List

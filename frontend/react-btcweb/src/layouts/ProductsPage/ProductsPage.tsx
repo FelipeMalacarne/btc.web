@@ -6,12 +6,14 @@ import { Box, Button, ButtonGroup, CircularProgress, IconButton, TextField, Typo
 import { DataGrid, GridCellParams, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import {
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
+  Edit,
   EditOutlined as EditOutlinedIcon,
   VisibilityOutlined as VisibilityOutlinedIcon
 } from '@mui/icons-material';
 import { Header } from '../utils/Header';
-import { DeleteModal } from './components/DeleteDialog';
-import { ViewModal } from './components/ViewDialog';
+import { DeleteProductDialog } from './components/DeleteProductDialog';
+import { ViewProductDialog } from './components/ViewDialog';
+import { EditProductDialog } from './components/EditProductDialog';
 
 
 
@@ -21,8 +23,9 @@ export const ProductsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string | null>(null);
   const [products, setProducts] = useState<ProductModel[]>([])
-  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const [showViewModal, setShowViewModal] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteModal] = useState<boolean>(false);
+  const [showViewDialog, setShowViewModal] = useState<boolean>(false);
+  const [showEditDialog, setShowEditModal] = useState<boolean>(false);
   const [idProductSelected, setIdProductSelected] = useState<number>(0);
   const [productSelected, setProductSelected] = useState<ProductModel | undefined>(undefined);
 
@@ -72,13 +75,8 @@ export const ProductsPage = () => {
       setHttpError(error.message);
     });
 
-  }, [authState, showDeleteModal])
+  }, [authState, showDeleteDialog, showEditDialog])
 
-  const handleEditClick = () => {
-    // handle edit click
-
-    console.log('edit')
-  };
   const handleDeleteClick = (params: GridCellParams) => {
     const productId = params.id as number;
     setIdProductSelected(productId);
@@ -89,6 +87,12 @@ export const ProductsPage = () => {
     const product = products.find(product => product.id === productId);
     setProductSelected(product);
     setShowViewModal(true);
+  }
+  const handleEditClick = (params: GridCellParams) => {
+    const productId = params.id as number;
+    const product = products.find(product => product.id === productId);
+    setProductSelected(product);
+    setShowEditModal(true);
   }
 
 
@@ -131,7 +135,7 @@ export const ProductsPage = () => {
                 color: theme.palette.text.primary
               }} />
             </IconButton>
-            <IconButton onClick={handleEditClick}>
+            <IconButton onClick={() => handleEditClick(params)}>
               <EditOutlinedIcon sx={{
                 color: theme.palette.text.primary
               }} />
@@ -151,17 +155,23 @@ export const ProductsPage = () => {
 
   return (
     <Box m="1rem 3rem">
-      {showDeleteModal && (
-        <DeleteModal
-          open={showDeleteModal}
+      {showDeleteDialog && (
+        <DeleteProductDialog
+          open={showDeleteDialog}
           setOpen={setShowDeleteModal}
           productId={idProductSelected}
         />
       )}
-      {showViewModal && (
-        <ViewModal
-          open={showViewModal}
+      {showViewDialog && (
+        <ViewProductDialog
+          open={showViewDialog}
           setOpen={setShowViewModal}
+          product={productSelected}/>
+      )}
+      {showEditDialog && (
+        <EditProductDialog
+          open={showEditDialog}
+          setOpen={setShowEditModal}
           product={productSelected}/>
       )}
 
