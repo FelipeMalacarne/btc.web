@@ -1,7 +1,10 @@
 package com.demobtc.springbootbtc.controller;
 
+import com.demobtc.springbootbtc.dto.request.product.AddIngredientToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.PostNewProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.UpdateProductRequest;
+import com.demobtc.springbootbtc.dto.response.product.ProductErrorResponse;
+import com.demobtc.springbootbtc.model.Ingredient;
 import com.demobtc.springbootbtc.model.Product;
 import com.demobtc.springbootbtc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping
-    public ResponseEntity<?> getAllProducts(){
+    public ResponseEntity<List<Product>> getAllProducts(){
         try {
             List<Product> productList = productService.getAllProducts();
             return ResponseEntity.ok(productList);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
@@ -37,18 +40,18 @@ public class ProductController {
             Product product = productService.getProductById(id);
             return ResponseEntity.ok(product);
         } catch (ResourceNotFoundException e){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> createProduct(@RequestBody PostNewProductRequest request){
+    public ResponseEntity<Product> createProduct(@RequestBody PostNewProductRequest request){
         try {
             Product createdProduct = productService.createProduct(request);
             return ResponseEntity.ok(createdProduct);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -72,8 +75,25 @@ public class ProductController {
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @PutMapping("/{id}/ingredients")
+    public ResponseEntity<Product> addIngredientToProduct(
+            @PathVariable(value = "id") Long productId,
+            @RequestBody AddIngredientToProductRequest request) {
+        try{
+            Product updatedProduct = productService.addIngredientToProduct(
+                    productId, request.getIngredient(), request.getAmount()
+            );
+            return ResponseEntity.ok(updatedProduct);
+        } catch (ResourceNotFoundException e){
+            return ResponseEntity.notFound().build();
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
     }
 
 }

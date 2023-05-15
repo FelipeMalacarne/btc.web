@@ -42,7 +42,7 @@ public class Product {
     private Set<Category> categorySet = new HashSet<>();
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductIngredient> ingredientList;
 
 

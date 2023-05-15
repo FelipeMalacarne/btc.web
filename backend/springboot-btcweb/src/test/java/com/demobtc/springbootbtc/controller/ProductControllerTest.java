@@ -114,7 +114,7 @@ public class ProductControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String requestjson = mapper.writeValueAsString(request);
 
-        mockMvc.perform(put("/api/products/1")
+        mockMvc.perform(put("/api/products/2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestjson))
                 .andExpect(status().isOk())

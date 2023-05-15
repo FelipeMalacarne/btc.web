@@ -10,17 +10,17 @@ import java.util.Set;
 
 @Data
 public class UpdateProductRequest {
-    String name;
+    private String name;
 
-    String description;
+    private String description;
 
-    Double price;
+    private Double price;
 
-    boolean isActive;
+    private boolean isActive;
 
-    Set<Category> categories;
+    private Set<Category> categorySet;
 
-    List<ProductIngredient> ingredients;
+    private List<ProductIngredient> ingredientList;
 
     public UpdateProductRequest(){}
 

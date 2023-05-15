@@ -1,13 +1,13 @@
-package com.demobtc.springbootbtc.dto.response;
+package com.demobtc.springbootbtc.dto.response.product;
 
+import com.demobtc.springbootbtc.model.Product;
 import lombok.Data;
 
-@Data
-public class ErrorResponse {
+public class ProductErrorResponse extends Product {
 
         private String message;
 
-        public ErrorResponse(String message) {
+        public ProductErrorResponse(String message) {
             this.message = message;
         }
 }
