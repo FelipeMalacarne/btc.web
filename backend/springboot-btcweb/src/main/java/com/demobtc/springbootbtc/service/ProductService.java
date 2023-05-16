@@ -1,8 +1,9 @@
 package com.demobtc.springbootbtc.service;
 
+import com.demobtc.springbootbtc.dto.request.product.CategoryToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.IngredientToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.PostNewProductRequest;
-import com.demobtc.springbootbtc.dto.request.product.UpdateProductRequest;
+import com.demobtc.springbootbtc.dto.request.product.ProductRequest;
 import com.demobtc.springbootbtc.model.Category;
 import com.demobtc.springbootbtc.model.Ingredient;
 import com.demobtc.springbootbtc.model.Product;
@@ -42,52 +43,63 @@ public class ProductService {
                 () -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
-    public Product createProduct(PostNewProductRequest request) {
+    public Product createProduct(ProductRequest request) {
         Product productToCreate = new Product();
 
         productToCreate.setName(request.getName());
-        if (request.getDescription() != null){
+        if (request.getDescription() != null) {
             productToCreate.setDescription(request.getDescription());
         }
-        if (request.getCategorySet() != null){
-            productToCreate.setCategorySet(request.getCategorySet());
+        if (request.getCategorySet() != null) {
+            Set<Category> categorySet = new HashSet<>();
+            for (CategoryToProductRequest categoryToProductRequest : request.getCategorySet()) {
+                Long categoryId = categoryToProductRequest.getCategoryId();
+                Category category = categoryService.getCategoryById(categoryId);
+                categorySet.add(category);
+            }
+            productToCreate.setCategorySet(categorySet);
         }
-        if(request.getIngredientList() != null ){
-            productToCreate.setIngredientList(request.getIngredientList());
+        if (request.getIngredientList() != null) {
+            List<ProductIngredient> productIngredientList = new ArrayList<>();
+            for (IngredientToProductRequest ingredientToProductRequest : request.getIngredientList()) {
+                Long ingredientId = ingredientToProductRequest.getIngredientId();
+                Ingredient ingredient = ingredientService.getIngredientById(ingredientId);
+                ProductIngredient productIngredient = new ProductIngredient();
+                productIngredient.setIngredient(ingredient);
+                productIngredient.setProduct(productToCreate);
+                productIngredient.setAmount(ingredientToProductRequest.getAmount());
+                productIngredientList.add(productIngredient);
+            }
+            productToCreate.setIngredientList(productIngredientList);
         }
-
         productToCreate.setPrice(request.getPrice());
         productToCreate.setActive(request.isActive());
-
 
         return productRepository.save(productToCreate);
     }
 
-    public Product updateProduct(UpdateProductRequest request, Long id) {
+    public Product updateProduct(ProductRequest request, Long id) {
         Product productToUpdate = getProductById(id);
 
-        if(request.getName() != null){
+        if (request.getName() != null) {
             productToUpdate.setName(request.getName());
         }
-        if(request.getDescription() != null){
+        if (request.getDescription() != null) {
             productToUpdate.setDescription(request.getDescription());
         }
-        if(request.getPrice() != null){
+        if (request.getPrice() != null) {
             productToUpdate.setPrice(request.getPrice());
         }
-        if(request.getCategorySet() != null) {
-            productToUpdate.setCategorySet(request.getCategorySet());
+        if (request.getCategorySet() != null) {
+            updateProductCategorySet(id, request.getCategorySet());
         }
-        if(request.getIngredientList() != null){
-            productToUpdate.setIngredientList(request.getIngredientList());
+        if (request.getIngredientList() != null) {
+            updateProductIngredientList(id, request.getIngredientList());
         }
-
-
-
         productToUpdate.setActive(request.isActive());
+        productRepository.save(productToUpdate);
 
-        return productRepository.save(productToUpdate);
-
+        return getProductById(id);
     }
 
     public Product deleteProduct(Long id) {
@@ -95,6 +107,7 @@ public class ProductService {
         productRepository.delete(productToDelete);
         return productToDelete;
     }
+
 
     public Product addIngredientToProduct(Long productId, IngredientToProductRequest request) {
         Product existingProduct = getProductById(productId);
@@ -117,12 +130,12 @@ public class ProductService {
     }
 
     @Transactional
-    public Product updateProductIngredientList(Long productId, List<IngredientToProductRequest> ingredientList) {
+    public Product updateProductIngredientList(Long productId, List<IngredientToProductRequest> request) {
         Product productToUpdate = getProductById(productId);
 
         List<ProductIngredient> productIngredientList = new ArrayList<>();
 
-        for (IngredientToProductRequest ingredientToProductRequest : ingredientList) {
+        for (IngredientToProductRequest ingredientToProductRequest : request) {
             ProductIngredient productIngredient = new ProductIngredient();
 
             Ingredient ingredient = ingredientService.getIngredientById(ingredientToProductRequest.getIngredientId());
@@ -141,5 +154,23 @@ public class ProductService {
 
         return productRepository.save(productToUpdate);
     }
+
+    public Product updateProductCategorySet(Long productId, Set<CategoryToProductRequest> request) {
+        Product productToUpdate = getProductById(productId);
+        Set<Category> categorySet = new HashSet<>();
+
+        for (CategoryToProductRequest categoryToProductRequest : request) {
+            Long categoryId = categoryToProductRequest.getCategoryId();
+            Category category = categoryService.getCategoryById(categoryId);
+            categorySet.add(category);
+        }
+        productToUpdate.getCategorySet().clear();
+        productToUpdate.getCategorySet().addAll(categorySet);
+
+        return productRepository.save(productToUpdate);
+    }
+
+
+
 
 }

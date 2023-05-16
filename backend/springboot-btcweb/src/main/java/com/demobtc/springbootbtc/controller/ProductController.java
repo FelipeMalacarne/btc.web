@@ -1,9 +1,9 @@
 package com.demobtc.springbootbtc.controller;
 
+import com.demobtc.springbootbtc.dto.request.product.CategoryToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.IngredientToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.PostNewProductRequest;
-import com.demobtc.springbootbtc.dto.request.product.UpdateProductRequest;
-import com.demobtc.springbootbtc.model.Ingredient;
+import com.demobtc.springbootbtc.dto.request.product.ProductRequest;
 import com.demobtc.springbootbtc.model.Product;
 import com.demobtc.springbootbtc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000/", maxAge = 3600)
@@ -45,7 +46,7 @@ public class ProductController {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Product> createProduct(@RequestBody PostNewProductRequest request){
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest request){
         try {
             Product createdProduct = productService.createProduct(request);
             return ResponseEntity.ok(createdProduct);
@@ -55,7 +56,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@RequestBody UpdateProductRequest request, @PathVariable(value = "id") Long id){
+    public ResponseEntity<Product> updateProduct(@RequestBody ProductRequest request,
+                                                 @PathVariable(value = "id") Long id){
         try{
             Product updatedProduct = productService.updateProduct(request, id);
             return ResponseEntity.ok(updatedProduct);
@@ -79,16 +81,28 @@ public class ProductController {
     }
 
     @PutMapping("/{id}/ingredients")
-    public ResponseEntity<Product> updateProductIngredientList(
-            @PathVariable(value = "id") Long productId,
-            @RequestBody List<IngredientToProductRequest> request){
+    public ResponseEntity<Product> updateProductIngredientList(@PathVariable(value = "id") Long productId,
+                                                               @RequestBody List<IngredientToProductRequest> request){
         try{
             Product updatedProduct = productService.updateProductIngredientList(productId, request);
             return ResponseEntity.ok(updatedProduct);
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
-            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @PutMapping("/{id}/categories")
+    public ResponseEntity<Product> updateProductCategorySet(@PathVariable(value = "id") Long productId,
+                                                            @RequestBody Set<CategoryToProductRequest> request){
+        try{
+            Product updatedProduct = productService.updateProductCategorySet(productId, request);
+            return ResponseEntity.ok(updatedProduct);
+        } catch (ResourceNotFoundException e){
+            return ResponseEntity.notFound().build();
+        } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
