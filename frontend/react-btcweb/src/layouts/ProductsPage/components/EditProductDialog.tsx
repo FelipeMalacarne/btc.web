@@ -5,6 +5,12 @@ import IngredientListModel from '../../../models/IngredientListModel'
 import { DeleteOutlineOutlined } from '@mui/icons-material'
 import { AddIngredientDialog } from './AddIngredientDialog'
 import authHeader from '../../../services/AuthHeader'
+import ProductRequest from '../../../models/requests/ProductRequest'
+import CategoryModel from '../../../models/CategoryModel'
+import Ecategories from '../../../models/ECategory'
+import IngredientListRequest from '../../../models/requests/IngredientListRequest'
+import CategorySetRequest from '../../../models/requests/CategorySetRequest'
+import { string } from 'yup'
 
 
 
@@ -19,7 +25,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
   const [productName, setProductName] = useState<string>(props.product?.name || '');
   const [productDescription, setProductDescription] = useState<string>(props.product?.description || '');
   const [productPrice, setProductPrice] = useState<number>(props.product?.price || 0);
-  const [productCategory, setProductCategory] = useState<string>(props.product?.categorySet[0].name || '');
+  const [productCategoryName, setProductCategoryName] = useState<string>(props.product?.categorySet[0].name || '');
   const [ingredientList, setIngredientList] = useState<IngredientListModel[]>(props.product?.ingredientList || []);
   const [productActive, setProductActive] = useState<boolean>(true);
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
@@ -36,14 +42,27 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
       const envUrl = process.env.REACT_APP_API_URL;
       const url = envUrl + '/api/products/' + props.product?.id;
       const token = authHeader().Authorization;
-      const requestBody = {
-        name: productName,
-        description: productDescription,
-        price: productPrice,
-        category: productCategory,
-        ingredientList: ingredientList,
-        active: productActive
-      }
+
+      const ingredientListRequest = ingredientList.map((ingredientList) => {
+        return{
+          ingredientId: ingredientList.ingredient.id,
+          amount: ingredientList.amount
+        } as IngredientListRequest
+      })
+      const categoriesSetRequest = [
+        {
+          categoryId: Ecategories[productCategoryName as keyof typeof Ecategories].valueOf() + 1
+        } 
+      ] as CategorySetRequest[]
+
+      const requestBody = new ProductRequest(
+        productName,
+        productDescription,
+        productPrice,
+        productActive,
+        categoriesSetRequest,
+        ingredientListRequest
+        );
       const requestOptions = {
         method: 'PUT',
         headers: {
@@ -52,11 +71,12 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
         },
         body: JSON.stringify(requestBody)
       }
+      console.log(requestBody)
+      console.log(requestOptions)
 
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
-      console.log(requestBody)
-      console.log(responseData)
+  
       
     }
     fetchPutProduct().catch((error: any) => {
@@ -115,8 +135,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
           setOpen={setAddIngredientOpen}
           handleAddIngredient={handleAddIngredient}
           setNewIngredient={setNewIngredient}
-        />
-
+        /> 
       )
 
       }
@@ -188,13 +207,13 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                   labelId='category'
                   id='category'
                   label='Category'
-                  value={productCategory}
-                  onChange={(e) => setProductCategory(e.target.value)}
+                  value={productCategoryName}
+                  onChange={(e) => setProductCategoryName(e.target.value)}
                 >
-                  <MenuItem value={'FOOD'}>
+                  <MenuItem value={"FOOD"}>
                     Food
                   </MenuItem>
-                  <MenuItem value={'DRINK'}>
+                  <MenuItem value={"DRINK"}>
                     Drink
                   </MenuItem>
                 </Select>
