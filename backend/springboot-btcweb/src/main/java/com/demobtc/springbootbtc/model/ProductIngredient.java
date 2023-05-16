@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Table(name = "product_ingredient")
 @Data
 public class ProductIngredient {
+
+    public ProductIngredient() {}
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_ing_id")
@@ -25,5 +29,6 @@ public class ProductIngredient {
 
     @Column(name = "prod_ing_amount")
     private Double amount;
+
 
 }

@@ -1,9 +1,8 @@
 package com.demobtc.springbootbtc.controller;
 
-import com.demobtc.springbootbtc.dto.request.product.AddIngredientToProductRequest;
+import com.demobtc.springbootbtc.dto.request.product.IngredientToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.PostNewProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.UpdateProductRequest;
-import com.demobtc.springbootbtc.dto.response.product.ProductErrorResponse;
 import com.demobtc.springbootbtc.model.Ingredient;
 import com.demobtc.springbootbtc.model.Product;
 import com.demobtc.springbootbtc.service.ProductService;
@@ -80,17 +79,16 @@ public class ProductController {
     }
 
     @PutMapping("/{id}/ingredients")
-    public ResponseEntity<Product> addIngredientToProduct(
+    public ResponseEntity<Product> updateProductIngredientList(
             @PathVariable(value = "id") Long productId,
-            @RequestBody AddIngredientToProductRequest request) {
+            @RequestBody List<IngredientToProductRequest> request){
         try{
-            Product updatedProduct = productService.addIngredientToProduct(
-                    productId, request.getIngredient(), request.getAmount()
-            );
+            Product updatedProduct = productService.updateProductIngredientList(productId, request);
             return ResponseEntity.ok(updatedProduct);
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
