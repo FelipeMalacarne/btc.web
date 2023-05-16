@@ -40,7 +40,6 @@ export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
         }
       }
       const response = await fetch(url, requestOptions);
-      console.log(response)
       const responseData = await response.json();
     }
     fetchDeleteProduct().catch((error: any) => {

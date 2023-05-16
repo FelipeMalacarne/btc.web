@@ -2,7 +2,6 @@ package com.demobtc.springbootbtc.controller;
 
 import com.demobtc.springbootbtc.dto.request.product.CategoryToProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.IngredientToProductRequest;
-import com.demobtc.springbootbtc.dto.request.product.PostNewProductRequest;
 import com.demobtc.springbootbtc.dto.request.product.ProductRequest;
 import com.demobtc.springbootbtc.model.Product;
 import com.demobtc.springbootbtc.service.ProductService;

@@ -148,6 +148,7 @@ public class ProductService {
             productIngredientList.add(productIngredient);
         }
 
+
         productToUpdate.getIngredientList().clear();
         productToUpdate.getIngredientList().addAll(productIngredientList);
 
