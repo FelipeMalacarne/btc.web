@@ -28,7 +28,6 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
   const [productCategoryName, setProductCategoryName] = useState<string>(props.product?.categorySet[0].name || '');
   const [ingredientList, setIngredientList] = useState<IngredientListModel[]>(props.product?.ingredientList || []);
   const [productActive, setProductActive] = useState<boolean>(true);
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   // edit ingredient dialog States
   const [addIngredientOpen, setAddIngredientOpen] = useState<boolean>(false);
   const [newIngredient, setNewIngredient] = useState<IngredientListModel>(
@@ -71,18 +70,12 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
         },
         body: JSON.stringify(requestBody)
       }
-      console.log(requestBody)
-      console.log(requestOptions)
-
       const response = await fetch(url, requestOptions);
-      const responseData = await response.json();
-  
       
     }
     fetchPutProduct().catch((error: any) => {
       console.log(error.message);
     })
-
     handleClose();
   }
 
@@ -125,8 +118,6 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
   }
 
 
-
-
   return (
     <>
       {addIngredientOpen && (
@@ -135,6 +126,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
           setOpen={setAddIngredientOpen}
           handleAddIngredient={handleAddIngredient}
           setNewIngredient={setNewIngredient}
+          productIngredients={ingredientList}
         /> 
       )
 
