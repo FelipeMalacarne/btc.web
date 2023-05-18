@@ -11,7 +11,6 @@ interface AddIngredientDialogProps {
   setNewIngredient: React.Dispatch<React.SetStateAction<IngredientListModel>>
   productIngredients: IngredientListModel[]
 }
-
 export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) => {
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -99,10 +98,8 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
               options={ingredientOptions.map((ingredient) => ingredient.name)}
               renderInput={(params) => <TextField {...params} label="Ingredient" />}
             />
-
           </FormControl>
         </Box>
-
       </DialogContent>
       <DialogActions>
         <Button
@@ -125,9 +122,7 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
         >
           Add
         </Button>
-
       </DialogActions>
-
     </Dialog>
   )
 }
