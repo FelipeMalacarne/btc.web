@@ -4,6 +4,7 @@ import com.demobtc.springbootbtc.dto.request.account.UpdateAccountRequest;
 import com.demobtc.springbootbtc.dto.request.account.PostNewAccountRequest;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.repository.AccountRepository;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +30,6 @@ public class AccountService {
                                 .orElseThrow(() -> new ResourceNotFoundException("Account not found with id: " + id));
 
     }
-
     public Account createAccount(PostNewAccountRequest request){
         Account accountToCreate = new Account();
 

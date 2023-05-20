@@ -1,14 +1,18 @@
 package com.demobtc.springbootbtc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product_ingredient")
 @Data
 public class ProductIngredient {
+
+    public ProductIngredient() {}
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_ing_id")
@@ -16,6 +20,7 @@ public class ProductIngredient {
 
     @ManyToOne
     @JoinColumn(name = "prod_id")
+    @JsonBackReference
     private Product product;
 
     @ManyToOne
@@ -24,5 +29,6 @@ public class ProductIngredient {
 
     @Column(name = "prod_ing_amount")
     private Double amount;
+
 
 }

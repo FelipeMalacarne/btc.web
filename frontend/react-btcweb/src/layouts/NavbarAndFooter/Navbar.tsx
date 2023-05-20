@@ -21,7 +21,7 @@ import {useAuth} from "../../hooks/useAuth";
 import {lightTheme, darkTheme} from "../../Theme";
 import { useNavigate } from "react-router-dom";
 
-const pages = ['Inventory', 'Products', 'Sales'];
+const pages = ['Inventory', 'Products', 'Sales', 'Ingredients'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
@@ -42,14 +42,21 @@ export const Navbar: React.FC<{ themeMode: any,  setThemeMode: any } > = (props)
     const handleCloseNavMenu = (event: any) => {
         setAnchorElNav(null);
         const clickedItem = event.target.textContent;
-
-        if (clickedItem === 'Inventory') {
-            navigate('/secure/inventory');
-        } else if (clickedItem === 'Products') {
-            navigate('/secure/products');
-        } else if (clickedItem === 'Sales') {
-            navigate('/secure/sales');
+        switch (clickedItem) {
+            case 'Inventory':
+                navigate('/secure/inventory');
+                break;
+            case 'Products':
+                navigate('/secure/products');
+                break;
+            case 'Sales':
+                navigate('/secure/sales');
+                break;
+            case 'Ingredients':
+                navigate('/secure/ingredients');
+                break;
         }
+        
 
     };
 

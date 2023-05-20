@@ -1,10 +1,12 @@
 package com.demobtc.springbootbtc.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "product")
 @Data
+@ToString(exclude = {"categorySet", "ingredientList"})
 public class Product {
 
     public Product(){}
@@ -39,10 +42,11 @@ public class Product {
     @JoinTable(	name = "product_category",
             joinColumns = @JoinColumn(name = "prod_id"),
             inverseJoinColumns = @JoinColumn(name = "cat_id"))
-    private Set<Category> categorieSet = new HashSet<>();
+    private Set<Category> categorySet = new HashSet<>();
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-    private List<ProductIngredient> ingredientsList;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductIngredient> ingredientList = new ArrayList<>();
 
 
 }

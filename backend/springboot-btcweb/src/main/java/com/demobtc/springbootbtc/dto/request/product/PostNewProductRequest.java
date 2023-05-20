@@ -11,19 +11,19 @@ import java.util.Set;
 @Data
 public class PostNewProductRequest {
     @NotNull
-    String name;
+    private String name;
 
-    String description;
-
-    @NotNull
-    Double price;
+    private String description;
 
     @NotNull
-    boolean isActive;
+    private Double price;
 
-    Set<Category> categories;
+    @NotNull
+    private boolean isActive;
 
-    List<ProductIngredient> ingredients;
+    private Set<Category> categorySet;
+
+    private List<ProductIngredient> ingredientList;
 
     public PostNewProductRequest(){}
 

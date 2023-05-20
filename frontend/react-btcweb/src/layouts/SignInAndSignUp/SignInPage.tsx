@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {ThemeProvider, FormControl} from '@mui/material';
+import {ThemeProvider, FormControl, useTheme} from '@mui/material';
 import {useState} from 'react';
 import * as Yup from 'yup';
 import SigninRequestModel from "../../models/auth/SigninRequestModel";
@@ -31,6 +31,7 @@ function Copyright(props: any) {
 }
 
 export const SignInPage = () => {
+    const theme = useTheme();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [displayWarning, setDisplayWarning] = useState(false);
@@ -72,13 +73,17 @@ export const SignInPage = () => {
                 <CssBaseline/>
                 <Box
                     sx={{
-                        marginTop: 8,
+                        marginTop: 8,   
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{m: 1, bgcolor: 'primary.main'}}>
+                    <Avatar sx={{
+                        m: 1, 
+                        bgcolor: theme.palette.secondary.main,
+                        
+                        }}>
                         <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -112,7 +117,7 @@ export const SignInPage = () => {
                             }}
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary"/>}
+                            control={<Checkbox value="remember"/>}
                             label="Remember me"
                         />
                         <Button
@@ -125,19 +130,23 @@ export const SignInPage = () => {
                         </Button>
                         {displayWarning && (
                             <FormControl error>
-                                <Typography variant="body2" color="error" align="center">
+                                <Typography variant="body2" align="center"
+                                    sx={{
+                                        color: theme.palette.error.main,
+                                    }}
+                                >
                                     {error}
                                 </Typography>
                             </FormControl>
                         )}
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link href="#" variant="body2" color={'text.secondary'}>
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/signup" variant="body2">
+                                <Link href="/signup" variant="body2" color='text.secondary'>
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

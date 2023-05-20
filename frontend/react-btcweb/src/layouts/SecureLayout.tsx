@@ -1,19 +1,41 @@
-import React from "react";
-import {Navbar} from "./NavbarAndFooter/Navbar";
-import {Navigate, Outlet} from "react-router-dom";
-import {Footer} from "./NavbarAndFooter/Footer";
-import {useAuth} from "../hooks/useAuth";
+import { Navbar } from "./NavbarAndFooter/Navbar";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { Box, useMediaQuery, Theme } from "@mui/material";
+import { Topbar } from "./NavbarAndFooter/Topbar";
+import { useState } from "react";
+import { Sidebar } from "./NavbarAndFooter/Sidebar";
 
-export const SecureLayout: React.FC<{ themeMode: any, setThemeMode: any}> = (props) => {
-    const { authState } = useAuth();
-    if(!authState.isLoading && !authState.isAuthenticated){
-        return <Navigate to="/signin" />
-    }
-    return (
-        <div>
-            <Navbar themeMode={props.themeMode} setThemeMode={props.setThemeMode}/>
-                <Outlet/>
-            <Footer/>
-        </div>
-    );
+interface SecureLayoutProps {
+  themeMode: Theme,
+  setThemeMode: React.Dispatch<React.SetStateAction<Theme>>
+}
+export const SecureLayout: React.FC<SecureLayoutProps> = (props) => {
+  const { authState } = useAuth();
+  const isMobile = !useMediaQuery('(min-width: 600px)'); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+
+  if (!authState.isLoading && !authState.isAuthenticated) {
+    return <Navigate to="/signin" />
+  }
+  return (
+    <Box display={isMobile ? "block" :"flex" } height="100%" width="100%">
+      <Sidebar
+        isMobile={isMobile}
+        drawerWidth="250px"
+        isSidebarOpen={isSidebarOpen}
+        setIsSidebarOpen={setIsSidebarOpen}
+      />
+      <Box flexGrow={1}>
+        <Topbar
+          themeMode={props.themeMode}
+          setThemeMode={props.setThemeMode}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+        <Outlet />
+      </Box>
+    </Box>
+  );
 }
