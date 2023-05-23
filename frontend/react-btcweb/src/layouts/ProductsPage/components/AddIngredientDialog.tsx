@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, useTheme } from "@mui/material"
+import { Autocomplete, Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, useTheme } from "@mui/material"
 import { useEffect, useState } from "react"
 import authHeader from "../../../services/AuthHeader"
 import IngredientModel from "../../../models/IngredientModel"
@@ -9,16 +9,15 @@ interface AddIngredientDialogProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   handleAddIngredient: () => void
   setNewIngredient: React.Dispatch<React.SetStateAction<IngredientListModel>>
-
+  productIngredients: IngredientListModel[]
 }
-
 export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) => {
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string>('');
   const [newAmount, setNewAmount] = useState<number>(0);
   const [ingredientOptions, setIngredientOptions] = useState<IngredientModel[]>([]);
-  const [ingredientNameSelected, setIngredientNameSelected] = useState<string>('');
+  const [ingredientNameSelected, setIngredientNameSelected] = useState<string | null >('');
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -45,8 +44,14 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
           unitOfMeasure: responseData[key].unitOfMeasure
         });
       }
+      
+      const filteredIngredients = loadedIngredients.filter(ingredient => {
+        const ingredientAlreadyAdded = props.productIngredients.find(productIngredient => productIngredient.ingredient.id === ingredient.id);
+        return !ingredientAlreadyAdded
+      })
 
-      setIngredientOptions(loadedIngredients);
+
+      setIngredientOptions(filteredIngredients);
       setIsLoading(false);
     }
     fetchIngredients().catch((error: any) => {
@@ -56,16 +61,13 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
 
   }, [])
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setIngredientNameSelected(event.target.value);
-    const ingredientSelected = ingredientOptions.find(ingredient => ingredient.name === event.target.value);
+  const handleChange = (event: any, newValue: string | null) => {
+    const ingredientSelected = ingredientOptions.find(ingredient => ingredient.name === newValue);
     if (ingredientSelected) {
       const newIngredient = new IngredientListModel(newAmount, ingredientSelected);
       props.setNewIngredient(newIngredient);
     }
   }
-
-
   if (httpError) {
     return <h1>{httpError}</h1>
   }
@@ -86,27 +88,18 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
       <DialogContent dividers>
         <Box display={'flex'}>
           <FormControl fullWidth>
-            <InputLabel id="selectIngredientLabel"  >
-              Ingredient
-            </InputLabel>
-            <Select
+            <Autocomplete
               value={ingredientNameSelected}
-              onChange={handleChange}
-              labelId="selectIngredientLabel"
-              label="Ingredient"
-              id="selectIngredient"
-              fullWidth
-            >
-              {ingredientOptions.map((ingredient) => (
-                <MenuItem key={ingredient.id} value={ingredient.name}>
-                  {ingredient.name}
-                </MenuItem>
-              ))}
-
-            </Select>
+              onChange={(event: any, newValue: string | null) => {
+                setIngredientNameSelected(newValue);
+                handleChange(event, newValue);
+              }}
+              autoComplete
+              options={ingredientOptions.map((ingredient) => ingredient.name)}
+              renderInput={(params) => <TextField {...params} label="Ingredient" />}
+            />
           </FormControl>
         </Box>
-
       </DialogContent>
       <DialogActions>
         <Button
@@ -129,9 +122,7 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
         >
           Add
         </Button>
-
       </DialogActions>
-
     </Dialog>
   )
 }

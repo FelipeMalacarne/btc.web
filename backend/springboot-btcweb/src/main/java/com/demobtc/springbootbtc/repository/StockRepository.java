@@ -1,10 +1,9 @@
 package com.demobtc.springbootbtc.repository;
 
-import com.demobtc.springbootbtc.model.Category;
+import com.demobtc.springbootbtc.model.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-    Category findByName(String name);
+public interface StockRepository extends JpaRepository<Stock, Long> {
 }

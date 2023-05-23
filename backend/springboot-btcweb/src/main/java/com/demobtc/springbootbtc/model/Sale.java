@@ -1,15 +1,21 @@
 package com.demobtc.springbootbtc.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
-@Table(name = "sale")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "sale")
 public class Sale {
     @Id
     @NotNull

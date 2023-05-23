@@ -1,14 +1,20 @@
 package com.demobtc.springbootbtc.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "entry_ingredient")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "entry_ingredient")
 public class EntryIngredient {
     @Id
     @NotNull

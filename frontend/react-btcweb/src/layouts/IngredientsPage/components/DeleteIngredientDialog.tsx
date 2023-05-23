@@ -1,18 +1,15 @@
-import * as React from 'react';
-import { useState } from 'react';
-import authHeader from '../../../services/AuthHeader';
-import WarningIcon from '@mui/icons-material/Warning';
 import { Box, Divider, Typography, useTheme, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import authHeader from '../../../services/AuthHeader';
+import { Warning } from '@mui/icons-material';
+import React from 'react'
 
-
-interface DeleteModalProps {
+interface DeleteIngredientDialogProps {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
-  productId: number
-  // onDelete: (productId: number) => void
+  ingredientId: number
 }
 
-export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
+export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (props) => {
   const theme = useTheme();
   const handleClickOpen = () => {
     props.setOpen(true);
@@ -20,11 +17,11 @@ export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
   const handleClose = () => {
     props.setOpen(false);
   }
-
+  
   const handleDelete = () => {
-    const fetchDeleteProduct = async () => {
+    const fetchDeleteIngredient = async () => {
       const envUrl = process.env.REACT_APP_API_URL;
-      const url = envUrl + '/api/products/' + props.productId;
+      const url = envUrl + '/api/ingredients/' + props.ingredientId;
       const token = authHeader().Authorization;
 
       const requestOptions = {
@@ -36,11 +33,12 @@ export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
     }
-    fetchDeleteProduct().catch((error: any) => {
+    fetchDeleteIngredient().catch((error: any) => {
       console.log(error);
     })
     props.setOpen(false);
   }
+
 
 
   return (
@@ -51,30 +49,30 @@ export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title" display={'flex'} alignItems='center' fontSize={'18px'} fontWeight={'bold'}>
-        <WarningIcon sx={{ 
+        <Warning sx={{
           color: 'red',
-          mr: 1, 
+          mr: 1,
           fontSize: '24px'
-          }} />
-        {'Excluir produto'}
+        }} />
+        {'Excluir Ingrediente'}
       </DialogTitle>
       <Divider />
       <DialogContent>
         <DialogContentText id="alert-dialog-description" sx={{
           color: theme.palette.text.primary
         }}>
-          Tem certeza que deseja excluir o produto e todos os seus dados?
+          Tem certeza que deseja excluir o ingrediente e todos os seus dados?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button 
+        <Button
           onClick={handleClose}
           sx={{
             color: theme.palette.text.primary
           }}
-          >
-            Cancelar
-          </Button>
+        >
+          Cancelar
+        </Button>
         <Button
           variant='contained'
           onClick={handleDelete}
@@ -86,7 +84,6 @@ export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
           Excluir
         </Button>
       </DialogActions>
-
     </Dialog>
   )
 }
