@@ -39,6 +39,8 @@ public class ProductController {
             Product product = productService.getProductById(id);
             return ResponseEntity.ok(product);
         } catch (ResourceNotFoundException e){
+            return ResponseEntity.notFound().build();
+        } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
@@ -63,6 +65,7 @@ public class ProductController {
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

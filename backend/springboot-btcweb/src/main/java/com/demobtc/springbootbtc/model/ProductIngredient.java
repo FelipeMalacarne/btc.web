@@ -1,17 +1,18 @@
 package com.demobtc.springbootbtc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product_ingredient")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString(exclude = "product")
+@Table(name = "product_ingredient")
 public class ProductIngredient {
-
-    public ProductIngredient() {}
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class ProductIngredient {
     @JsonBackReference
     private Product product;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ing_id")
     private Ingredient ingredient;
 

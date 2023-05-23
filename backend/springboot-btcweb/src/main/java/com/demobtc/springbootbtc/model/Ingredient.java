@@ -1,11 +1,17 @@
 package com.demobtc.springbootbtc.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "ingredient")
 public class Ingredient {
 
@@ -20,7 +26,5 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "un_id")
     private Unit unitOfMeasure;
-
-
 
 }
