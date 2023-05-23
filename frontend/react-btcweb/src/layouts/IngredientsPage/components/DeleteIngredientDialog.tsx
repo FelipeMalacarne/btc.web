@@ -19,7 +19,7 @@ export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (pr
   }
   
   const handleDelete = () => {
-    const fetchDeleteProduct = async () => {
+    const fetchDeleteIngredient = async () => {
       const envUrl = process.env.REACT_APP_API_URL;
       const url = envUrl + '/api/ingredients/' + props.ingredientId;
       const token = authHeader().Authorization;
@@ -33,7 +33,7 @@ export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (pr
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
     }
-    fetchDeleteProduct().catch((error: any) => {
+    fetchDeleteIngredient().catch((error: any) => {
       console.log(error);
     })
     props.setOpen(false);
@@ -54,14 +54,14 @@ export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (pr
           mr: 1,
           fontSize: '24px'
         }} />
-        {'Excluir produto'}
+        {'Excluir Ingrediente'}
       </DialogTitle>
       <Divider />
       <DialogContent>
         <DialogContentText id="alert-dialog-description" sx={{
           color: theme.palette.text.primary
         }}>
-          Tem certeza que deseja excluir o produto e todos os seus dados?
+          Tem certeza que deseja excluir o ingrediente e todos os seus dados?
         </DialogContentText>
       </DialogContent>
       <DialogActions>

@@ -15,8 +15,6 @@ import { DeleteProductDialog } from './components/DeleteProductDialog';
 import { ViewProductDialog } from './components/ViewProductDialog';
 import { EditProductDialog } from './components/EditProductDialog';
 
-
-
 export const ProductsPage = () => {
   const theme = useTheme();
   const { authState } = useAuth();
@@ -48,10 +46,8 @@ export const ProductsPage = () => {
           'Content-Type': 'application/json'
         }
       }
-
       const response = await fetch(Url, requestOptions);
       const responseData = await response.json();
-
       const loadedProducts: ProductModel[] = [];
       for (const key in responseData) {
         loadedProducts.push({
@@ -64,12 +60,9 @@ export const ProductsPage = () => {
           ingredientList: responseData[key].ingredientList
         })
       }
-
       setProducts(loadedProducts);
       setIsLoading(false);
     }
-
-
     fetchProducts().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
@@ -99,7 +92,6 @@ export const ProductsPage = () => {
   if (httpError) {
     return <h1>{httpError}</h1>
   }
-
   if (isLoading && authState.isLoading) {
     return <CircularProgress />
   }
@@ -177,7 +169,6 @@ export const ProductsPage = () => {
           setOpen={setShowEditDialog}
           product={productSelected}/>
       )}
-
       <Header title='Produtos' subtitle='Vizualização de produtos' />
       {/* <Button variant='outlined' sx={{
         color: theme.palette.text.primary,
@@ -211,9 +202,7 @@ export const ProductsPage = () => {
               color: theme.palette.text.primary,
               border: 'none',
             },
-
           }
-
         }}
       >
         <DataGrid
@@ -225,7 +214,6 @@ export const ProductsPage = () => {
           }}
           loading={isLoading}
         />
-
       </Box>
     </Box>
   )

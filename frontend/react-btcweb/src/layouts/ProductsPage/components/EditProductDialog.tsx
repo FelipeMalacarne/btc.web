@@ -43,7 +43,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
       const token = authHeader().Authorization;
 
       const ingredientListRequest = ingredientList.map((ingredientList) => {
-        return{
+        return {
           ingredientId: ingredientList.ingredient.id,
           amount: ingredientList.amount
         } as IngredientListRequest
@@ -51,7 +51,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
       const categoriesSetRequest = [
         {
           categoryId: Ecategories[productCategoryName as keyof typeof Ecategories].valueOf() + 1
-        } 
+        }
       ] as CategorySetRequest[]
 
       const requestBody = new ProductRequest(
@@ -61,7 +61,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
         productActive,
         categoriesSetRequest,
         ingredientListRequest
-        );
+      );
       const requestOptions = {
         method: 'PUT',
         headers: {
@@ -71,7 +71,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
         body: JSON.stringify(requestBody)
       }
       const response = await fetch(url, requestOptions);
-      
+
     }
     fetchPutProduct().catch((error: any) => {
       console.log(error.message);
@@ -84,24 +84,21 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
     updatedIngredientList[index].amount = event.target.value;
     setIngredientList(updatedIngredientList);
   }
-
   const handleDeleteIngredient = (index: number) => {
     const updatedIngredientList = [...ingredientList];
     updatedIngredientList.splice(index, 1);
     setIngredientList(updatedIngredientList);
   }
-
   const handleAddIngredientOpen = () => setAddIngredientOpen(true);
   const handleAddIngredientClose = () => setAddIngredientOpen(false);
   const handleAddIngredient = () => {
-    if(newIngredient){
+    if (newIngredient) {
       setIngredientList(prevState => [...prevState, newIngredient]);
       setNewIngredient({} as IngredientListModel);
       handleAddIngredientClose();
     }
 
   };
-
   const validateForm = () => {
     // Check all fields
     const isNameValid = productName.length >= 3 && productName.length <= 80;
@@ -116,8 +113,6 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
       handleSave();
     }
   }
-
-
   return (
     <>
       {addIngredientOpen && (
@@ -127,7 +122,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
           handleAddIngredient={handleAddIngredient}
           setNewIngredient={setNewIngredient}
           productIngredients={ingredientList}
-        /> 
+        />
       )
 
       }
@@ -147,9 +142,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
             flexDirection: 'column',
             gap: 2,
             color: theme.palette.text.primary,
-            label: {
-              color: theme.palette.secondary.main
-            }
+            label: { color: theme.palette.secondary.main }
           }}>
             <FormControl fullWidth>
               <TextField
@@ -159,10 +152,9 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                 type='text'
                 required
                 error={productName.length < 2 || productName.length >= 80}
-                helperText={productName.length < 2 || productName.length >= 80 ? 
+                helperText={productName.length < 2 || productName.length >= 80 ?
                   'Name must be between 3 and 80 characters' : ''
                 }
-
               />
             </FormControl>
             <FormControl fullWidth>
@@ -212,13 +204,11 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
               </FormControl>
             </Box>
             <FormControl fullWidth>
-
               {ingredientList.map((ingredientListItem, index) => (
                 <ListItem key={ingredientListItem.ingredient.id}>
                   <ListItemText
                     primary={ingredientListItem.ingredient.name}
                     secondary={`Amount: ${ingredientListItem.amount} ${ingredientListItem.ingredient.unitOfMeasure.symbol}`} />
-
                   <TextField
                     type='number'
                     label='Amount'
@@ -247,28 +237,23 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                   </IconButton>
                 </ListItem>
               ))}
-              <Button 
-                onClick={handleAddIngredientOpen} 
+              <Button
+                onClick={handleAddIngredientOpen}
                 variant='outlined'
-                sx={{ 
+                sx={{
                   marginTop: 2,
                   color: theme.palette.text.primary,
-                  borderColor: theme.palette.text.primary 
+                  borderColor: theme.palette.text.primary
                 }}
               >
                 Add Ingredient
               </Button>
             </FormControl>
-
           </Box>
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={handleClose}
-            sx={{
-              color: theme.palette.text.primary,
-            }}
-          >
+            onClick={handleClose}sx={{ color: theme.palette.text.primary }}>
             Cancel
           </Button>
           <Button
@@ -284,7 +269,6 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-
     </>
   )
 }
