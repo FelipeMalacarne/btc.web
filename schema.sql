@@ -48,7 +48,7 @@ create table sale_product(
 	sale_prod_amount integer not null,
 	sale_id integer not null,
 	prod_id integer not null,
-	constraint pk_sale_prod_id primary key(sale_prod_id )
+	constraint pk_sale_prod_id primary key(sale_prod_id)
 );
 create table unit (
 	un_id serial not null,
@@ -59,7 +59,6 @@ create table unit (
 create table ingredient (
 	ing_id serial not null,
 	ing_name varchar (255) not null,
-	stock_id integer not null,
 	un_id integer not null,
 	constraint pk_ing_id primary key (ing_id)
 );
@@ -144,11 +143,11 @@ INSERT INTO category(cat_name) VALUES('DRINK');
 * Insert Units
 *
 */
-INSERT INTO unit(un_name, un_symbol) VALUES('Kilogram', 'kg'); 
-INSERT INTO unit(un_name, un_symbol) VALUES('Gram', 'g');
-INSERT INTO unit(un_name, un_symbol) VALUES('Liter', 'l');
-INSERT INTO unit(un_name, un_symbol) VALUES('Milliliter', 'ml');
-INSERT INTO unit(un_name, un_symbol) VALUES('Unit', 'u');
+INSERT INTO unit(un_name, un_symbol) VALUES('Quilogramas', 'kg'); 
+INSERT INTO unit(un_name, un_symbol) VALUES('Gramas', 'g');
+INSERT INTO unit(un_name, un_symbol) VALUES('Litros', 'l');
+INSERT INTO unit(un_name, un_symbol) VALUES('Mililitros', 'ml');
+INSERT INTO unit(un_name, un_symbol) VALUES('Unidade', 'un');
 
 /**
 * Insert Products
@@ -200,31 +199,31 @@ INSERT INTO product_category (prod_id, cat_id) VALUES
 * Insert Ingredients 
 * 
 */
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Batata', 1, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Tilápia', 2, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Carne moída' , 3, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Pão de hambúrguer', 4, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo Mussarela', 5, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo Cheddar', 6, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo Gorgonzola', 7, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Cebola roxa', 8, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Alface', 9, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Tomate', 10, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Rúcula', 11, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Queijo parmesão', 13, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Molho Shoyu', 14, 4);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Molho Balsâmico', 15, 4);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Cenoura', 16, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Tomate Cereja', 17, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Maionese', 18, 2);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Limão', 19, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Morango', 20, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Kiwi', 21, 5);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Vodka', 22, 4);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Gin', 23, 4);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Cachaça', 24, 4);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Xarope de curaçau', 25, 4);
-INSERT INTO ingredient(ing_name, stock_id, un_id) VALUES ('Suco de laranja', 26, 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Batata', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Tilápia', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Carne moída', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Pão de hambúrguer', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo Mussarela', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo Cheddar', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo Gorgonzola', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Cebola roxa', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Alface', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Tomate', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Rúcula', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo parmesão', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Molho Shoyu', 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Molho Balsâmico', 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Cenoura', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Tomate Cereja', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Maionese', 2);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Limão', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Morango', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Kiwi', 5);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Vodka', 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Gin', 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Cachaça', 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Xarope de curaçau', 4);
+INSERT INTO ingredient(ing_name, un_id) VALUES ('Suco de laranja', 4);
 
 /**
 * Insert ProductIngrendient 
