@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -32,6 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class ProductControllerTest {
 
     @Autowired
@@ -76,7 +78,7 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$[0].id").exists())
                 .andExpect(jsonPath("$[0].name").exists())
                 .andExpect(jsonPath("$[0].price").exists())
-                .andExpect(jsonPath("$[0].ingredients").exists());
+                .andExpect(jsonPath("$[0].ingredientList").exists());
     }
 
     @Test
@@ -88,7 +90,7 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.name").exists())
                 .andExpect(jsonPath("$.price").exists())
-                .andExpect(jsonPath("$.ingredients").exists());
+                .andExpect(jsonPath("$.ingredientList").exists());
     }
 
     @Test
