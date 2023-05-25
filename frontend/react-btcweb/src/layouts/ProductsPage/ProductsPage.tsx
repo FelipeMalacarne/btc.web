@@ -178,6 +178,7 @@ export const ProductsPage = () => {
       </Button> */}
       <Box mt='40px' height='75vh'
         sx={{
+          width: '99%',
           '& .MuiDataGrid-root': {
             border: 'none',
             '& .MuiDataGrid-cell': {
@@ -213,6 +214,9 @@ export const ProductsPage = () => {
             toolbar: GridToolbar
           }}
           loading={isLoading}
+          autoHeight
+          disableColumnMenu
+          disableColumnSelector
         />
       </Box>
     </Box>

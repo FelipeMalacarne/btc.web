@@ -71,7 +71,6 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
         body: JSON.stringify(requestBody)
       }
       const response = await fetch(url, requestOptions);
-
     }
     fetchPutProduct().catch((error: any) => {
       console.log(error.message);

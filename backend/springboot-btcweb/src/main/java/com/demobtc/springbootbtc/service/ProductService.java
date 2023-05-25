@@ -126,7 +126,6 @@ public class ProductService {
         productIngredient.setIngredient(ingredient);
         productIngredient.setAmount(amount);
         productIngredient.setProduct(existingProduct);
-
         ingredientList.add(productIngredient);
         existingProduct.setIngredientList(ingredientList);
 

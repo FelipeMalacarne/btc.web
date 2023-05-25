@@ -49,7 +49,7 @@ interface SidebarProps {
 const navItems = [
   {
     text: "Dashboard",
-    icon: <HomeOutlined />
+    icon: <HomeOutlined />,
   },
   {
     text: "Stock and Products",
@@ -57,48 +57,48 @@ const navItems = [
   },
   {
     text: "Products",
-    icon: <ShoppingCartOutlined />
+    icon: <ShoppingCartOutlined />,
   },
   {
     text: "Ingredients",
-    icon: <InventoryOutlined />
+    icon: <InventoryOutlined />,
   },
   {
     text: "Inventory",
-    icon: <Inventory2Outlined />
+    icon: <Inventory2Outlined />,
   },
   {
     text: "Inflows",
-    icon: <SouthWestOutlined />
+    icon: <SouthWestOutlined />,
   },
   {
     text: "Outflows",
-    icon: <ArrowOutwardOutlined />
+    icon: <ArrowOutwardOutlined />,
   },
   
   {
     text: "Sales",
-    icon: null
+    icon: null,
   },
   {
     text: "Overview",
-    icon: <PointOfSaleOutlined />
+    icon: <PointOfSaleOutlined />,
   },
   {
     text: "Daily",
-    icon: <TodayOutlined />
+    icon: <TodayOutlined />,
   },
   {
     text: "Monthly",
-    icon: <CalendarMonthOutlined />
+    icon: <CalendarMonthOutlined />,
   },
   {
     text: "Breakdown",
-    icon: <PieChartOutlined />
+    icon: <PieChartOutlined />,
   },
   {
     text: "Make Sale",
-    icon: <Inventory2Outlined />
+    icon: <Inventory2Outlined />,
   },
   {
     text: "Admnistration",
@@ -106,11 +106,11 @@ const navItems = [
   },
   {
     text: "Users",
-    icon: <Inventory2Outlined />
+    icon: <Inventory2Outlined />,
   },
   {
     text: "Perfomance",
-    icon: <TrendingUpOutlined />
+    icon: <TrendingUpOutlined />,
   },
   {
     text: "Registration",
@@ -118,7 +118,7 @@ const navItems = [
   },
   {
     text: "Product Registration",
-    icon: <AssignmentOutlined />
+    icon: <AssignmentOutlined />,
   },
   {
     text: "Ingredient Registration",

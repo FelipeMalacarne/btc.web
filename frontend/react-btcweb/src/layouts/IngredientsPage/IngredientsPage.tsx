@@ -68,7 +68,7 @@ export const IngredientsPage = () => {
       setHttpError(error.message);
     })
 
-  }, []);
+  }, [showDeleteDialog, showEditDialog]);
 
   const handleDeleteClick = (params: GridCellParams) => {
     const ingredientId = params.id as number;
