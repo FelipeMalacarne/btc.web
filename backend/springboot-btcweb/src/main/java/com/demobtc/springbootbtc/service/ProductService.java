@@ -81,6 +81,10 @@ public class ProductService {
     public Product updateProduct(ProductRequest request, Long id) {
         Product productToUpdate = getProductById(id);
 
+        System.out.println(productToUpdate);
+        System.out.println(request);
+
+
         if (request.getName() != null) {
             productToUpdate.setName(request.getName());
         }
@@ -94,11 +98,12 @@ public class ProductService {
             updateProductCategorySet(id, request.getCategorySet());
         }
         if (request.getIngredientList() != null) {
+            System.out.println(request.getIngredientList());
             updateProductIngredientList(id, request.getIngredientList());
         }
         productToUpdate.setActive(request.isActive());
-        productRepository.save(productToUpdate);
 
+        productRepository.save(productToUpdate);
         return getProductById(id);
     }
 
@@ -170,8 +175,6 @@ public class ProductService {
 
         return productRepository.save(productToUpdate);
     }
-
-
 
 
 }

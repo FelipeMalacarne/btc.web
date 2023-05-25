@@ -2,6 +2,8 @@ package com.demobtc.springbootbtc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -19,13 +21,13 @@ public class ProductIngredient {
     @Column(name = "prod_ing_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "prod_id")
     @JsonBackReference
     private Product product;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ing_id")
+    @JoinColumn(name = "ing_id", nullable = false)
     private Ingredient ingredient;
 
     @Column(name = "prod_ing_amount")
