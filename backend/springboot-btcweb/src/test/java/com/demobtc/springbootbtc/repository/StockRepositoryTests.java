@@ -8,14 +8,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@Transactional
 @RunWith(SpringRunner.class)
+@Transactional
 public class StockRepositoryTests {
 
     @Autowired
@@ -107,7 +108,7 @@ public class StockRepositoryTests {
         Stock savedStock = stockRepository.save(stock);
 
         // when
-        Iterable<Stock> stockList = stockRepository.findAll();
+        List<Stock> stockList = stockRepository.findAll();
 
         // then
         assertThat(stockList).isNotNull();

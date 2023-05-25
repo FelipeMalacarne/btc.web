@@ -36,13 +36,11 @@ public class IngredientRepositoryTests {
     public void givenIngredientObject_whenSave_thenReturnSavedIngredient(){
         // given
         Ingredient ingredientToSave = Ingredient.builder()
-                .name("Teste")
-                .unitOfMeasure(unitRepository.findById(1L).orElse(null))
-                .build();
-
+                                    .name("Teste")
+                                    .unitOfMeasure(unitRepository.findById(1L).orElse(null))
+                                    .build();
         // when
         Ingredient savedIngredient = ingredientRepository.save(ingredientToSave);
-
         // then
         assertThat(savedIngredient).isNotNull();
         assertThat(savedIngredient.getId()).isNotNull();

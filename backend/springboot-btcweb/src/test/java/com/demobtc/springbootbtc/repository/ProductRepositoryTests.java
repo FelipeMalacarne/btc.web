@@ -15,8 +15,8 @@ import java.util.Set;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
+@RunWith(SpringRunner.class)
 public class ProductRepositoryTests {
 
     @Autowired

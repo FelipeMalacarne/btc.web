@@ -31,14 +31,13 @@ public class AccountRepositoryTests {
 
     private Account account;
 
-@Before
+    @Before
     public void setup() {
         Set<Role> roles = new HashSet<Role>();
         roles.add(Role.builder()
                 .id(1L)
                 .name(ERole.ROLE_USER)
                 .build());
-
 
         account = Account.builder()
                 .name("Teste")
@@ -51,7 +50,6 @@ public class AccountRepositoryTests {
 
     @Test
     public void givenAccountObject_whenSave_thenReturnSavedAccount(){
-
         // given
         Account accountToSave = Account.builder()
                 .name("Felipe")
@@ -59,10 +57,8 @@ public class AccountRepositoryTests {
                 .email("felipe@email.com")
                 .password(encoder.encode("123456"))
                 .build();
-
         // when
         Account savedAccount = accountRepository.save(accountToSave);
-
         // then
         assertThat(savedAccount).isNotNull();
         assertThat(savedAccount.getId()).isGreaterThan(0);
@@ -81,24 +77,19 @@ public class AccountRepositoryTests {
 
         accountRepository.save(account1);
         accountRepository.save(account);
-
         // when
         List<Account> accountList = accountRepository.findAll();
-
         // then
         assertThat(accountList).isNotNull();
         assertThat(accountList.size()).isGreaterThanOrEqualTo(2);
-
     }
 
     @Test
     public void givenAccount_whenFindById_thenReturnAccount(){
         // given
         Account savedAccount = accountRepository.save(account);
-
         // when
         Account foundAccount = accountRepository.findById(savedAccount.getId()).orElse(null);
-
         // then
         assertThat(foundAccount).isNotNull();
         assertThat(foundAccount.getId()).isEqualTo(savedAccount.getId());
@@ -109,11 +100,9 @@ public class AccountRepositoryTests {
     public void givenAccount_whenUpdate_thenReturnUpdatedAccount(){
         // given
         Account savedAccount = accountRepository.save(account);
-
         // when
         savedAccount.setName("Teste Update");
         Account updatedAccount = accountRepository.save(savedAccount);
-
         // then
         assertThat(updatedAccount).isNotNull();
         assertThat(updatedAccount.getId()).isEqualTo(savedAccount.getId());
@@ -123,13 +112,9 @@ public class AccountRepositoryTests {
     public void givenAccount_whenDelete_thenAccountDeleted(){
         // given
         Account savedAccount = accountRepository.save(account);
-
         // when
         accountRepository.delete(savedAccount);
-
         // then
         assertThat(accountRepository.findById(savedAccount.getId())).isEmpty();
     }
-
-
 }

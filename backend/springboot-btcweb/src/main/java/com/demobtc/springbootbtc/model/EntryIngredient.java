@@ -12,12 +12,11 @@ import java.sql.Timestamp;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Builder
 @Table(name = "entry_ingredient")
 public class EntryIngredient {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "entry_id")
     private Long id;
@@ -32,12 +31,12 @@ public class EntryIngredient {
     private Timestamp expirationDate;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ing_id", referencedColumnName = "ing_id")
     private Ingredient ingredient;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "acc_id", referencedColumnName = "acc_id")
     private Account account;
 
