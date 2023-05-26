@@ -12,6 +12,7 @@ import { IngredientsPage } from './layouts/IngredientsPage/IngredientsPage';
 import { SalesPage } from './layouts/SalesPage/SalesPage';
 import { DashboardPage } from './layouts/DashboardPage/DashboardPage';
 import { IngredientFormsPage } from './layouts/FormPages/IngredientFormsPage';
+import { ProductFormsPage } from './layouts/FormPages/ProductFormsPage';
 
 export const App = () => {
 
@@ -38,6 +39,7 @@ export const App = () => {
           <Route path='/secure/dashboard' element={<DashboardPage />} />
           <Route path='/secure/inventory' element={<InventoryPage />} />
           <Route path='/secure/products' element={<ProductsPage />} />
+          <Route path='/secure/product-registration' element={<ProductFormsPage/>} />
           <Route path='/secure/ingredients' element={<IngredientsPage />} />
           <Route path='/secure/ingredient-registration' element={<IngredientFormsPage />} />
           <Route path='/secure/sales' element={<SalesPage />} />

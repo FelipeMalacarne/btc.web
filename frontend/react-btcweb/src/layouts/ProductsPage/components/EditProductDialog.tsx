@@ -48,11 +48,9 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
           amount: ingredientList.amount
         } as IngredientListRequest
       })
-      const categoriesSetRequest = [
-        {
+      const categoriesSetRequest = [{
           categoryId: Ecategories[productCategoryName as keyof typeof Ecategories].valueOf() + 1
-        }
-      ] as CategorySetRequest[]
+        }] as CategorySetRequest[]
 
       const requestBody = new ProductRequest(
         productName,
@@ -95,9 +93,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
       setIngredientList(prevState => [...prevState, newIngredient]);
       setNewIngredient({} as IngredientListModel);
       handleAddIngredientClose();
-    }
-
-  };
+    }};
   const validateForm = () => {
     // Check all fields
     const isNameValid = productName.length >= 3 && productName.length <= 80;
@@ -122,9 +118,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
           setNewIngredient={setNewIngredient}
           productIngredients={ingredientList}
         />
-      )
-
-      }
+      )}
       <Dialog
         open={props.open}
         onClose={handleClose}
@@ -165,7 +159,7 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                 multiline
                 error={productDescription.length >= 200}
                 helperText={productDescription.length >= 200 ?
-                  'Description must be less than 300 characters' : ''
+                  'Description must be less than 200 characters' : ''
                 }
               />
             </FormControl>
