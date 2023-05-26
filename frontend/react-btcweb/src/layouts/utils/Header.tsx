@@ -3,7 +3,7 @@ import React from 'react'
 
 export const Header: React.FC<{title: string, subtitle: string}> = (props) => {
   return (
-    <Box mb={2}>
+    <Box mb={3}>
       <Typography variant='h2' color={'inherit'} fontWeight={'bold'}>
         {props.title}
       </Typography>
