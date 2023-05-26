@@ -14,6 +14,7 @@ import { Header } from '../utils/Header';
 import { DeleteProductDialog } from './components/DeleteProductDialog';
 import { ViewProductDialog } from './components/ViewProductDialog';
 import { EditProductDialog } from './components/EditProductDialog';
+import AuthService from '../../services/AuthService';
 
 export const ProductsPage = () => {
   const theme = useTheme();

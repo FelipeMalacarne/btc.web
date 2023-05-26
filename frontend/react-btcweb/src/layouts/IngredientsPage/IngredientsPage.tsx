@@ -14,7 +14,6 @@ interface rowsModel {
   unitOfMeasure: string
 }
 
-
 export const IngredientsPage = () => {
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState<Boolean>(true);

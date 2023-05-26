@@ -11,7 +11,7 @@ import { ProductsPage } from './layouts/ProductsPage/ProductsPage';
 import { IngredientsPage } from './layouts/IngredientsPage/IngredientsPage';
 import { SalesPage } from './layouts/SalesPage/SalesPage';
 import { DashboardPage } from './layouts/DashboardPage/DashboardPage';
-import { IngredientFormsPage } from './layouts/FormPages/IngredientFormsPage/IngredientFormsPage';
+import { IngredientFormsPage } from './layouts/FormPages/IngredientFormsPage';
 
 export const App = () => {
 
