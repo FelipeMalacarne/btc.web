@@ -101,7 +101,8 @@ alter table sale_product add constraint fk_sale_id foreign key(sale_id) referenc
 alter table sale_product add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
 alter table sale add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
 alter table ingredient add constraint fk_un_id foreign key(un_id) references unit (un_id);
-alter table product_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
+ALTER TABLE product_ingredient ADD CONSTRAINT fk_ing_id FOREIGN KEY (ing_id) REFERENCES ingredient (ing_id) ON DELETE CASCADE;
+--alter table product_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
 alter table product_ingredient add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
 alter table product_category add constraint fk_prod_id foreign key(prod_id) references product (prod_id);
 alter table product_category add constraint fk_cat_id foreign key(cat_id) references category (cat_id);
@@ -110,6 +111,8 @@ alter table entry_ingredient add constraint fk_acc_id foreign key(acc_id) refere
 alter table leave_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
 alter table leave_ingredient add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
 alter table stock add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
+
+
 /**
 * Insert Jobs
 *
