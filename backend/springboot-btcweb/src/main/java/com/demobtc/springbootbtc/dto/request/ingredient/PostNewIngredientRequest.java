@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostNewIngredient {
+public class PostNewIngredientRequest {
+
     private String name;
+
     private Long unitOfMeasureId;
+
 }

@@ -1,7 +1,9 @@
 package com.demobtc.springbootbtc.service;
 
+import com.demobtc.springbootbtc.dto.request.ingredient.PostNewIngredientRequest;
 import com.demobtc.springbootbtc.model.Ingredient;
 import com.demobtc.springbootbtc.repository.IngredientRepository;
+import com.demobtc.springbootbtc.repository.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class IngredientService {
 
     @Autowired
     IngredientRepository ingredientRepository;
+
+    @Autowired
+    UnitRepository unitRepository;
     
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();
@@ -24,11 +29,13 @@ public class IngredientService {
         );
     }
 
-    public Ingredient createIngredient(Ingredient ingredient) {
+    public Ingredient createIngredient(PostNewIngredientRequest request) {
         Ingredient ingredientToCreate = new Ingredient();
 
-        ingredientToCreate.setName(ingredient.getName());
-        ingredientToCreate.setUnitOfMeasure(ingredient.getUnitOfMeasure());
+        ingredientToCreate.setName(request.getName());
+        ingredientToCreate.setUnitOfMeasure(unitRepository.findById(request.getUnitOfMeasureId()).orElseThrow(
+                () -> new ResourceNotFoundException("Unit not found with id: " + request.getUnitOfMeasureId())
+        ));
 
         return ingredientRepository.save(ingredientToCreate);
     }
