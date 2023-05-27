@@ -31,6 +31,7 @@ public class Product {
     @Column(name = "prod_description")
     private String description;
 
+    @NotNull
     @Column(name = "prod_price")
     private Double price;
 

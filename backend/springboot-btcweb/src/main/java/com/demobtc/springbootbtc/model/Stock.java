@@ -20,6 +20,7 @@ public class Stock {
     @Column(name = "stock_id")
     private Long id;
 
+    @NotNull
     @Column(name = "stock_amount")
     private Double amount;
 

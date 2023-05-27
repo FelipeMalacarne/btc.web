@@ -2,35 +2,30 @@ package com.demobtc.springbootbtc.dto.request.account;
 
 import com.demobtc.springbootbtc.model.Role;
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PostNewAccountRequest {
 
     @NotNull
-    String username;
+    private String username;
 
     @NotNull
-    String cpf;
+    private String cpf;
 
     @NotNull
-    String email;
+    private String email;
 
     @NotNull
-    String password;
+    private String password;
 
     @NotNull
-    Set<Role> roles;
+    private Set<RoleSetRequest> roles;
 
-    public PostNewAccountRequest(){}
-
-    public PostNewAccountRequest(String username, String cpf, String email, String password, Set<Role> roles) {
-        this.username = username;
-        this.cpf = cpf;
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
-    }
 }

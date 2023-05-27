@@ -4,6 +4,7 @@ package com.demobtc.springbootbtc.controller;
 
 import com.demobtc.springbootbtc.dto.request.account.UpdateAccountRequest;
 import com.demobtc.springbootbtc.dto.request.account.PostNewAccountRequest;
+import com.demobtc.springbootbtc.dto.response.MessageResponse;
 import com.demobtc.springbootbtc.model.Account;
 import com.demobtc.springbootbtc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +36,18 @@ public class AccountController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
 
 
     @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody PostNewAccountRequest account) {
+    public ResponseEntity<?> createAccount(@RequestBody PostNewAccountRequest request) {
         try {
-            Account createdAccount = accountService.createAccount(account);
+            Account createdAccount = accountService.createAccount(request);
             return ResponseEntity.ok(createdAccount);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
 
@@ -59,7 +60,7 @@ public class AccountController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
 
@@ -71,7 +72,7 @@ public class AccountController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
 

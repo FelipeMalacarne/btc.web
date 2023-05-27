@@ -203,36 +203,40 @@ export const ProductFormsPage = () => {
               'Descrição deve conter menos de 200 characteres' : ''
             }
           />
-          <FormControl>
-            <TextField
-              label="Preço do produto(R$)"
-              variant="outlined"
-              type='number'
-              value={productPrice}
-              onChange={(event) => setProductPrice(Number(event.target.value))}
-              required
-              InputProps={{
-                endAdornment: 'R$'
-              }}
-              error={productPrice > 100000 || productPrice < 0}
-              helperText={productPrice > 100000 || productPrice < 0 ?
-                'Preço deve ser maior que 0 e menor que 100.000' : ''
-              }
-            />
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id='category'>Category</InputLabel>
-            <Select
-              labelId='category'
-              id='category'
-              label='Category'
-              value={productCategoryName}
-              onChange={(e) => setProductCategoryName(e.target.value)}
-            >
-              <MenuItem value={"FOOD"}> Food </MenuItem>
-              <MenuItem value={"DRINK"}> Drink </MenuItem>
-            </Select>
-          </FormControl>
+          <Box display={'flex'} gap={5}>
+            <FormControl>
+              <TextField
+                sx={{width: '150px'}}
+                label="Preço do produto(R$)"
+                variant="outlined"
+                type='number'
+                value={productPrice}
+                onChange={(event) => setProductPrice(Number(event.target.value))}
+                required
+                InputProps={{
+                  endAdornment: 'R$'
+                }}
+                error={productPrice > 100000 || productPrice < 0}
+                helperText={productPrice > 100000 || productPrice < 0 ?
+                  'Preço deve ser maior que 0 e menor que 100.000' : ''
+                }
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <InputLabel id='category'>Category</InputLabel>
+              <Select
+                sx={{width: '150px'}}
+                labelId='category'
+                id='category'
+                label='Category'
+                value={productCategoryName}
+                onChange={(e) => setProductCategoryName(e.target.value)}
+              >
+                <MenuItem value={"FOOD"}> Food </MenuItem>
+                <MenuItem value={"DRINK"}> Drink </MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           <Typography variant='h6' color={theme.palette.secondary.main}>Ingredientes</Typography>
           <FormControl fullWidth>
             {productIngredientList.map((ingredientListItem, index) => (

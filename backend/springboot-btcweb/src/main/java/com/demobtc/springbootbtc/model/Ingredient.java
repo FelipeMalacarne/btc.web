@@ -1,5 +1,6 @@
 package com.demobtc.springbootbtc.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,9 +21,11 @@ public class Ingredient {
     @Column(name = "ing_id")
     private Long id;
 
+    @NotNull
     @Column(name = "ing_name")
     private String name;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "un_id")
     private Unit unitOfMeasure;

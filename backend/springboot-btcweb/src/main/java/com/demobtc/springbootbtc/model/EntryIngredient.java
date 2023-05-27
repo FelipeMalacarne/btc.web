@@ -21,11 +21,14 @@ public class EntryIngredient {
     @Column(name = "entry_id")
     private Long id;
 
+    @NotNull
     @Column(name = "entry_amount")
     private Double amount;
 
+    @NotNull
     @Column(name = "entry_date")
     private Timestamp entryDate;
+
 
     @Column(name = "entry_expiration_date")
     private Timestamp expirationDate;

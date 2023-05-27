@@ -125,10 +125,6 @@ const navItems = [
     icon: <AssignmentOutlined />
   },
   {
-    text: "Category Registration",
-    icon: <AssignmentOutlined />
-  },
-  {
     text: "Account Registration",
     icon: <AssignmentOutlined />
   },

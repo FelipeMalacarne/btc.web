@@ -21,9 +21,11 @@ public class LeaveIngredient {
     @Column(name = "leave_id")
     private Long id;
 
+    @NotNull
     @Column(name = "leave_amount")
     private Double amount;
 
+    @NotNull
     @Column(name = "leave_date")
     private Timestamp leaveDate;
 
