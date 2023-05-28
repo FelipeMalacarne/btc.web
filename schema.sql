@@ -73,7 +73,7 @@ create table entry_ingredient (
 	entry_id serial not null,
 	entry_amount decimal (10,2) not null,
 	entry_date timestamp not null,
-	entry_expiration_date timestamp not null,
+	entry_expiration_date timestamp,
 	ing_id integer not null,
 	acc_id integer not null,
 	constraint pk_entry_id primary key (entry_id)
@@ -130,10 +130,7 @@ INSERT INTO account(acc_name, acc_cpf, acc_email, acc_password) VALUES
 ('testemod', 12345678911, 'testemod@email.com','$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve'),
 ('testeuser', 12345678912, 'testeuser@email.com', '$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve');
 INSERT INTO account_job(acc_id, job_id) VALUES
-(1, 1),
-(1, 2),
 (1, 3),
-(2, 1),
 (2, 2),
 (3, 1);
 /**
@@ -249,31 +246,31 @@ INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 5,
 * Insert Stock 
 * 
 */
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (1, 1000, 1);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (2, 5000, 2);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (3, 5000, 3);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (4, 5000, 4);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (5, 5000, 5);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (6, 5000, 6);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (7, 5000, 7);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (8, 60, 8);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (9, 60, 9);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (10, 60, 10);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (11, 2000, 11);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (12, 4000, 12);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (13, 2000, 13);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (14, 2000, 14);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (15, 20, 15);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (16, 1000, 16);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (17, 1000, 17);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (18, 100, 18);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (19, 100, 19);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (20, 100, 20);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (21, 10000, 21);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (22, 10000, 22);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (23, 10000, 23);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (24, 1000, 24);
-INSERT INTO stock(stock_id, stock_amount, ing_id) VALUES (25, 3000, 25);
+INSERT INTO stock(stock_amount, ing_id) VALUES (1000, 1);
+INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 2);
+INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 3);
+INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 4);
+INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 5);
+INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 6);
+INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 7);
+INSERT INTO stock(stock_amount, ing_id) VALUES (60, 8);
+INSERT INTO stock(stock_amount, ing_id) VALUES (60, 9);
+INSERT INTO stock(stock_amount, ing_id) VALUES (60, 10);
+INSERT INTO stock(stock_amount, ing_id) VALUES (2000, 11);
+INSERT INTO stock(stock_amount, ing_id) VALUES (4000, 12);
+INSERT INTO stock(stock_amount, ing_id) VALUES (2000, 13);
+INSERT INTO stock(stock_amount, ing_id) VALUES (2000, 14);
+INSERT INTO stock(stock_amount, ing_id) VALUES (20, 15);
+INSERT INTO stock(stock_amount, ing_id) VALUES (1000, 16);
+INSERT INTO stock(stock_amount, ing_id) VALUES (1000, 17);
+INSERT INTO stock(stock_amount, ing_id) VALUES (100, 18);
+INSERT INTO stock(stock_amount, ing_id) VALUES (100, 19);
+INSERT INTO stock(stock_amount, ing_id) VALUES (100, 20);
+INSERT INTO stock(stock_amount, ing_id) VALUES (10000, 21);
+INSERT INTO stock(stock_amount, ing_id) VALUES (10000, 22);
+INSERT INTO stock(stock_amount, ing_id) VALUES (10000, 23);
+INSERT INTO stock(stock_amount, ing_id) VALUES (1000, 24);
+INSERT INTO stock(stock_amount, ing_id) VALUES (3000, 25);
 
 
 

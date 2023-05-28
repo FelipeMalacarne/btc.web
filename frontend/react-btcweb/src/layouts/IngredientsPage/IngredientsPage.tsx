@@ -8,65 +8,23 @@ import { DeleteOutlineOutlined, Edit, EditOutlined, VisibilityOutlined } from '@
 import { DeleteIngredientDialog } from './components/DeleteIngredientDialog';
 import { ViewIngredientDialog } from './components/ViewIngredientDialog';
 import { EditIngredientDialog } from './components/EditIngredientDialog';
+import { useIngredients } from '../../hooks/useIngredients';
+import { useIngredientRows } from './hooks/useIngredientRows';
+import { render } from 'react-dom';
 
 interface rowsModel {
   id: number,
   name: string,
   unitOfMeasure: string
 }
-
 export const IngredientsPage = () => {
   const theme = useTheme();
-  const [isLoading, setIsLoading] = useState<Boolean>(true);
-  const [httpError, setHttpError] = useState<string | null>(null);
-  const [ingredients, setIngredients] = useState<IngredientModel[]>([]);
-  const [rows, setRows] = useState<rowsModel[]>([]);
+  const { ingredients, setIngredients, isLoading, httpError } = useIngredients();
+  const { rows } = useIngredientRows(ingredients);
   const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [ingredientSelected, setIngredientSelected] = useState<IngredientModel | undefined>(undefined);
   const [idIngredientSelected, setIdIngredientSelected] = useState<number>(0);
-
-  useEffect(() => {
-    const fetchIngredients = async () => {
-      const envUrl = process.env.REACT_APP_API_URL;
-      const Url = envUrl + '/api/ingredients';
-      const token = authHeader().Authorization;
-
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-          Authorization: token,
-          'Content-Type': 'application/json'
-        }
-      }
-
-      const response = await fetch(Url, requestOptions);
-      const responseData = await response.json();
-      const loadedIngredients: IngredientModel[] = [];
-      for (const key in responseData) {
-        loadedIngredients.push({
-          id: responseData[key].id,
-          name: responseData[key].name,
-          unitOfMeasure: responseData[key].unitOfMeasure
-        })
-      }
-      const ingredientRows = loadedIngredients.map(ingredient => {
-        return {
-          id: ingredient.id,
-          name: ingredient.name,
-          unitOfMeasure: ingredient.unitOfMeasure.name,
-        }
-      })
-      setRows(ingredientRows);
-      setIngredients(loadedIngredients);
-      setIsLoading(false);
-    }
-    fetchIngredients().catch((error: any) => {
-      setIsLoading(false);
-      setHttpError(error.message);
-    })
-
-  }, [showDeleteDialog, showEditDialog]);
 
   const handleDeleteClick = (params: GridCellParams) => {
     const ingredientId = params.id as number;
@@ -74,14 +32,22 @@ export const IngredientsPage = () => {
     setShowDeleteDialog(true);
   };
 
+  const handleEditClick = (params: GridCellParams) => {
+    const ingredientId = params.id as number;
+    const ingredient = ingredients.find(ingredient => ingredient.id === ingredientId);
+    setIngredientSelected(ingredient);
+    setShowEditDialog(true);
+  }
+
   const columns = [
     { field: 'id', headerName: 'ID', minWidth: 80, flex: 1 },
     { field: 'name', headerName: 'Name', flex: 20 },
     { field: 'unitOfMeasure', headerName: 'Measure', minWidth: 100, flex: 2 },
     {
-      field: 'actions', headerName: 'Actions', minWidth: 150, flex: 3, renderCell: (params: GridCellParams) => (
+      field: 'actions', headerName: 'Actions', minWidth: 150, flex: 3, 
+      renderCell: (params: GridCellParams) => (
         <ButtonGroup>
-          <IconButton>
+          <IconButton onClick={() => handleEditClick(params)}>
             <EditOutlined sx={{ color: theme.palette.text.primary }} />
           </IconButton>
           <IconButton onClick={() => handleDeleteClick(params)}>
@@ -90,7 +56,6 @@ export const IngredientsPage = () => {
         </ButtonGroup>
       )
     }]
-
 
   if (isLoading) {
     return <CircularProgress />
@@ -105,13 +70,18 @@ export const IngredientsPage = () => {
           open={showDeleteDialog}
           setOpen={setShowDeleteDialog}
           ingredientId={idIngredientSelected}
+          ingredients={ingredients}
+          setIngredients={setIngredients}
         />
       )}      
       {showEditDialog && (
         <EditIngredientDialog
           open={showEditDialog}
           setOpen={setShowEditDialog}
-          ingredient={ingredientSelected}/>
+          ingredient={ingredientSelected}
+          ingredients={ingredients}
+          setIngredients={setIngredients}
+          />
       )}
 
       <Header title='Ingredientes' subtitle='Vizualização de ingredientes' />

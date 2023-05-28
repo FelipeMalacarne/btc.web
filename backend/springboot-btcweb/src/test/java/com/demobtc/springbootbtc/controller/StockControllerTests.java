@@ -22,7 +22,7 @@ import java.util.List;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-public class StockController {
+public class StockControllerTests {
 
     private MockMvc mockMvc;
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Builder
 @ToString(exclude = "product")
 @Table(name = "product_ingredient")

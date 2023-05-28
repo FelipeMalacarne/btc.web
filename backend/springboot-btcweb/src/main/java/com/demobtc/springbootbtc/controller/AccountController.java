@@ -36,6 +36,7 @@ public class AccountController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
@@ -47,6 +48,7 @@ public class AccountController {
             Account createdAccount = accountService.createAccount(request);
             return ResponseEntity.ok(createdAccount);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(new MessageResponse(e.getMessage()));
         }
     }
