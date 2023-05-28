@@ -7,6 +7,7 @@ import authHeader from '../../services/AuthHeader';
 import { DeleteOutlineOutlined, Edit, EditOutlined, VisibilityOutlined } from '@mui/icons-material';
 import { DeleteIngredientDialog } from './components/DeleteIngredientDialog';
 import { ViewIngredientDialog } from './components/ViewIngredientDialog';
+import { EditIngredientDialog } from './components/EditIngredientDialog';
 
 interface rowsModel {
   id: number,
@@ -56,12 +57,10 @@ export const IngredientsPage = () => {
           unitOfMeasure: ingredient.unitOfMeasure.name,
         }
       })
-
       setRows(ingredientRows);
       setIngredients(loadedIngredients);
       setIsLoading(false);
     }
-
     fetchIngredients().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
@@ -107,7 +106,14 @@ export const IngredientsPage = () => {
           setOpen={setShowDeleteDialog}
           ingredientId={idIngredientSelected}
         />
+      )}      
+      {showEditDialog && (
+        <EditIngredientDialog
+          open={showEditDialog}
+          setOpen={setShowEditDialog}
+          ingredient={ingredientSelected}/>
       )}
+
       <Header title='Ingredientes' subtitle='Vizualização de ingredientes' />
       <Box mt='40px' height='75vh'
         sx={{

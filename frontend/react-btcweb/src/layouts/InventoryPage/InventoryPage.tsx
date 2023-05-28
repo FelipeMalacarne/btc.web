@@ -7,39 +7,12 @@ import StockModel from "../../models/StockModel";
 import FlexBetween from "../utils/FlexBetween";
 import { Loading } from "../utils/Loading";
 import { DataGrid, GridToolbar, GridValueFormatterParams, GridValueGetterParams } from "@mui/x-data-grid";
+import { useStock } from "../../hooks/useStock";
 
 export const InventoryPage = () => {
   const theme = useTheme();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [httpError, setHttpError] = useState<string>('');
-  const [stock, setStock] = useState<StockModel[]>([]);
-
-  useEffect(() => {
-    const fetchStock = async () => {
-      const envUrl = process.env.REACT_APP_API_URL;
-      const Url = envUrl + '/api/stocks';
-      const token = authHeader().Authorization;
-
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-          Authorization: token,
-          'Content-Type': 'application/json'
-        }
-      }
-      const response = await fetch(Url, requestOptions);
-      const responseData = await response.json();
-      setStock(responseData);
-      setIsLoading(false);
-      setHttpError('');
-      console.log(responseData);
-    }
-    fetchStock().catch((error: any) => {
-      setIsLoading(false);
-      setHttpError(error.message);
-    });
-  }, [])
-
+  const { stock, isLoading, httpError } = useStock();
+  
   const columns = [
     { field: 'id', headerName: 'ID', minwidth: 80 },
     {
@@ -55,9 +28,6 @@ export const InventoryPage = () => {
       valueGetter: (params: GridValueGetterParams) => `${params.row.amount} ${params.row.ingredient.unitOfMeasure.symbol}`
     },
   ]
-
-
-
 
   if (httpError) return <p>{httpError}</p>
   if (isLoading) return <Loading />
