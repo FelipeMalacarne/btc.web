@@ -33,5 +33,5 @@ export const useStock = () => {
     });
   }, [])
   
-  return { stock, isLoading, httpError }
+  return { stock, setStock, isLoading, httpError }
 }

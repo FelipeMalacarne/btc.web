@@ -68,11 +68,11 @@ const navItems = [
     icon: <Inventory2Outlined />,
   },
   {
-    text: "Inflows",
+    text: "Deposit",
     icon: <SouthWestOutlined />,
   },
   {
-    text: "Outflows",
+    text: "Withdrawal",
     icon: <ArrowOutwardOutlined />,
   },
   

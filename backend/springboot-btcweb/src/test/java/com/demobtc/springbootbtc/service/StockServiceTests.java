@@ -1,8 +1,10 @@
 package com.demobtc.springbootbtc.service;
 
-import com.demobtc.springbootbtc.model.Ingredient;
-import com.demobtc.springbootbtc.model.Stock;
-import com.demobtc.springbootbtc.model.Unit;
+import com.demobtc.springbootbtc.dto.request.stock.EntryRequest;
+import com.demobtc.springbootbtc.model.*;
+import com.demobtc.springbootbtc.repository.AccountRepository;
+import com.demobtc.springbootbtc.repository.EntryIngredientRepository;
+import com.demobtc.springbootbtc.repository.IngredientRepository;
 import com.demobtc.springbootbtc.repository.StockRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -27,8 +33,23 @@ public class StockServiceTests {
     @Mock
     private StockRepository stockRepository;
 
+    @Mock
+    private IngredientRepository ingredientRepository;
+
+    @Mock
+    private AccountRepository accountRepository;
+
+    @Mock
+    private EntryIngredientRepository entryIngredientRepository;
+
+
     @InjectMocks
     private StockService stockService;
+
+    @Before
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
 
     @Test
@@ -57,7 +78,7 @@ public class StockServiceTests {
         List<Stock> mockStocks = Arrays.asList(stock1, stock2);
 
         // Configure mock repository
-        Mockito.when(stockRepository.findAll()).thenReturn(mockStocks);
+        when(stockRepository.findAll()).thenReturn(mockStocks);
 
         // Call the service method
         List<Stock> result = stockService.getAllStocks();
