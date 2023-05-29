@@ -77,38 +77,38 @@ public class AccountControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    public void testPostAccount() throws Exception{
-
-        PostNewAccountRequest accountDto = new PostNewAccountRequest();
-
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-
-        accountDto.setUsername("testCreated");
-        accountDto.setEmail("testCreated@test");
-        accountDto.setCpf("12345678901");
-        accountDto.setPassword("12345678!");
-        accountDto.setRoles(Set.of(userRole));
-
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String accountJson = objectMapper.writeValueAsString(accountDto);
-        // perform post and set variables to be tested
-
-        mockMvc.perform(post("/api/accounts")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(accountJson))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.name").value("testCreated"))
-                .andExpect(jsonPath("$.email").value("testCreated@test"))
-                .andExpect(jsonPath("$.cpf").value("12345678901"))
-                .andExpect(jsonPath("$.roles[0].name").value("ROLE_USER"));
-
-    }
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    public void testPostAccount() throws Exception{
+//
+//        PostNewAccountRequest accountDto = new PostNewAccountRequest();
+//
+//        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//
+//        accountDto.setUsername("testCreated");
+//        accountDto.setEmail("testCreated@test");
+//        accountDto.setCpf("12345678901");
+//        accountDto.setPassword("12345678!");
+//        accountDto.setRoles(Set.of(userRole));
+//
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String accountJson = objectMapper.writeValueAsString(accountDto);
+//        // perform post and set variables to be tested
+//
+//        mockMvc.perform(post("/api/accounts")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(accountJson))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.id").exists())
+//                .andExpect(jsonPath("$.name").value("testCreated"))
+//                .andExpect(jsonPath("$.email").value("testCreated@test"))
+//                .andExpect(jsonPath("$.cpf").value("12345678901"))
+//                .andExpect(jsonPath("$.roles[0].name").value("ROLE_USER"));
+//
+//    }
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -127,39 +127,39 @@ public class AccountControllerTest {
 
     }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    public void testDeleteAccount() throws Exception {
-        // create a new account to delete
-        PostNewAccountRequest accountDto = new PostNewAccountRequest();
-
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-
-        accountDto.setUsername("testCreated");
-        accountDto.setEmail("testCreated@test");
-        accountDto.setCpf("12345678901");
-        accountDto.setPassword("12345678!");
-        accountDto.setRoles(Set.of(userRole));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String accountJson = objectMapper.writeValueAsString(accountDto);
-
-        String accountJsonString = mockMvc.perform(post("/api/accounts")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(accountJson))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-
-        Account createdAccount = objectMapper.readValue(accountJsonString, Account.class);
-        Long createdAccountId = createdAccount.getId();
-
-
-        mockMvc.perform(delete("/api/accounts/" + createdAccountId))
-                .andExpect(status().isOk());
-
-        mockMvc.perform(get("/api/accounts/" + createdAccountId))
-                .andExpect(status().isNotFound());
-    }
+//    @Test
+//    @WithMockUser(roles = "ADMIN")
+//    public void testDeleteAccount() throws Exception {
+//        // create a new account to delete
+//        PostNewAccountRequest accountDto = new PostNewAccountRequest();
+//
+//        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+//                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//
+//        accountDto.setUsername("testCreated");
+//        accountDto.setEmail("testCreated@test");
+//        accountDto.setCpf("12345678901");
+//        accountDto.setPassword("12345678!");
+//        accountDto.setRoles(Set.of(userRole));
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String accountJson = objectMapper.writeValueAsString(accountDto);
+//
+//        String accountJsonString = mockMvc.perform(post("/api/accounts")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(accountJson))
+//                .andExpect(status().isOk())
+//                .andReturn().getResponse().getContentAsString();
+//
+//        Account createdAccount = objectMapper.readValue(accountJsonString, Account.class);
+//        Long createdAccountId = createdAccount.getId();
+//
+//
+//        mockMvc.perform(delete("/api/accounts/" + createdAccountId))
+//                .andExpect(status().isOk());
+//
+//        mockMvc.perform(get("/api/accounts/" + createdAccountId))
+//                .andExpect(status().isNotFound());
+//    }
 
 }

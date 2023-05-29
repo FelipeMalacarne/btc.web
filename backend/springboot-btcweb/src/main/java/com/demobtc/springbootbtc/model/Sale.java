@@ -27,9 +27,11 @@ public class Sale {
     @JoinColumn(name = "acc_id", nullable = false)
     private Account account;
 
+    @NotNull
     @Column(name = "sale_time")
     private Timestamp time;
 
+    @NotNull
     @Column(name = "sale_total")
     private Double total;
 

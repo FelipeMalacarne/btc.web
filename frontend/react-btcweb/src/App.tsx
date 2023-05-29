@@ -13,6 +13,18 @@ import { SalesPage } from './layouts/SalesPage/SalesPage';
 import { DashboardPage } from './layouts/DashboardPage/DashboardPage';
 import { IngredientFormsPage } from './layouts/FormPages/IngredientFormsPage';
 import { ProductFormsPage } from './layouts/FormPages/ProductFormsPage';
+import { AccountFormsPage } from './layouts/FormPages/AccountFormsPage';
+import { DepositPage } from './layouts/DepositPage/DepositPage';
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pt-br';
+import localizedFormat from 'dayjs/plugin/localizedFormat'; 
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { WithdrawPage } from './layouts/WithdrawPage/WithdrawPage';
+import { StockHistoryPage } from './layouts/StockHistoryPage/StockHistoryPage';
+
+dayjs.extend(localizedFormat); // Extend
+
 
 export const App = () => {
 
@@ -27,6 +39,10 @@ export const App = () => {
   }, [themeMode])
   return (
     <ThemeProvider theme={themeMode}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
+
+
+
       <CssBaseline />
 
       <Routes>
@@ -43,12 +59,17 @@ export const App = () => {
           <Route path='/secure/ingredients' element={<IngredientsPage />} />
           <Route path='/secure/ingredient-registration' element={<IngredientFormsPage />} />
           <Route path='/secure/sales' element={<SalesPage />} />
+          <Route path='/secure/account-registration' element={<AccountFormsPage/>} />
+          <Route path='/secure/deposit' element={<DepositPage/>}/>
+          <Route path='/secure/withdraw' element={<WithdrawPage/>}/>
+          <Route path='/secure/history' element={<StockHistoryPage/>}/>
+
         </Route>
 
 
 
       </Routes>
+      </LocalizationProvider>
     </ThemeProvider>
-
   );
 }

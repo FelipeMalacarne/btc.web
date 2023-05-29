@@ -32,7 +32,8 @@ import {
   ArrowOutwardOutlined,
   SportsBar as SportsBarIcon,
   AppRegistrationOutlined,
-  AssignmentOutlined
+  AssignmentOutlined,
+  HistoryOutlined
 } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -68,14 +69,17 @@ const navItems = [
     icon: <Inventory2Outlined />,
   },
   {
-    text: "Inflows",
+    text: "Deposit",
     icon: <SouthWestOutlined />,
   },
   {
-    text: "Outflows",
+    text: "Withdraw",
     icon: <ArrowOutwardOutlined />,
   },
-  
+  {
+    text: "History",
+    icon: <HistoryOutlined />,
+  },
   {
     text: "Sales",
     icon: null,
@@ -122,10 +126,6 @@ const navItems = [
   },
   {
     text: "Ingredient Registration",
-    icon: <AssignmentOutlined />
-  },
-  {
-    text: "Category Registration",
     icon: <AssignmentOutlined />
   },
   {
