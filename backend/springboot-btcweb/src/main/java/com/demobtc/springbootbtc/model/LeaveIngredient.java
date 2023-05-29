@@ -27,7 +27,7 @@ public class LeaveIngredient {
 
     @NotNull
     @Column(name = "leave_date")
-    private Timestamp leaveDate;
+    private Timestamp date;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)

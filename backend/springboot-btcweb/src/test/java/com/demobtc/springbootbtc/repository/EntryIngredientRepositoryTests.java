@@ -34,7 +34,7 @@ public class EntryIngredientRepositoryTests {
         entryIngredient = EntryIngredient.builder()
                 .ingredient(ingredientRepository.findById(1L).orElse(null))
                 .account(accountRepository.findById(1L).orElse(null))
-                .entryDate(new Timestamp(System.currentTimeMillis()))
+                .date(new Timestamp(System.currentTimeMillis()))
                 .expirationDate(new Timestamp(System.currentTimeMillis() + 2592000000L))
                 .amount(100.0)
                 .build();

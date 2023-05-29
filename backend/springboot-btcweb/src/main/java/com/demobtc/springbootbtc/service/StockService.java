@@ -2,13 +2,18 @@ package com.demobtc.springbootbtc.service;
 
 import com.demobtc.springbootbtc.dto.request.stock.EntryRequest;
 import com.demobtc.springbootbtc.dto.request.stock.LeaveRequest;
+import com.demobtc.springbootbtc.dto.response.StockMovement;
 import com.demobtc.springbootbtc.model.*;
 import com.demobtc.springbootbtc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class StockService {
@@ -63,7 +68,7 @@ public class StockService {
 
         EntryIngredient entryToCreate = EntryIngredient.builder()
                 .amount(entryRequest.getAmount())
-                .entryDate(entryRequest.getEntryDate())
+                .date(entryRequest.getEntryDate())
                 .expirationDate(entryRequest.getExpirationDate())
                 .ingredient(foundIngredient)
                 .account(foundAccount)
@@ -89,7 +94,7 @@ public class StockService {
 
         LeaveIngredient leaveToCreate = LeaveIngredient.builder()
                 .amount(request.getAmount())
-                .leaveDate(request.getLeaveDate())
+                .date(request.getLeaveDate())
                 .ingredient(foundIngredient)
                 .account(foundAccount)
                 .build();
@@ -97,5 +102,45 @@ public class StockService {
         return leaveIngredientRepository.save(leaveToCreate);
     }
 
+    public List<EntryIngredient> getAllEntries() {
+        return entryIngredientRepository.findAll();
+    }
 
+    public List<LeaveIngredient> getAllLeaves() {
+        return leaveIngredientRepository.findAll();
+    }
+
+    public List<StockMovement> getStockMovement(){
+        List<StockMovement> stockMovement = new ArrayList<>();
+        List<EntryIngredient> entryList = getAllEntries();
+        List<LeaveIngredient> leaveList = getAllLeaves();
+
+        AtomicLong idGenerator = new AtomicLong(1);
+
+        for (EntryIngredient entry : entryList) {
+            StockMovement stock = StockMovement.builder()
+                    .id(idGenerator.getAndIncrement())
+                    .accountName(entry.getAccount().getName())
+                    .ingredient(entry.getIngredient())
+                    .amount(entry.getAmount())
+                    .date(entry.getDate())
+                    .type("Deposit")
+                    .build();
+            stockMovement.add(stock);
+        }
+        for (LeaveIngredient leave : leaveList) {
+            StockMovement stock = StockMovement.builder()
+                    .id(idGenerator.getAndIncrement())
+                    .accountName(leave.getAccount().getName())
+                    .ingredient(leave.getIngredient())
+                    .amount(leave.getAmount())
+                    .date(leave.getDate())
+                    .type("Withdraw")
+                    .build();
+            stockMovement.add(stock);
+        }
+        stockMovement.sort(Comparator.comparing(StockMovement::getDate));
+
+        return stockMovement;
+    }
 }

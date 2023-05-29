@@ -34,7 +34,7 @@ public class LeaveIngredientRepositoryTest {
         leaveIngredient = LeaveIngredient.builder()
                 .ingredient(ingredientRepository.findById(1L).orElse(null))
                 .account(accountRepository.findById(1L).orElse(null))
-                .leaveDate(new Timestamp(System.currentTimeMillis()))
+                .date(new Timestamp(System.currentTimeMillis()))
                 .amount(100.0)
                 .build();
     }

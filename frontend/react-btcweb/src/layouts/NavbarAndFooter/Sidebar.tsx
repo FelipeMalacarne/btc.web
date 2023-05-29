@@ -32,7 +32,8 @@ import {
   ArrowOutwardOutlined,
   SportsBar as SportsBarIcon,
   AppRegistrationOutlined,
-  AssignmentOutlined
+  AssignmentOutlined,
+  HistoryOutlined
 } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -75,7 +76,10 @@ const navItems = [
     text: "Withdraw",
     icon: <ArrowOutwardOutlined />,
   },
-  
+  {
+    text: "History",
+    icon: <HistoryOutlined />,
+  },
   {
     text: "Sales",
     icon: null,

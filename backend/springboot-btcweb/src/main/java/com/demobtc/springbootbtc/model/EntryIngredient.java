@@ -27,7 +27,7 @@ public class EntryIngredient {
 
     @NotNull
     @Column(name = "entry_date")
-    private Timestamp entryDate;
+    private Timestamp date;
 
 
     @Column(name = "entry_expiration_date")
