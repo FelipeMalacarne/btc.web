@@ -1,8 +1,6 @@
 package com.demobtc.springbootbtc.controller;
 
-import com.demobtc.springbootbtc.dto.response.ingredient.IngredientDeletedOkResponse;
-import com.demobtc.springbootbtc.dto.response.ingredient.IngredientErrorResponse;
-import com.demobtc.springbootbtc.dto.response.product.ProductErrorResponse;
+import com.demobtc.springbootbtc.dto.request.ingredient.PostNewIngredientRequest;
 import com.demobtc.springbootbtc.model.Ingredient;
 import com.demobtc.springbootbtc.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +41,19 @@ public class IngredientController {
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
-            IngredientErrorResponse ingredientErrorResponse = new IngredientErrorResponse(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ingredientErrorResponse);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PostMapping
-    public ResponseEntity<Ingredient> createIngredient(@RequestBody Ingredient ingredient){
+    public ResponseEntity<Ingredient> createIngredient(@RequestBody PostNewIngredientRequest request){
         try {
-            Ingredient createdIngredient = ingredientService.createIngredient(ingredient);
+            System.out.println(request);
+            Ingredient createdIngredient = ingredientService.createIngredient(request);
             return ResponseEntity.ok(createdIngredient);
         } catch (Exception e){
-            IngredientErrorResponse ingredientErrorResponse = new IngredientErrorResponse(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ingredientErrorResponse);
+            System.out.println(e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -70,8 +68,7 @@ public class IngredientController {
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
-            IngredientErrorResponse ingredientErrorResponse = new IngredientErrorResponse(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ingredientErrorResponse);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -79,15 +76,11 @@ public class IngredientController {
     public ResponseEntity<Ingredient> deleteIngredient(@PathVariable(value = "id") Long id){
         try {
             ingredientService.deleteIngredient(id);
-            IngredientDeletedOkResponse ingredientDeletedOkResponse = new IngredientDeletedOkResponse(
-                    "Ingredient deleted successfully");
-            return ResponseEntity.ok(ingredientDeletedOkResponse);
+            return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
-            IngredientErrorResponse ingredientErrorResponse = new IngredientErrorResponse(e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ingredientErrorResponse);
-
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

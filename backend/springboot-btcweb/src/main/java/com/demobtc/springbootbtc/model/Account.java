@@ -1,7 +1,10 @@
 package com.demobtc.springbootbtc.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -9,16 +12,11 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
+@Builder
 @Table(name = "account")
 public class Account {
-
-    public Account(){}
-    public Account(String name, String cpf, String email, String password) {
-        this.name = name;
-        this.cpf = cpf;
-        this.email = email;
-        this.password = password;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

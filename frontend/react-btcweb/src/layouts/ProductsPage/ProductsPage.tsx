@@ -2,8 +2,8 @@ import { useEffect, useState, useContext } from 'react'
 import { useAuth } from '../../hooks/useAuth';
 import ProductModel from '../../models/ProductModel';
 import authHeader from '../../services/AuthHeader';
-import { Box, Button, ButtonGroup, CircularProgress, IconButton, TextField, Typography, useTheme } from '@mui/material';
-import { DataGrid, GridCellParams, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { Box, Button, ButtonGroup, CircularProgress, Grid, IconButton, TextField, Typography, useTheme } from '@mui/material';
+import { DataGrid, GridCellParams, GridColDef, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid';
 import {
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
   Edit,
@@ -12,10 +12,9 @@ import {
 } from '@mui/icons-material';
 import { Header } from '../utils/Header';
 import { DeleteProductDialog } from './components/DeleteProductDialog';
-import { ViewProductDialog } from './components/ViewDialog';
+import { ViewProductDialog } from './components/ViewProductDialog';
 import { EditProductDialog } from './components/EditProductDialog';
-
-
+import AuthService from '../../services/AuthService';
 
 export const ProductsPage = () => {
   const theme = useTheme();
@@ -23,9 +22,9 @@ export const ProductsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string | null>(null);
   const [products, setProducts] = useState<ProductModel[]>([])
-  const [showDeleteDialog, setShowDeleteModal] = useState<boolean>(false);
-  const [showViewDialog, setShowViewModal] = useState<boolean>(false);
-  const [showEditDialog, setShowEditModal] = useState<boolean>(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false);
+  const [showViewDialog, setShowViewDialog] = useState<boolean>(false);
+  const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [idProductSelected, setIdProductSelected] = useState<number>(0);
   const [productSelected, setProductSelected] = useState<ProductModel | undefined>(undefined);
 
@@ -48,10 +47,8 @@ export const ProductsPage = () => {
           'Content-Type': 'application/json'
         }
       }
-
       const response = await fetch(Url, requestOptions);
       const responseData = await response.json();
-
       const loadedProducts: ProductModel[] = [];
       for (const key in responseData) {
         loadedProducts.push({
@@ -64,12 +61,9 @@ export const ProductsPage = () => {
           ingredientList: responseData[key].ingredientList
         })
       }
-
       setProducts(loadedProducts);
       setIsLoading(false);
     }
-
-
     fetchProducts().catch((error: any) => {
       setIsLoading(false);
       setHttpError(error.message);
@@ -80,26 +74,25 @@ export const ProductsPage = () => {
   const handleDeleteClick = (params: GridCellParams) => {
     const productId = params.id as number;
     setIdProductSelected(productId);
-    setShowDeleteModal(true);
+    setShowDeleteDialog(true);
   };
   const handleViewClick = (params: GridCellParams) => {
     const productId = params.id as number;
     const product = products.find(product => product.id === productId);
     setProductSelected(product);
-    setShowViewModal(true);
+    setShowViewDialog(true);
   }
   const handleEditClick = (params: GridCellParams) => {
     const productId = params.id as number;
     const product = products.find(product => product.id === productId);
     setProductSelected(product);
-    setShowEditModal(true);
+    setShowEditDialog(true);
   }
 
 
   if (httpError) {
     return <h1>{httpError}</h1>
   }
-
   if (isLoading && authState.isLoading) {
     return <CircularProgress />
   }
@@ -108,28 +101,31 @@ export const ProductsPage = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 40
+      minWidth: 80,
+      flex: 1
     },
     {
       field: "name",
       headerName: "Name",
-      flex: 8
+      flex: 20
     },
     {
       field: "price",
       headerName: "Price",
       valueFormatter: ({ value }: any) => currencyFormatter.format(Number(value)),
-      width: 80
+      minWidth: 100,
+      flex: 2
     },
     {
       field: 'actions',
       headerName: 'Actions',
       sortable: false,
       disableColumnMenu: true,
-      width: 150,
+      minWidth: 150,
+      flex: 3,
       renderCell: (params: GridCellParams) => {
         return (
-          <>
+          <ButtonGroup>
             <IconButton onClick={() => handleViewClick(params)}>
               <VisibilityOutlinedIcon sx={{
                 color: theme.palette.text.primary
@@ -146,7 +142,7 @@ export const ProductsPage = () => {
                 color: theme.palette.error.main,
               }} />
             </IconButton>
-          </>
+          </ButtonGroup>
         );
       },
     },
@@ -158,23 +154,22 @@ export const ProductsPage = () => {
       {showDeleteDialog && (
         <DeleteProductDialog
           open={showDeleteDialog}
-          setOpen={setShowDeleteModal}
+          setOpen={setShowDeleteDialog}
           productId={idProductSelected}
         />
       )}
       {showViewDialog && (
         <ViewProductDialog
           open={showViewDialog}
-          setOpen={setShowViewModal}
+          setOpen={setShowViewDialog}
           product={productSelected}/>
       )}
       {showEditDialog && (
         <EditProductDialog
           open={showEditDialog}
-          setOpen={setShowEditModal}
+          setOpen={setShowEditDialog}
           product={productSelected}/>
       )}
-
       <Header title='Produtos' subtitle='Vizualização de produtos' />
       {/* <Button variant='outlined' sx={{
         color: theme.palette.text.primary,
@@ -184,6 +179,7 @@ export const ProductsPage = () => {
       </Button> */}
       <Box mt='40px' height='75vh'
         sx={{
+          width: '99%',
           '& .MuiDataGrid-root': {
             border: 'none',
             '& .MuiDataGrid-cell': {
@@ -203,17 +199,26 @@ export const ProductsPage = () => {
               color: theme.palette.text.primary,
               border: 'none',
             },
-
+            '&. MuiDataGrid-toolbar': {
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              border: 'none',
+            },
           }
-
         }}
       >
         <DataGrid
           rows={products || []}
           columns={columns}
           getRowId={(row) => row.id}
+          slots={{
+            toolbar: GridToolbar
+          }}
+          loading={isLoading}
+          autoHeight
+          disableColumnMenu
+          disableColumnSelector
         />
-
       </Box>
     </Box>
   )

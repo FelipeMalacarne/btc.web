@@ -1,14 +1,8 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
 import authHeader from '../../../services/AuthHeader';
 import WarningIcon from '@mui/icons-material/Warning';
-import { Box, Divider, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Typography, useTheme, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 
 interface DeleteModalProps {

@@ -2,13 +2,13 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from 'react'
 import ProductModel from '../../../models/ProductModel'
 
-interface ViewModalProps {
+interface ViewDialogProps {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   product: ProductModel | undefined
 }
 
-export const ViewProductDialog: React.FC<ViewModalProps> = (props) => {
+export const ViewProductDialog: React.FC<ViewDialogProps> = (props) => {
   const theme = useTheme();
 
   const handleClose = () => props.setOpen(false);

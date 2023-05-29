@@ -1,12 +1,18 @@
 package com.demobtc.springbootbtc.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor(force = true)
+@Builder
 @Table(name = "unit")
 public class Unit {
 
@@ -22,12 +28,5 @@ public class Unit {
     @NotNull
     @Column(name = "un_symbol")
     private String symbol;
-
-    public Unit() {}
-
-    public Unit(String name, String symbol) {
-        this.name = name;
-        this.symbol = symbol;
-    }
 
 }

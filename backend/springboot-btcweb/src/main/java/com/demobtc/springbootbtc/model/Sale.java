@@ -1,25 +1,30 @@
 package com.demobtc.springbootbtc.model;
 
 import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "sale")
 @Data
+@NoArgsConstructor(force = true)
+@AllArgsConstructor
+@Builder
+@Table(name = "sale")
 public class Sale {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sale_id")
     private Long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "acc_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "acc_id", nullable = false)
     private Account account;
 
     @Column(name = "sale_time")
@@ -28,9 +33,16 @@ public class Sale {
     @Column(name = "sale_total")
     private Double total;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable (name = "sale_product", joinColumns = @JoinColumn(name="sale_id"),
-            inverseJoinColumns = @JoinColumn(name = "prod_id"))
-    private Set<Product> saleProdutoSet;
+    @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SaleProduct> saleProducts = new HashSet<>();
+
+    public void addSaleProduct(SaleProduct saleProduct) {
+        saleProducts.add(saleProduct);
+        saleProduct.setSale(this);
+    }
+    public void removeSaleProduct(SaleProduct saleProduct) {
+        saleProduct.setSale(null);
+        saleProducts.remove(saleProduct);
+    }
 
 }
