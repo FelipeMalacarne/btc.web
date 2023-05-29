@@ -20,6 +20,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/pt-br';
 import localizedFormat from 'dayjs/plugin/localizedFormat'; 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { WithdrawPage } from './layouts/WithdrawPage/WithdrawPage';
 
 dayjs.extend(localizedFormat); // Extend
 
@@ -59,6 +60,7 @@ export const App = () => {
           <Route path='/secure/sales' element={<SalesPage />} />
           <Route path='/secure/account-registration' element={<AccountFormsPage/>} />
           <Route path='/secure/deposit' element={<DepositPage/>}/>
+          <Route path='/secure/withdraw' element={<WithdrawPage/>}/>
 
         </Route>
 

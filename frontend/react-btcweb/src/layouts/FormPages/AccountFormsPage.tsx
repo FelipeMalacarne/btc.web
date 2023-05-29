@@ -114,8 +114,9 @@ export const AccountFormsPage = () => {
         gap={2}
       >
         <Box display={'flex'} flexDirection={'column'} flexGrow={1} gap={2}>
-          <FormControl>
+          <FormControl >
             <TextField
+              sx={{ width: '300px', maxWidth: '100%' }}
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               label={'Nome'}
@@ -128,10 +129,12 @@ export const AccountFormsPage = () => {
 
           <FormControl>
             <TextField
+              sx={{ width: '300px', maxWidth: '100%' }}
               value={cpf}
               onChange={(event) => setCpf(event.target.value)}
               label={'CPF'}
               variant={'outlined'}
+              type='number'
               required
               error={isHelperTextVisible.cpf}
               helperText={isHelperTextVisible.cpf ? 'CPF deve ter 11 caracteres' : ''}
@@ -140,6 +143,7 @@ export const AccountFormsPage = () => {
 
           <FormControl>
             <TextField
+              sx={{ width: '300px', maxWidth: '100%' }}
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               label={'Email'}
@@ -153,6 +157,7 @@ export const AccountFormsPage = () => {
 
           <FormControl>
             <TextField
+              sx={{ width: '300px', maxWidth: '100%' }}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               label={'Senha'}
@@ -168,7 +173,7 @@ export const AccountFormsPage = () => {
           <FormControl>
             <InputLabel id='role-label'>Role</InputLabel>
             <Select
-              sx={{ width: '150px' }}
+              sx={{ width: '150px', maxWidth: '100%' }}
               labelId='role-label'
               id='roleName'
               label='Role'

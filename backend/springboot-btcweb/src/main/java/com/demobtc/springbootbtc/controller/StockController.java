@@ -1,6 +1,7 @@
 package com.demobtc.springbootbtc.controller;
 
 import com.demobtc.springbootbtc.dto.request.stock.EntryRequest;
+import com.demobtc.springbootbtc.dto.request.stock.LeaveRequest;
 import com.demobtc.springbootbtc.dto.response.MessageResponse;
 import com.demobtc.springbootbtc.model.EntryIngredient;
 import com.demobtc.springbootbtc.model.Stock;
@@ -37,6 +38,20 @@ public class StockController {
         try {
             EntryIngredient entryCreated = stockService.registerEntry(request);
             return ResponseEntity.ok(entryCreated);
+        } catch (ResourceNotFoundException e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(new MessageResponse(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<Object> leaveStock(@RequestBody LeaveRequest request){
+        try {
+            stockService.registerLeave(request);
+            return ResponseEntity.ok().build();
         } catch (ResourceNotFoundException e) {
             System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();

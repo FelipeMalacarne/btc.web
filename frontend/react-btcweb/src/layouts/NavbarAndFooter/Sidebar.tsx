@@ -72,7 +72,7 @@ const navItems = [
     icon: <SouthWestOutlined />,
   },
   {
-    text: "Withdrawal",
+    text: "Withdraw",
     icon: <ArrowOutwardOutlined />,
   },
   

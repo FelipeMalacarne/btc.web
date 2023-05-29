@@ -18,7 +18,7 @@ export const ProductFormsPage = () => {
   const [httpError, setHttpError] = useState<string | null>(null);
   const [productName, setProductName] = useState<string>('');
   const [productDescription, setProductDescription] = useState<string>('');
-  const [productPrice, setProductPrice] = useState<number>(0);
+  const [productPrice, setProductPrice] = useState<string>('');
   const [productActive, setProductActive] = useState<boolean>(true);
   const [productIngredientList, setProductIngredientList] = useState<IngredientListModel[]>([]);
   const [productCategoryName, setProductCategoryName] = useState<string>('');
@@ -65,9 +65,10 @@ export const ProductFormsPage = () => {
   }, [])
 
   const validateForm = () => {
+    const price = parseFloat(productPrice);
     const isNameValid = productName.length < 50 && productName.length > 0;
     const isDescriptionValid = productDescription.length < 200 && productDescription.length > 0;
-    const isPriceValid = productPrice > 0 && productPrice < 100000;
+    const isPriceValid = price > 0 && price < 100000;
     const isCategoryValid = productCategoryName.length > 0;
     const isProductIngredientListValid = productIngredientList.every(ingredient => ingredient.amount > 0 && ingredient.amount <= 100000);
 
@@ -92,7 +93,7 @@ export const ProductFormsPage = () => {
     const productToCreate = new ProductRequest(
       productName,
       productDescription,
-      productPrice,
+      parseFloat(productPrice),
       productActive,
       categoriesSetRequest,
       ingredientListRequest
@@ -113,7 +114,7 @@ export const ProductFormsPage = () => {
       setShowErrorAlert(false);
       setProductName('');
       setProductDescription('');
-      setProductPrice(0);
+      setProductPrice('');
       setProductActive(true);
       setProductIngredientList([]);
       setProductCategoryName('');
@@ -203,21 +204,21 @@ export const ProductFormsPage = () => {
               'Descrição deve conter menos de 200 characteres' : ''
             }
           />
-          <Box display={'flex'} gap={5}>
+          <Box display={'flex'} gap={2} sx={{ width: '300px' }}>
             <FormControl>
               <TextField
-                sx={{width: '150px'}}
-                label="Preço do produto(R$)"
+                fullWidth
+                label="Preço"
                 variant="outlined"
                 type='number'
                 value={productPrice}
-                onChange={(event) => setProductPrice(Number(event.target.value))}
+                onChange={(event) => setProductPrice(event.target.value)}
                 required
                 InputProps={{
                   endAdornment: 'R$'
                 }}
-                error={productPrice > 100000 || productPrice < 0}
-                helperText={productPrice > 100000 || productPrice < 0 ?
+                error={parseFloat(productPrice) > 100000 || parseFloat(productPrice) < 0}
+                helperText={parseFloat(productPrice) > 100000 || parseFloat(productPrice) < 0 ?
                   'Preço deve ser maior que 0 e menor que 100.000' : ''
                 }
               />
@@ -225,7 +226,6 @@ export const ProductFormsPage = () => {
             <FormControl fullWidth>
               <InputLabel id='category'>Category</InputLabel>
               <Select
-                sx={{width: '150px'}}
                 labelId='category'
                 id='category'
                 label='Category'

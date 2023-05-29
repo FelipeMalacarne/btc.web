@@ -71,6 +71,11 @@ export const InventoryPage = () => {
           slots={{
             toolbar: GridToolbar
           }}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'id', sort: 'asc' }],
+            },
+          }}
           loading={isLoading}
           autoHeight
           disableColumnMenu

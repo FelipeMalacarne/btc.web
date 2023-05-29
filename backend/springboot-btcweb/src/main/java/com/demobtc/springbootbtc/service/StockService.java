@@ -1,10 +1,8 @@
 package com.demobtc.springbootbtc.service;
 
 import com.demobtc.springbootbtc.dto.request.stock.EntryRequest;
-import com.demobtc.springbootbtc.model.Account;
-import com.demobtc.springbootbtc.model.EntryIngredient;
-import com.demobtc.springbootbtc.model.Ingredient;
-import com.demobtc.springbootbtc.model.Stock;
+import com.demobtc.springbootbtc.dto.request.stock.LeaveRequest;
+import com.demobtc.springbootbtc.model.*;
 import com.demobtc.springbootbtc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -73,4 +71,31 @@ public class StockService {
 
         return entryIngredientRepository.save(entryToCreate);
     }
+
+    public LeaveIngredient registerLeave(LeaveRequest request){
+        Ingredient foundIngredient = ingredientRepository.findById(request.getIngredientId())
+                .orElseThrow(() -> new ResourceNotFoundException("Ingredient not found"));
+        Account foundAccount = accountRepository.findById(request.getAccountId())
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found"));
+
+        // update stock if exists
+        Stock foundStock = stockRepository.findByIngredientId(foundIngredient.getId());
+        if (foundStock != null) {
+            foundStock.setAmount(foundStock.getAmount() - request.getAmount());
+            stockRepository.save(foundStock);
+        } else {
+            throw new ResourceNotFoundException("Stock not found");
+        }
+
+        LeaveIngredient leaveToCreate = LeaveIngredient.builder()
+                .amount(request.getAmount())
+                .leaveDate(request.getLeaveDate())
+                .ingredient(foundIngredient)
+                .account(foundAccount)
+                .build();
+
+        return leaveIngredientRepository.save(leaveToCreate);
+    }
+
+
 }
