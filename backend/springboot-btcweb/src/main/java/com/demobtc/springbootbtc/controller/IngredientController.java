@@ -29,6 +29,7 @@ public class IngredientController {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
             List<Ingredient> emptyList = new ArrayList<>();
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(emptyList);
         }
     }
@@ -41,6 +42,7 @@ public class IngredientController {
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -59,15 +61,16 @@ public class IngredientController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Ingredient> updateIngredient(
-            @RequestBody Ingredient ingredient,
+            @RequestBody PostNewIngredientRequest request,
             @PathVariable(value = "id") Long id
     ){
         try {
-            Ingredient updatedIngredient = ingredientService.updateIngredient(ingredient, id);
+            Ingredient updatedIngredient = ingredientService.updateIngredient(request, id);
             return ResponseEntity.ok(updatedIngredient);
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -80,6 +83,7 @@ public class IngredientController {
         } catch (ResourceNotFoundException e){
             return ResponseEntity.notFound().build();
         } catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

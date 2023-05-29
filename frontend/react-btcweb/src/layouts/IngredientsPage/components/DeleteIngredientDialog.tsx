@@ -2,11 +2,14 @@ import { Box, Divider, Typography, useTheme, Button, Dialog, DialogActions, Dial
 import authHeader from '../../../services/AuthHeader';
 import { Warning } from '@mui/icons-material';
 import React from 'react'
+import IngredientModel from '../../../models/IngredientModel';
 
 interface DeleteIngredientDialogProps {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   ingredientId: number
+  ingredients: IngredientModel[]
+  setIngredients: React.Dispatch<React.SetStateAction<IngredientModel[]>>
 }
 
 export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (props) => {
@@ -31,7 +34,10 @@ export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (pr
         }
       }
       const response = await fetch(url, requestOptions);
-      const responseData = await response.json();
+      if(response.ok){
+        const newIngredients = props.ingredients.filter(ingredient => ingredient.id !== props.ingredientId);
+        props.setIngredients(newIngredients);
+      }
     }
     fetchDeleteIngredient().catch((error: any) => {
       console.log(error);

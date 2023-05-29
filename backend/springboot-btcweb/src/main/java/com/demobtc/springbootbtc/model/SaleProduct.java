@@ -1,6 +1,7 @@
 package com.demobtc.springbootbtc.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Builder
 @ToString(exclude = "product")
 @Table(name = "sale_product")
@@ -18,13 +19,16 @@ public class SaleProduct {
     @Column(name = "sale_prod_id")
     private Long id;
 
+    @NotNull
     @Column(name = "sale_prod_amount")
     private Integer amount;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "prod_id")
     @JsonBackReference

@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor(force = true)
 @Builder
 @Table(name = "stock")
 public class Stock {
@@ -20,11 +21,12 @@ public class Stock {
     @Column(name = "stock_id")
     private Long id;
 
+    @NotNull
     @Column(name = "stock_amount")
     private Double amount;
 
     @NotNull
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ing_id", referencedColumnName = "ing_id")
     private Ingredient ingredient;
 

@@ -40,14 +40,16 @@ public class IngredientService {
         return ingredientRepository.save(ingredientToCreate);
     }
 
-    public Ingredient updateIngredient(Ingredient ingredient, Long id) {
+    public Ingredient updateIngredient(PostNewIngredientRequest request, Long id) {
         Ingredient ingredientToUpdate = getIngredientById(id);
 
-        if(ingredient.getName() != null){
-            ingredientToUpdate.setName(ingredient.getName());
+        if(request.getName() != null){
+            ingredientToUpdate.setName(request.getName());
         }
-        if(ingredient.getUnitOfMeasure() != null) {
-            ingredientToUpdate.setUnitOfMeasure(ingredient.getUnitOfMeasure());
+        if(request.getUnitOfMeasureId() != null) {
+           ingredientToUpdate.setUnitOfMeasure(unitRepository.findById(request.getUnitOfMeasureId()).orElseThrow(
+                           () -> new ResourceNotFoundException("Unit not found with id: " + request.getUnitOfMeasureId())
+                   ));
         }
 
         return ingredientRepository.save(ingredientToUpdate);
