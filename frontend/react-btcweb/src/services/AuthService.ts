@@ -7,7 +7,10 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 class AuthService {
   async login(signinRequest: SigninRequestModel) {
+    console.log(API_URL)
     const url = `${API_URL}/api/auth/signin`;
+
+
 
     const requestOptions = {
       method: "POST",
