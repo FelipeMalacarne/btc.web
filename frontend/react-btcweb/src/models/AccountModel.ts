@@ -1,4 +1,5 @@
 import ERoles from "./ERoles";
+import RoleModel from "./RoleModel";
 
 class AccountModel {
   id: number;
@@ -6,9 +7,9 @@ class AccountModel {
   cpf: string;
   email: string;  
   password: string;
-  roles: ERoles[];
+  roles: RoleModel[];
 
-  constructor(id: number, name: string, cpf: string, email: string, password: string, roles: ERoles[]) {
+  constructor(id: number, name: string, cpf: string, email: string, password: string, roles: RoleModel[]) {
     this.id = id;
     this.name = name;
     this.cpf = cpf;

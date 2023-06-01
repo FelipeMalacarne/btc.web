@@ -15,9 +15,12 @@ import { DeleteProductDialog } from './components/DeleteProductDialog';
 import { ViewProductDialog } from './components/ViewProductDialog';
 import { EditProductDialog } from './components/EditProductDialog';
 import AuthService from '../../services/AuthService';
+import { useNavigate } from 'react-router-dom';
+import FlexBetween from '../utils/FlexBetween';
 
 export const ProductsPage = () => {
   const theme = useTheme();
+  const nav = useNavigate();
   const { authState } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string | null>(null);
@@ -162,21 +165,27 @@ export const ProductsPage = () => {
         <ViewProductDialog
           open={showViewDialog}
           setOpen={setShowViewDialog}
-          product={productSelected}/>
+          product={productSelected} />
       )}
       {showEditDialog && (
         <EditProductDialog
           open={showEditDialog}
           setOpen={setShowEditDialog}
-          product={productSelected}/>
+          product={productSelected} />
       )}
-      <Header title='Produtos' subtitle='Vizualização de produtos' />
-      {/* <Button variant='outlined' sx={{
-        color: theme.palette.text.primary,
-        borderColor: theme.palette.text.primary,
-      }}>
+      <FlexBetween>
+        <Header title='Produtos' subtitle='Vizualização de produtos' />
+        <Button variant='outlined'
+          onClick={() => nav('/secure/product-registration')}
+          sx={{
+            color: theme.palette.text.primary,
+            borderColor: theme.palette.text.primary,
+          }}
+        >
           Criar Novo Produto
-      </Button> */}
+        </Button>
+      </FlexBetween>
+
       <Box mt='40px' height='75vh'
         sx={{
           width: '99%',

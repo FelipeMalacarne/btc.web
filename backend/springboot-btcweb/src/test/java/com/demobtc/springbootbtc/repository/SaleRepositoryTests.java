@@ -1,7 +1,6 @@
 package com.demobtc.springbootbtc.repository;
 
 import com.demobtc.springbootbtc.model.Sale;
-import com.demobtc.springbootbtc.model.SaleProduct;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -41,7 +39,7 @@ public class SaleRepositoryTests {
                 .account(accountRepository.findById(1L).orElse(null))
                 .time(new Timestamp(System.currentTimeMillis()))
                 .total(150.0)
-                .saleProducts(new HashSet<>())
+                .productList(new HashSet<>())
                 .build();
     }
 

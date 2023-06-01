@@ -99,10 +99,10 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
-      fullWidth
+      
     >
       <DialogTitle fontSize={'24px'} fontWeight={'bold'}>
-        Edit Product
+        Editar ingrediente
       </DialogTitle>
       <DialogContent dividers>
         <Box sx={{

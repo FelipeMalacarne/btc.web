@@ -60,7 +60,7 @@ public class SaleService {
 
         saleToCreate.setAccount(accountService.getAccountById(request.getAccId()));
         saleToCreate.setTotal(total);
-        saleToCreate.setSaleProducts(saleProductSet);
+        saleToCreate.setProductList(saleProductSet);
         saleToCreate.setTime(new Timestamp(System.currentTimeMillis()));
         return saleRepository.save(saleToCreate);
 

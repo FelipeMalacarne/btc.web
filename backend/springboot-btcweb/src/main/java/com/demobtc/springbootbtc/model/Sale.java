@@ -7,9 +7,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -38,15 +36,15 @@ public class Sale {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SaleProduct> saleProducts = new ArrayList<>();
+    private List<SaleProduct> productList = new ArrayList<>();
 
     public void addSaleProduct(SaleProduct saleProduct) {
-        saleProducts.add(saleProduct);
+        productList.add(saleProduct);
         saleProduct.setSale(this);
     }
     public void removeSaleProduct(SaleProduct saleProduct) {
         saleProduct.setSale(null);
-        saleProducts.remove(saleProduct);
+        productList.remove(saleProduct);
     }
 
 }

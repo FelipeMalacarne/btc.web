@@ -1,4 +1,4 @@
-import { Alert, Box, Button, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, ListItem, ListItemText, MenuItem, Select, TextField, Typography, useTheme } from '@mui/material'
+import { Alert, Box, Breadcrumbs, Button, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, Link, ListItem, ListItemText, MenuItem, Select, TextField, Typography, useTheme } from '@mui/material'
 import React, { FormEvent, useEffect, useState } from 'react'
 import { Header } from '../utils/Header'
 import ProductModel from '../../models/ProductModel';
@@ -11,6 +11,7 @@ import { DeleteOutlineOutlined } from '@mui/icons-material';
 import IngredientListModel from '../../models/IngredientListModel';
 import { AddIngredientDialog } from '../ProductsPage/components/AddIngredientDialog';
 import Ecategories from '../../models/ECategory';
+import { LinkRouter } from '../utils/LinkRouter';
 
 export const ProductFormsPage = () => {
   const theme = useTheme();
@@ -168,6 +169,19 @@ export const ProductFormsPage = () => {
           productIngredients={productIngredientList}
         />
       )}
+      <Breadcrumbs aria-label="breadcrumb" sx={{mb: 2}}>
+        <LinkRouter underline="hover" color="inherit" to="/">
+          Home
+        </LinkRouter>
+        <LinkRouter
+          underline="hover"
+          color="inherit"
+          to="/secure/products"
+        >
+          Produtos
+        </LinkRouter>
+        <Typography color="text.primary">Cadastro</Typography>
+      </Breadcrumbs>
       <Header title={'Produtos'} subtitle={'Cadastro de Produtos'} />
       <Box
         mt={3}
@@ -304,7 +318,7 @@ export const ProductFormsPage = () => {
           <Button
             type='submit'
             variant='contained'
-            sx={{ width: '200px', height: '40px', backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.contrastText }}
+            sx={{ width: '200px', height: '40px', backgroundColor: theme.palette.secondary.main, color: theme.palette.primary.contrastText, mb: 3 }}
           >
             Cadastrar
           </Button>

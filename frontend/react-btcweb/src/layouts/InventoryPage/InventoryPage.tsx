@@ -80,6 +80,8 @@ export const InventoryPage = () => {
           autoHeight
           disableColumnMenu
           disableColumnSelector
+          density="compact"
+          disableDensitySelector
         />
       </Box>
     </Box>

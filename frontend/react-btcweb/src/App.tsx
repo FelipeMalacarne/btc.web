@@ -63,6 +63,8 @@ export const App = () => {
           <Route path='/secure/deposit' element={<DepositPage/>}/>
           <Route path='/secure/withdraw' element={<WithdrawPage/>}/>
           <Route path='/secure/history' element={<StockHistoryPage/>}/>
+          <Route path='/secure/sales' element={<SalesPage/>}/>
+
 
         </Route>
 
