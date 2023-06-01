@@ -11,9 +11,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder
-@ToString(exclude = "product")
+@ToString(exclude = "sale")
 @Table(name = "sale_product")
 public class SaleProduct {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sale_prod_id")
@@ -24,14 +25,14 @@ public class SaleProduct {
     private Integer amount;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "sale_id")
+    @JsonBackReference
     private Sale sale;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "prod_id")
-    @JsonBackReference
+    @JoinColumn(name = "prod_id", nullable = false)
     private Product product;
 
 

@@ -143,4 +143,14 @@ public class StockService {
 
         return stockMovement;
     }
+
+    // withdraw the amount of ingredient in the product from stock
+    public void withdrawProductIngredientsFromStock(Product product) {
+        List<ProductIngredient> ingredientList = product.getIngredientList();
+        for (ProductIngredient productIngredient : ingredientList) {
+            Stock stock = stockRepository.findByIngredientId(productIngredient.getProduct().getId());
+            stock.setAmount(stock.getAmount() - productIngredient.getAmount());
+            stockRepository.save(stock);
+        }
+    }
 }

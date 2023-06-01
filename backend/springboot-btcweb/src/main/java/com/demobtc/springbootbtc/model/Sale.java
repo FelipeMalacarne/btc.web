@@ -1,14 +1,14 @@
 package com.demobtc.springbootbtc.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Builder
+@ToString
 @Table(name = "sale")
 public class Sale {
     @Id
@@ -35,8 +36,9 @@ public class Sale {
     @Column(name = "sale_total")
     private Double total;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "sale", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<SaleProduct> saleProducts = new HashSet<>();
+    private List<SaleProduct> saleProducts = new ArrayList<>();
 
     public void addSaleProduct(SaleProduct saleProduct) {
         saleProducts.add(saleProduct);

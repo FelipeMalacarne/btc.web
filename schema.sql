@@ -271,7 +271,19 @@ INSERT INTO stock(stock_amount, ing_id) VALUES (10000, 22);
 INSERT INTO stock(stock_amount, ing_id) VALUES (10000, 23);
 INSERT INTO stock(stock_amount, ing_id) VALUES (1000, 24);
 INSERT INTO stock(stock_amount, ing_id) VALUES (3000, 25);
-
+/**
+Insert Sales
+*/
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-01 12:00:00', 20.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-02 12:00:00', 30.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-03 12:00:00', 40.00, 1);
+/**
+Insert SalesProduct
+*/
+INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (1, 1, 20);
+INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (2, 2, 30);
+INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (2, 5, 30);
+INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (3, 3, 40);
 
 
 
