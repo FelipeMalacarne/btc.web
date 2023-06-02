@@ -83,7 +83,7 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
       fullWidth
     >
       <DialogTitle>
-        Add Ingredient
+        Adicionar Ingrediente
       </DialogTitle>
       <DialogContent dividers>
         <Box display={'flex'}>
@@ -96,7 +96,7 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
               }}
               autoComplete
               options={ingredientOptions.map((ingredient) => ingredient.name)}
-              renderInput={(params) => <TextField {...params} label="Ingredient" />}
+              renderInput={(params) => <TextField {...params} label="Ingrediente" />}
             />
           </FormControl>
         </Box>
@@ -108,7 +108,7 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
             color: theme.palette.text.primary,
           }}
         >
-          Cancel
+          Cancelar
         </Button>
         <Button
           onClick={props.handleAddIngredient}
@@ -120,7 +120,7 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
           }}
           disabled={!ingredientNameSelected}
         >
-          Add
+          Adicionar
         </Button>
       </DialogActions>
     </Dialog>

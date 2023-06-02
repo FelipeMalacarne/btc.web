@@ -149,11 +149,11 @@ public class StockService {
     }
 
     // withdraw the amount of ingredient in the product from stock
-    public void withdrawProductIngredientsFromStock(Product product) {
+    public void withdrawProductIngredientsFromStock(Product product, Integer numberOfProducts) {
         List<ProductIngredient> ingredientList = product.getIngredientList();
         for (ProductIngredient productIngredient : ingredientList) {
             Stock stock = stockRepository.findByIngredientId(productIngredient.getIngredient().getId());
-            stock.setAmount(stock.getAmount() - productIngredient.getAmount());
+            stock.setAmount(stock.getAmount() - productIngredient.getAmount() * numberOfProducts);
             stockRepository.save(stock);
         }
     }

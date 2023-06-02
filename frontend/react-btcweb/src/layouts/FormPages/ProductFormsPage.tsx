@@ -238,7 +238,7 @@ export const ProductFormsPage = () => {
               />
             </FormControl>
             <FormControl fullWidth>
-              <InputLabel id='category'>Category</InputLabel>
+              <InputLabel id='category'>Categoria</InputLabel>
               <Select
                 labelId='category'
                 id='category'
@@ -295,7 +295,7 @@ export const ProductFormsPage = () => {
                 borderColor: theme.palette.text.primary
               }}
             >
-              Add Ingredient
+              Adicionar Ingrediente
             </Button>
           </FormControl>
           {httpError &&

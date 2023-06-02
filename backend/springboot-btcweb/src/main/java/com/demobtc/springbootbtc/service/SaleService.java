@@ -48,7 +48,7 @@ public class SaleService {
         Double total = 0.0;
         for (ProductListRequest item : request.getProductList()) {
             Product product = productService.getProductById(item.getProductId());
-            stockService.withdrawProductIngredientsFromStock(product);
+            stockService.withdrawProductIngredientsFromStock(product, item.getAmount());
             total += product.getPrice() * item.getAmount();
             SaleProduct saleProduct = SaleProduct.builder()
                     .product(product)
