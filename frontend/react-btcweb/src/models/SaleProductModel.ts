@@ -1,15 +1,13 @@
 import ProductModel from "./ProductModel";
 
-class SaleProductModel {
-  id: number;
+class ProductListModel {
   product: ProductModel;
   amount: number;
 
-  constructor(id: number, product: ProductModel, amount: number) {
-    this.id = id;
+  constructor(product: ProductModel, amount: number) {
     this.product = product;
     this.amount = amount;
   }
 }
 
-export default SaleProductModel;
+export default ProductListModel;

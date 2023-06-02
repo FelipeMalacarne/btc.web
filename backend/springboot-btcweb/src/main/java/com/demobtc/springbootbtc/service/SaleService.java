@@ -49,16 +49,16 @@ public class SaleService {
         for (ProductListRequest item : request.getProductList()) {
             Product product = productService.getProductById(item.getProductId());
             stockService.withdrawProductIngredientsFromStock(product);
-            total += product.getPrice() * item.getQuantity();
+            total += product.getPrice() * item.getAmount();
             SaleProduct saleProduct = SaleProduct.builder()
                     .product(product)
                     .sale(saleToCreate)
-                    .amount(item.getQuantity())
+                    .amount(item.getAmount())
                     .build();
             saleProductSet.add(saleProduct);
         }
 
-        saleToCreate.setAccount(accountService.getAccountById(request.getAccId()));
+        saleToCreate.setAccount(accountService.getAccountById(request.getAccountId()));
         saleToCreate.setTotal(total);
         saleToCreate.setProductList(saleProductSet);
         saleToCreate.setTime(new Timestamp(System.currentTimeMillis()));

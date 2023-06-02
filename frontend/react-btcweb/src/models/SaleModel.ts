@@ -1,14 +1,14 @@
 import AccountModel from "./AccountModel";
-import SaleProductModel from "./SaleProductModel";
+import ProductListModel from "./SaleProductModel";
 
 class SaleModel {
   id: number;
   time: Date;
   total: number;
   account: AccountModel;
-  productList: SaleProductModel[];
+  productList: ProductListModel[];
 
-  constructor(id: number, time: Date, total: number, account: AccountModel, productList: SaleProductModel[]) {
+  constructor(id: number, time: Date, total: number, account: AccountModel, productList: ProductListModel[]) {
     this.id = id;
     this.time = time;
     this.total = total;

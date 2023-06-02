@@ -13,5 +13,5 @@ public class ProductListRequest {
 
     private Long productId;
 
-    private Integer quantity;
+    private Integer amount;
 }

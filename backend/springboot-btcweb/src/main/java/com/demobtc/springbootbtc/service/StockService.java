@@ -148,7 +148,7 @@ public class StockService {
     public void withdrawProductIngredientsFromStock(Product product) {
         List<ProductIngredient> ingredientList = product.getIngredientList();
         for (ProductIngredient productIngredient : ingredientList) {
-            Stock stock = stockRepository.findByIngredientId(productIngredient.getProduct().getId());
+            Stock stock = stockRepository.findByIngredientId(productIngredient.getIngredient().getId());
             stock.setAmount(stock.getAmount() - productIngredient.getAmount());
             stockRepository.save(stock);
         }

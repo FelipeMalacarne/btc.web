@@ -1,21 +1,23 @@
 package com.demobtc.springbootbtc.dto.request.sale;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Builder
 public class CreateSaleRequest {
 
-    private Long accId;
+    @NotNull
+    private Long accountId;
 
+    @NotNull
     private Set<ProductListRequest> productList;
 
 

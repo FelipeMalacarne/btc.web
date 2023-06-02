@@ -85,7 +85,7 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Sales",
+    text: "Sales View",
     icon: <PointOfSaleOutlined />,
   },
   {
@@ -101,7 +101,7 @@ const navItems = [
     icon: <PieChartOutlined />,
   },
   {
-    text: "Make Sale",
+    text: "Perform Sale",
     icon: <Inventory2Outlined />,
   },
   {

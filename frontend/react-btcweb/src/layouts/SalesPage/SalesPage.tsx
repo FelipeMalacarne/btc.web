@@ -125,9 +125,6 @@ export const SalesPage = () => {
           disableColumnSelector
         />
       </Box>
-
-
-
     </Box>
   )
 }

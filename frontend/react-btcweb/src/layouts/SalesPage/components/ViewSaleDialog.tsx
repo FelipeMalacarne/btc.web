@@ -85,7 +85,7 @@ export const ViewSaleDialog: React.FC<ViewSaleDialogProps> = (props) => {
           }}
         >
         {props.sale?.productList.map((item) => (
-          <ListItem key={item.id}>
+          <ListItem key={item.product.id}>
             <ListItemText
               primary={`${item.amount}x ${item.product.name}`}
               secondary={currencyFormatter.format(Number(item.product.price * item.amount)) }

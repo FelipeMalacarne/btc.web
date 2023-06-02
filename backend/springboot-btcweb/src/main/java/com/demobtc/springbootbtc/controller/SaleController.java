@@ -33,7 +33,7 @@ public class SaleController {
 
         } catch (ResourceNotFoundException e){
             System.out.println(e.getMessage());
-            return ResponseEntity.internalServerError().body(new MessageResponse(e.getMessage()));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse(e.getMessage()));
         } catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().body(new MessageResponse(e.getMessage()));

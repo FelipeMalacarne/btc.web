@@ -126,9 +126,9 @@ INSERT INTO job(job_name) VALUES('ROLE_ADMIN');
 *
 */
 INSERT INTO account(acc_name, acc_cpf, acc_email, acc_password) VALUES
-('testeadmin', 12345678910, 'testeadmin@email.com','$2a$10$sNKMKmk.Qv7.9gsmUGzBW.5s.Hj0I8s1FgPP3aKJb6EtxtGf9eGUG'),
-('testemod', 12345678911, 'testemod@email.com','$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve'),
-('testeuser', 12345678912, 'testeuser@email.com', '$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve');
+('Felipe', 12345678910, 'testeadmin@email.com','$2a$10$sNKMKmk.Qv7.9gsmUGzBW.5s.Hj0I8s1FgPP3aKJb6EtxtGf9eGUG'),
+('João', 12345678911, 'testemod@email.com','$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve'),
+('Jorge', 12345678912, 'testeuser@email.com', '$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve');
 INSERT INTO account_job(acc_id, job_id) VALUES
 (1, 3),
 (2, 2),
@@ -145,8 +145,8 @@ INSERT INTO category(cat_name) VALUES('DRINK');
 */
 INSERT INTO unit(un_name, un_symbol) VALUES('Quilogramas', 'kg'); 
 INSERT INTO unit(un_name, un_symbol) VALUES('Gramas', 'g');
-INSERT INTO unit(un_name, un_symbol) VALUES('Litros', 'l');
-INSERT INTO unit(un_name, un_symbol) VALUES('Mililitros', 'ml');
+INSERT INTO unit(un_name, un_symbol) VALUES('Litros', 'L');
+INSERT INTO unit(un_name, un_symbol) VALUES('Mililitros', 'mL');
 INSERT INTO unit(un_name, un_symbol) VALUES('Unidade', 'un');
 
 /**
@@ -163,7 +163,6 @@ INSERT INTO product(prod_name, prod_description, prod_price, prod_active) values
 ('Porção de Hambúrgueres Cheddar Inteira', 'Pão, hambúrguer (80g), mussarela, molho cheddar, cebola no shoyu, alface e tomate. (4 unidades + fritas)', 53.50, true),
 ('Porção de Hambúrgueres Cheddar Meia', 'Pão, hambúrguer (80g), mussarela, molho cheddar, cebola no shoyu, alface e tomate. (2 unidades + fritas)', 33.50, true),
 ('Porção de Hambúrgueres Gorgonzola Inteira', 'Pão, hambúrguer (80g), mussarela, molho gorgonzola, cebola roxa, alface e tomate. (4 unidades + fritas)', 53.50, true),
-('Porção de Hambúrgueres Cheddar Meia', 'Pão, hambúrguer (80g), mussarela, molho gorgonzola, cebola roxa, alface e tomate. (2 unidades + fritas)', 33.50, true),
 ('Salada Italiana', 'Rúcula, tomate seco, queijo parmesão, croutons e redução de balsâmico.', 35.00, true),
 ('Salada Summer', 'Alface, cenoura, tomate cereja, croutons e redução de balsâmico.', 32.00, true),
 ('Caipirinha de Morango', 'Vodka, morango, açúcar e gelo.', 16.00, true),
