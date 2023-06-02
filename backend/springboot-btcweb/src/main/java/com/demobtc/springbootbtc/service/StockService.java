@@ -115,31 +115,35 @@ public class StockService {
         List<EntryIngredient> entryList = getAllEntries();
         List<LeaveIngredient> leaveList = getAllLeaves();
 
-        AtomicLong idGenerator = new AtomicLong(1);
+        List<StockMovement> allMovements = new ArrayList<>();
 
         for (EntryIngredient entry : entryList) {
             StockMovement stock = StockMovement.builder()
-                    .id(idGenerator.getAndIncrement())
                     .accountName(entry.getAccount().getName())
                     .ingredient(entry.getIngredient())
                     .amount(entry.getAmount())
                     .date(entry.getDate())
                     .type("Deposit")
                     .build();
-            stockMovement.add(stock);
+            allMovements.add(stock);
         }
         for (LeaveIngredient leave : leaveList) {
             StockMovement stock = StockMovement.builder()
-                    .id(idGenerator.getAndIncrement())
                     .accountName(leave.getAccount().getName())
                     .ingredient(leave.getIngredient())
                     .amount(leave.getAmount())
                     .date(leave.getDate())
                     .type("Withdraw")
                     .build();
-            stockMovement.add(stock);
+            allMovements.add(stock);
         }
-        stockMovement.sort(Comparator.comparing(StockMovement::getDate));
+        allMovements.sort(Comparator.comparing(StockMovement::getDate));
+
+        long id = 1;
+        for (StockMovement movement : allMovements) {
+            movement.setId(id++);
+            stockMovement.add(movement);
+        }
 
         return stockMovement;
     }
