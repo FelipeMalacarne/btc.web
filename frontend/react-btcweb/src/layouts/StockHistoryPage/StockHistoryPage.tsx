@@ -2,7 +2,7 @@ import React from 'react'
 import { Header } from '../utils/Header'
 import { Box, useTheme } from '@mui/material'
 import { useStockMovement } from '../../hooks/useStockMovement'
-import { DataGrid, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid'
+import { DataGrid, GridSortModel, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid'
 import dayjs from 'dayjs'
 import { Loading } from '../utils/Loading'
 
@@ -10,7 +10,7 @@ export const StockHistoryPage = () => {
   const theme = useTheme();
   const { stockMovement, isLoading, httpError } = useStockMovement();
   const columns=[
-    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'id', headerName: 'ID', width: 60 },
     { field: 'type', headerName: 'Tipo', minWidth: 100 },
     { field: 'accountName', headerName: 'Usuário', minWidth: 100, flex: 1 },
     { field: 'ingredient.name', headerName: 'Item', minWidth: 100, flex: 1, 
@@ -24,8 +24,6 @@ export const StockHistoryPage = () => {
     },
     { field: 'date', headerName: 'Data', width: 150,
       valueGetter: (params: GridValueGetterParams) => dayjs(params.row.date).format('DD/MM/YYYY HH:mm:ss') }
-
-    
   ]
 
   if (isLoading) return <Loading/>
@@ -76,6 +74,11 @@ export const StockHistoryPage = () => {
           disableColumnSelector
           disableDensitySelector
           density='compact'
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'id', sort: 'desc' }],
+            },
+          }}
         />
       </Box>
     </Box>

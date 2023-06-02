@@ -109,19 +109,19 @@ export const ProductsPage = () => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Produto",
       flex: 20
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: "Preço",
       valueFormatter: ({ value }: any) => currencyFormatter.format(Number(value)),
       minWidth: 100,
       flex: 2
     },
     {
       field: 'actions',
-      headerName: 'Actions',
+      headerName: 'Ações',
       sortable: false,
       disableColumnMenu: true,
       minWidth: 150,

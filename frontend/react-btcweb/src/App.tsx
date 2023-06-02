@@ -23,6 +23,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { WithdrawPage } from './layouts/WithdrawPage/WithdrawPage';
 import { StockHistoryPage } from './layouts/StockHistoryPage/StockHistoryPage';
 import { PerformSalePage } from './layouts/PerformSalePage/PerformSalePage';
+import { DailyPage } from './layouts/DailyPage/DailyPage';
 
 dayjs.extend(localizedFormat); // Extend
 
@@ -66,6 +67,7 @@ export const App = () => {
           <Route path='/secure/history' element={<StockHistoryPage/>}/>
           <Route path='/secure/sales-view' element={<SalesPage/>}/>
           <Route path='/secure/perform-sale' element={<PerformSalePage/>}/>
+          <Route path='/secure/daily' element={<DailyPage/>}/>
         </Route>
       </Routes>
       </LocalizationProvider>

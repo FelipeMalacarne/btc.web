@@ -126,13 +126,20 @@ INSERT INTO job(job_name) VALUES('ROLE_ADMIN');
 *
 */
 INSERT INTO account(acc_name, acc_cpf, acc_email, acc_password) VALUES
-('Felipe', 12345678910, 'testeadmin@email.com','$2a$10$sNKMKmk.Qv7.9gsmUGzBW.5s.Hj0I8s1FgPP3aKJb6EtxtGf9eGUG'),
-('João', 12345678911, 'testemod@email.com','$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve'),
-('Jorge', 12345678912, 'testeuser@email.com', '$2a$10$pihLXIRYTVnQEdYI6pDozui38yairrky2Qq1MEBjH62mOS.o800Ve');
+('FelipeMalacarne', 12345678910, 'felipemalacarne@email.com','$2a$10$ZvLF68x11XT3CsPlYfPECeePiHhVW4r5mDKCOiFqdnukXWNqUQm/m'),
+('FelipeJulhão', 12345678911, 'felipeJulhão@email.com','$2a$10$zb2mqA/.YN6D7HyygAi5b.amDa6TQcQEREVmOnLGTBgQ3CxNO3iLG'),
+('Mateus', 12345678912, 'mateus@email.com', '$2a$10$SYAPaqv2.sC/2Wvp5rPvzObtC1lIkQ2qhc1Ooj2dWq1uJUKEKk8BG'),
+('Luiz', 12345678913, 'luiz@email.com', '$2a$10$raNPGCDJ0mjZDpHG4Meu6eYaNdCVurT7p.ZE4SBuG9I4U5YxMlWjG'),
+('Jorge', 12345678914, 'jorge@email.com', '$2a$10$etsboYs7988s6ZHflXS6KOt3cvb2Ppaa4m5rK76aRHMJXksIAWiLi'),
+('Sergio', 12345678915, 'sergio@email.com', '$2a$10$vmRlO9o8WOjmed/pMH8Ej.RRqKxEPqYF9K5DAScQJoQj.zIxHizDK');
 INSERT INTO account_job(acc_id, job_id) VALUES
 (1, 3),
-(2, 2),
-(3, 1);
+(2, 3),
+(3, 3),
+(4, 3),
+(5, 2),
+(6, 1);
+
 /**
 * Insert Categories
 *
@@ -192,8 +199,7 @@ INSERT INTO product_category (prod_id, cat_id) VALUES
 (14, 2),
 (15, 2),
 (16, 2),
-(17, 2),
-(18, 2);
+(17, 2);
 /**
 * Insert Ingredients 
 * 
@@ -241,17 +247,45 @@ INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (2, 5, 8
 INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 5, 5);
 INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 5, 13);
 
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (250, 6, 1);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (75, 6, 17);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (1, 6, 18);
+
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (640, 7, 3);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (4, 7, 8);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (200, 7, 5);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (200, 7, 13);
+
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (500, 8, 3);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (4, 8, 8);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (200, 8, 5);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (200, 8, 13);
+
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (640, 9, 3);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (4, 9, 8);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (200, 9, 9);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (200, 9, 13);
+
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (100, 10, 11);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (50, 10, 12);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (30, 10, 13);
+
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (80, 11, 14);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (50, 11, 15);
+INSERT INTO product_ingredient(prod_ing_amount, prod_id, ing_id) VALUES (30, 11, 16);
+
+
 /**
 * Insert Stock 
 * 
 */
-INSERT INTO stock(stock_amount, ing_id) VALUES (1000, 1);
-INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 2);
-INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 3);
-INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 4);
-INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 5);
-INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 6);
-INSERT INTO stock(stock_amount, ing_id) VALUES (5000, 7);
+INSERT INTO stock(stock_amount, ing_id) VALUES (10000, 1);
+INSERT INTO stock(stock_amount, ing_id) VALUES (50000, 2);
+INSERT INTO stock(stock_amount, ing_id) VALUES (50000, 3);
+INSERT INTO stock(stock_amount, ing_id) VALUES (50000, 4);
+INSERT INTO stock(stock_amount, ing_id) VALUES (50000, 5);
+INSERT INTO stock(stock_amount, ing_id) VALUES (50000, 6);
+INSERT INTO stock(stock_amount, ing_id) VALUES (50000, 7);
 INSERT INTO stock(stock_amount, ing_id) VALUES (60, 8);
 INSERT INTO stock(stock_amount, ing_id) VALUES (60, 9);
 INSERT INTO stock(stock_amount, ing_id) VALUES (60, 10);
@@ -276,13 +310,70 @@ Insert Sales
 INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-01 12:00:00', 20.00, 1);
 INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-02 12:00:00', 30.00, 1);
 INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-03 12:00:00', 40.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-12-15 10:30:00', 20.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-12-28 15:45:00', 30.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-01-10 09:20:00', 40.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-02-05 14:10:00', 25.00, 3);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-02-18 11:30:00', 35.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-03-03 16:25:00', 50.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-03-18 13:40:00', 30.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-04-02 10:15:00', 45.00, 3);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-04-17 14:55:00', 55.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-05-01 12:00:00', 40.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-05-16 16:30:00', 60.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-15 09:30:00', 25.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-11-28 14:45:00', 35.00, 3);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-12-03 10:20:00', 45.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2022-12-12 12:10:00', 30.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-01-05 15:30:00', 55.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-01-18 10:50:00', 40.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-02-02 14:25:00', 60.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-02-15 12:40:00', 50.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-03-01 11:15:00', 30.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-03-16 15:55:00', 35.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-04-01 12:00:00', 45.00, 1);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-04-14 14:30:00', 40.00, 2);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-05-02 09:45:00', 55.00, 3);
+INSERT INTO sale(sale_time, sale_total, acc_id) VALUES ('2023-05-18 11:20:00', 60.00, 1);
 /**
-Insert SalesProduct
+Insert LeaveIngredients
 */
-INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (1, 1, 20);
-INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (2, 2, 30);
-INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (2, 5, 30);
-INSERT INTO sale_product(sale_id, prod_id, sale_prod_amount) VALUES (3, 3, 40);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (200, '2023-05-01', 8, 1);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (100, '2023-05-02', 17, 2);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (200, '2023-05-03', 14, 3);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (100, '2023-05-04', 11, 4);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (200, '2023-05-05', 9, 1);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (100, '2023-05-06', 16, 2);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (200, '2023-05-07', 13, 3);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (100, '2023-05-08', 11, 4);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (200, '2023-05-09', 7, 1);
+INSERT INTO leave_ingredient(leave_amount, leave_date, ing_id, acc_id) VALUES (100, '2023-05-10', 19, 1);
+/**
+Insert EntryIngredients
+*/
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id) 
+VALUES (200, '2023-05-01', '2023-06-01', 8, 1);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (100, '2023-05-02', '2023-06-02', 17, 2);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (200, '2023-05-03', '2023-06-03', 14, 3);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (100, '2023-05-04', '2023-06-04', 11, 4);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (200, '2023-05-05', '2023-06-05', 9, 1);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (100, '2023-05-06', '2023-06-06', 16, 2);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (200, '2023-05-07', '2023-06-07', 13, 3);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (100, '2023-05-08', '2023-06-08', 11, 4);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (200, '2023-05-09', '2023-06-09', 7, 1);
+INSERT INTO entry_ingredient(entry_amount, entry_date, entry_expiration_date, ing_id, acc_id)
+VALUES (100, '2023-05-10', '2023-06-10', 19, 1);
+
+
+
 
 
 

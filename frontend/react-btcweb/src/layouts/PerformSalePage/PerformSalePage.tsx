@@ -115,7 +115,7 @@ export const PerformSalePage = () => {
         justifyContent={'space-between'}
         mt={5}
       >
-        <Grid item xs={6} sm={12} md={6}
+        <Grid item xs={12} sm={6}
           sx={{
             backgroundColor: theme.palette.background.paper,
             padding: 2,
@@ -181,7 +181,7 @@ export const PerformSalePage = () => {
             Adicionar Produto
           </Button>
         </Grid>
-        <Grid item xs={5.5} sm={12} md={5.5}
+        <Grid item xs={12} sm={5.5}
           sx={{
             backgroundColor: theme.palette.background.paper,
             padding: 2,

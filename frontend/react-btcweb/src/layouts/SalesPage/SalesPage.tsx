@@ -30,7 +30,7 @@ export const SalesPage = () => {
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 50 },
+    { field: 'id', headerName: 'ID', width: 60 },
     {
       field: 'accountName', headerName: 'Usuário', minWidth: 100, flex: 1,
       valueGetter: (params: GridValueGetterParams) => {
@@ -123,6 +123,11 @@ export const SalesPage = () => {
           autoHeight
           disableColumnMenu
           disableColumnSelector
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'id', sort: 'desc' }],
+            },
+          }}
         />
       </Box>
     </Box>

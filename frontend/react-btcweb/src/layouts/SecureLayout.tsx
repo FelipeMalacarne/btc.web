@@ -20,14 +20,14 @@ export const SecureLayout: React.FC<SecureLayoutProps> = (props) => {
     return <Navigate to="/signin" />
   }
   return (
-    <Box display={isMobile ? "block" :"flex" } height="100%" width="100%" >
+    <Box display={isMobile ? "flex" :"flex" } height="100%" width="100%" >
       <Sidebar
         isMobile={isMobile}
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
       />
-      <Box flexGrow={1}>
+      <Box flexGrow={1}>  
         <Topbar
           themeMode={props.themeMode}
           setThemeMode={props.setThemeMode}

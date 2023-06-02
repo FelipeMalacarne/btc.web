@@ -41,10 +41,10 @@ export const IngredientsPage = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID', minWidth: 80, flex: 1 },
-    { field: 'name', headerName: 'Name', flex: 20 },
-    { field: 'unitOfMeasure', headerName: 'Measure', minWidth: 100, flex: 2 },
+    { field: 'name', headerName: 'Item', flex: 20 },
+    { field: 'unitOfMeasure', headerName: 'Unidade', minWidth: 100, flex: 2 },
     {
-      field: 'actions', headerName: 'Actions', minWidth: 150, flex: 3, 
+      field: 'actions', headerName: 'Ações', minWidth: 150, flex: 3, 
       renderCell: (params: GridCellParams) => (
         <ButtonGroup>
           <IconButton onClick={() => handleEditClick(params)}>
