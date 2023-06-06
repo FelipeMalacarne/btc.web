@@ -1,7 +1,9 @@
-version: '3'
+version: '3.8'
 services:
   frontend:
-    build: ./frontend/react-btcweb
+    build: 
+      context: ./frontend/react-btcweb
+    container_name: react-btcweb
     ports:
       - "3000:3000"
     volumes:
@@ -9,7 +11,7 @@ services:
     depends_on:
       - backend
     environment:
-      - REACT_APP_API_URL=http://172.24.0.3:8080
+      - REACT_APP_API_URL=(PUBLIC IP):8080
   backend:
     image: springboot-btcweb:LATEST
     build:
@@ -37,3 +39,5 @@ services:
       PGDATA: /var/lib/postgresql/data/
     ports:
       - "5432:5432"
+volumes:
+  
