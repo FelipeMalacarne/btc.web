@@ -73,7 +73,7 @@ export const InventoryPage = () => {
           }}
           initialState={{
             sorting: {
-              sortModel: [{ field: 'id', sort: 'asc' }],
+              sortModel: [{ field: 'id', sort: 'desc' }],
             },
           }}
           loading={isLoading}

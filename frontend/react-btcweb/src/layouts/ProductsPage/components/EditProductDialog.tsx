@@ -206,10 +206,13 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                     type='number'
                     label='Amount'
                     value={ingredientListItem.amount}
-                    onChange={(event) => handleIngredientListChange(event, index)}
+                    onChange={(event) => {
+                      if (event.target.value.toString().length <= 6){
+                        handleIngredientListChange(event, index)
+                      }}}
                     required
-                    error={ingredientListItem.amount < 1 || ingredientListItem.amount > 100000}
-                    helperText={ingredientListItem.amount < 1 || ingredientListItem.amount > 100000 ?
+                    error={ingredientListItem.amount < 1 || ingredientListItem.amount >= 1000000}
+                    helperText={ingredientListItem.amount < 1 || ingredientListItem.amount >= 1000000 ?
                       'Invalid Amount' : ''
                     }
                     sx={{

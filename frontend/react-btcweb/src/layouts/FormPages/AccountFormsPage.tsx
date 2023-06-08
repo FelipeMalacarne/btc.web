@@ -131,13 +131,17 @@ export const AccountFormsPage = () => {
             <TextField
               sx={{ width: '300px', maxWidth: '100%' }}
               value={cpf}
-              onChange={(event) => setCpf(event.target.value)}
+              onChange={(event) => {
+                if (event.target.value.toString().length <= 11) {
+                  setCpf(event.target.value)
+                }}}
               label={'CPF'}
               variant={'outlined'}
               type='number'
               required
               error={isHelperTextVisible.cpf}
               helperText={isHelperTextVisible.cpf ? 'CPF deve ter 11 caracteres' : ''}
+              inputProps={{ maxLength: 11 }}
             />
           </FormControl>
 

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +40,7 @@ public class SaleRepositoryTests {
                 .account(accountRepository.findById(1L).orElse(null))
                 .time(new Timestamp(System.currentTimeMillis()))
                 .total(150.0)
-                .productList(new HashSet<>())
+                .productList(new ArrayList<>())
                 .build();
     }
 

@@ -227,6 +227,11 @@ export const ProductsPage = () => {
           autoHeight
           disableColumnMenu
           disableColumnSelector
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'id', sort: 'desc' }],
+            },
+          }}
         />
       </Box>
     </Box>

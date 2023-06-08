@@ -15,6 +15,7 @@ import { hover } from '@testing-library/user-event/dist/hover';
 import SaleRequest from '../../models/requests/SaleRequest';
 import SaleService from '../../services/SaleService';
 import { SuccessDialog } from '../utils/SuccessDialog';
+import { WarningDialog } from '../utils/WarningDialog';
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
   style: 'currency',
@@ -31,6 +32,7 @@ export const PerformSalePage = () => {
   const [showHelperText, setShowHelperText] = useState<boolean>(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState<boolean>(false);
   const [showWarningDialog, setShowWarningDialog] = useState<boolean>(false);
+  const [warningMessage, setWarningMessage] = useState<string>('Não foi possível realizar a venda!');
 
   // Request Data
   const [ accountId ] = useState<number>(AuthService.getCurrentUser()?.id);
@@ -55,11 +57,12 @@ export const PerformSalePage = () => {
         setShowSuccessDialog(true);
         setSaleProductList([]);
       } else {
+        // setWarningMessage(response.statusText);
         setShowWarningDialog(true);
       } 
 
-        
-    } catch (error) {
+    } catch (error: any) {
+      setWarningMessage(error.message);
       setShowWarningDialog(true);
     }
     
@@ -101,10 +104,10 @@ export const PerformSalePage = () => {
         />
       }
       {showWarningDialog &&
-        <SuccessDialog
+        <WarningDialog
           open={showWarningDialog}
           setOpen={setShowWarningDialog}
-          message={'Não foi possível realizar a venda!'}
+          message={warningMessage}
         />
       }
       <Header title={'Vendas'} subtitle={'Realizar Venda'} />
@@ -142,7 +145,10 @@ export const PerformSalePage = () => {
                     type='number'
                     label='Amount'
                     value={item.amount}
-                    onChange={(event) => handleProductListChange(event, index)}
+                    onChange={(event) => {
+                      if (event.target.value.toString().length <= 4){
+                        handleProductListChange(event, index)
+                      }}}
                     required
                     error={showHelperText}
                     helperText={showHelperText ?

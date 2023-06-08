@@ -128,6 +128,11 @@ export const IngredientsPage = () => {
           autoHeight
           disableColumnMenu
           disableColumnSelector
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'id', sort: 'desc' }],
+            },
+          }}
         />
       </Box>
     </Box>
