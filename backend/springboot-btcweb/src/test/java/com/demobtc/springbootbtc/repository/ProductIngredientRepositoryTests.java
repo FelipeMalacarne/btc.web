@@ -43,6 +43,8 @@ public class ProductIngredientRepositoryTests {
 
          ingredient = Ingredient.builder()
                 .name("TesteSetupIngredient")
+                 .min(100.0)
+                 .max(600.0)
                 .unitOfMeasure(unitRepository.findById(1L).orElse(null))
                 .build();
 

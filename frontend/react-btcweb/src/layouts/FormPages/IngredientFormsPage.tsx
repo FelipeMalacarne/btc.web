@@ -13,6 +13,10 @@ export const IngredientFormsPage = () => {
   const [selectedUnitSymbol, setSelectedUnitSymbol] = useState<string>('');
   const [ingredientName, setIngredientName] = useState<string>('');
   const [ingredientUnit, setIngredientUnit] = useState<UnitOfMeasureModel>();
+  const [ingredientMin, setIngredientMin] = useState<string>('');
+  const [ingredientMax, setIngredientMax] = useState<string>('');
+
+
   const [showSuccessAlert, setShowSuccessAlert] = useState<boolean>(false);
   const [showErrorAlert, setShowErrorAlert] = useState<boolean>(false);
 
@@ -71,6 +75,8 @@ export const IngredientFormsPage = () => {
         },
         body: JSON.stringify(new NewIngredientRequest(
           ingredientName,
+          Number(ingredientMin),
+          Number(ingredientMax),
           ingredientUnit.id
         )),
       }
@@ -81,8 +87,11 @@ export const IngredientFormsPage = () => {
       const response = await fetch(Url, requestOptions);
       const responseData = await response.json();
       setShowSuccessAlert(true);
+      setShowErrorAlert(false);
       setIngredientName('');
       setSelectedUnitSymbol('');
+      setIngredientMin('');
+      setIngredientMax('');
       setIngredientUnit(undefined);
     }
     if (validateForm()) {
@@ -121,6 +130,43 @@ export const IngredientFormsPage = () => {
               helperText={ingredientName.length >= 50 ?
                 'Name must be less than 50 characters' : ''
               }
+            />
+          </FormControl>
+          <FormControl>
+            <TextField
+              sx={{ width: '300px' }}
+              id='ingredient-min'
+              label='Quantidade mínima'
+              variant='outlined'
+              value={ingredientMin}
+              onChange={(event) => {
+                if(event.target.value.toString().length <= 6){
+                  setIngredientMin(event.target.value)
+                }}}
+              required
+              error={Number(ingredientMin) < 0}
+              helperText={Number(ingredientMin) < 0 ?
+                'Quantidade mínima deve ser maior que 0' : ''
+              }
+            />
+          </FormControl>
+          <FormControl>
+            <TextField
+              sx={{ width: '300px' }}
+              id='ingredient-max'
+              label='Quantidade máxima'
+              variant='outlined'
+              value={ingredientMax}
+              onChange={(event) => {
+                if(event.target.value.toString().length <= 6){
+                  setIngredientMax(event.target.value)
+                }}}
+              required
+              error={Number(ingredientMax) < 0}
+              helperText={Number(ingredientMax) < 0 ?
+                'Quantidade máxima deve ser maior que 0' : ''
+              }
+
             />
           </FormControl>
           <FormControl>

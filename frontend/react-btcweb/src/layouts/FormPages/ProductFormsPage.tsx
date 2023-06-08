@@ -49,6 +49,8 @@ export const ProductFormsPage = () => {
         loadedIngredients.push({
           id: responseData[key].id,
           name: responseData[key].name,
+          min: responseData[key].min,
+          max: responseData[key].max,
           unitOfMeasure: responseData[key].unitOfMeasure
         });
       }

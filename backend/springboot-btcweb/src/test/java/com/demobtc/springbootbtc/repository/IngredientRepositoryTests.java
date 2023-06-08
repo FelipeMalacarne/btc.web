@@ -28,6 +28,8 @@ public class IngredientRepositoryTests {
     public void setup() {
         ingredient = Ingredient.builder()
                 .name("TesteSetup")
+                .min(200.0)
+                .max(300.0)
                 .unitOfMeasure(unitRepository.findById(1L).orElse(null))
                 .build();
     }
@@ -37,6 +39,8 @@ public class IngredientRepositoryTests {
         // given
         Ingredient ingredientToSave = Ingredient.builder()
                                     .name("Teste")
+                                    .min(500.0)
+                                    .max(900.0)
                                     .unitOfMeasure(unitRepository.findById(1L).orElse(null))
                                     .build();
         // when
@@ -59,6 +63,9 @@ public class IngredientRepositoryTests {
         assertThat(foundIngredient).isNotNull();
         assertThat(foundIngredient.getId()).isEqualTo(savedIngredient.getId());
         assertThat(foundIngredient.getName()).isEqualTo(savedIngredient.getName());
+        assertThat(foundIngredient.getMin()).isEqualTo(savedIngredient.getMin());
+        assertThat(foundIngredient.getMax()).isEqualTo(savedIngredient.getMax());
+
     }
 
     @Test
@@ -69,6 +76,8 @@ public class IngredientRepositoryTests {
                 .id(savedIngredient.getId())
                 .name("TesteUpdate")
                 .unitOfMeasure(unitRepository.findById(1L).orElse(null))
+                .min(100.0)
+                .max(200.0)
                 .build();
 
         // when
@@ -78,6 +87,8 @@ public class IngredientRepositoryTests {
         assertThat(updatedIngredient).isNotNull();
         assertThat(updatedIngredient.getId()).isEqualTo(savedIngredient.getId());
         assertThat(updatedIngredient.getName()).isEqualTo(ingredientToUpdate.getName());
+        assertThat(updatedIngredient.getMin()).isEqualTo(ingredientToUpdate.getMin());
+        assertThat(updatedIngredient.getMax()).isEqualTo(ingredientToUpdate.getMax());
     }
 
     @Test

@@ -41,6 +41,8 @@ export const AddIngredientDialog: React.FC<AddIngredientDialogProps> = (props) =
         loadedIngredients.push({
           id: responseData[key].id,
           name: responseData[key].name,
+          min: responseData[key].min,
+          max: responseData[key].max,
           unitOfMeasure: responseData[key].unitOfMeasure
         });
       }

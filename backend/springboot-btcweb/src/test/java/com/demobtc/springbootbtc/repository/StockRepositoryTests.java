@@ -36,6 +36,8 @@ public class StockRepositoryTests {
          ingredient = Ingredient.builder()
                 .name("TesteIngredientSetup")
                 .unitOfMeasure(unitRepository.findById(1L).orElse(null))
+                .min(100.0)
+                .max(600.0)
                 .build();
         stock = Stock.builder()
                 .amount(10.0)

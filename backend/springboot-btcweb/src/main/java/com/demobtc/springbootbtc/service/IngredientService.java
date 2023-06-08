@@ -33,6 +33,9 @@ public class IngredientService {
         Ingredient ingredientToCreate = new Ingredient();
 
         ingredientToCreate.setName(request.getName());
+        ingredientToCreate.setMin(request.getMin());
+        ingredientToCreate.setMax(request.getMax());
+
         ingredientToCreate.setUnitOfMeasure(unitRepository.findById(request.getUnitOfMeasureId()).orElseThrow(
                 () -> new ResourceNotFoundException("Unit not found with id: " + request.getUnitOfMeasureId())
         ));
@@ -45,6 +48,12 @@ public class IngredientService {
 
         if(request.getName() != null){
             ingredientToUpdate.setName(request.getName());
+        }
+        if (request.getMin() != null){
+            ingredientToUpdate.setMin(request.getMin());
+        }
+        if (request.getMax() != null){
+            ingredientToUpdate.setMax(request.getMax());
         }
         if(request.getUnitOfMeasureId() != null) {
            ingredientToUpdate.setUnitOfMeasure(unitRepository.findById(request.getUnitOfMeasureId()).orElseThrow(

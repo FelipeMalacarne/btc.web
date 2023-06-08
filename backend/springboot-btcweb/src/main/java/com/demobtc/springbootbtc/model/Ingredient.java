@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -24,6 +25,14 @@ public class Ingredient {
     @NotNull
     @Column(name = "ing_name")
     private String name;
+
+    @NotNull
+    @Column(name = "ing_min")
+    private Double min;
+
+    @NotNull
+    @Column(name = "ing_max")
+    private Double max;
 
     @NotNull
     @ManyToOne

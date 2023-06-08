@@ -66,7 +66,7 @@ public class AccountControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("testeadmin"))
+                .andExpect(jsonPath("$.name").value("FelipeMalacarne"))
                 .andExpect(jsonPath("$.cpf").value("12345678910"));
     }
 

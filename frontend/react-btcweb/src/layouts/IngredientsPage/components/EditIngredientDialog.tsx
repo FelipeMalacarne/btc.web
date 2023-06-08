@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, useTheme } from '@mui/material'
+import { Alert, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography, useTheme } from '@mui/material'
 import React, { useState } from 'react'
 import IngredientModel from '../../../models/IngredientModel'
 import { useUnits } from '../../../hooks/useUnits'
@@ -23,6 +23,8 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
   const [showErrorAlert, setShowErrorAlert] = useState<boolean>(false);
 
   const [ingredientName, setIngredientName] = useState<string>(props.ingredient?.name || '');
+  const [ingredientMin, setIngredientMin] = useState<string>(String(props.ingredient?.min )|| '0');
+  const [ingredientMax, setIngredientMax] = useState<string>(String(props.ingredient?.max) || '0');
   const [ingredientUnit, setIngredientUnit] = useState<UnitOfMeasureModel>(props.ingredient?.unitOfMeasure || {} as UnitOfMeasureModel);
   const [selectedUnitSymbol, setSelectedUnitSymbol] = useState<string>(props.ingredient?.unitOfMeasure.symbol || '');
 
@@ -34,6 +36,8 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
 
     const newIngredientRequest: NewIngredientRequest = {
       name: ingredientName,
+      min: Number(ingredientMin),
+      max: Number(ingredientMax),
       unitOfMeasureId: ingredientUnit.id
     }
 
@@ -51,6 +55,8 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
     const updatedIngredient: IngredientModel = {
       id: responseData.id,
       name: responseData.name,
+      min: responseData.min,
+      max: responseData.max,
       unitOfMeasure: responseData.unitOfMeasure
     }
     const updatedIngredients = props.ingredients.map(ingredient => {
@@ -90,7 +96,9 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
   };
   const validateForm = () => {
     const isNameValid = ingredientName.length > 0 && ingredientName.length < 50;
-    return isNameValid && ingredientUnit;
+    const isMinValid = Number(ingredientMin) >= 0 && Number(ingredientMin) < Number(ingredientMax) && Number(ingredientMin) < 1000000;
+    const isMaxValid = Number(ingredientMax) >= 0 && Number(ingredientMax) > Number(ingredientMin);
+    return isNameValid && ingredientUnit && isMinValid && isMaxValid;
   }
 
   return (
@@ -128,6 +136,44 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
             />
           </FormControl>
           <FormControl>
+            <TextField
+              sx={{ width: '300px'}}
+              id='ingredient-min'
+              label='Quantidade mínima'
+              variant='outlined'
+              type='number'
+              value={ingredientMin}
+              onChange={(event) => {
+                if(event.target.value.toString().length <= 6){
+                  setIngredientMin(event.target.value)
+                }}}
+              required
+              error={Number(ingredientMin) < 0}
+              helperText={Number(ingredientMin) < 0 ?
+                'Quantidade mínima deve ser maior que 0' : ''
+              }
+            />
+          </FormControl>
+          <FormControl>
+            <TextField
+              sx={{ width: '300px' }}
+              id='ingredient-max'
+              label='Quantidade máxima'
+              variant='outlined'
+              type='number'
+              value={ingredientMax}
+              onChange={(event) => {
+                if(event.target.value.toString().length <= 6){
+                  setIngredientMax(event.target.value)
+                }}}
+              required
+              error={Number(ingredientMax) < 0}
+              helperText={Number(ingredientMax) < 0 ?
+                'Quantidade máxima deve ser maior que 0' : ''
+              }
+            />
+          </FormControl>
+          <FormControl>
             <InputLabel id='unit-select-label'>Unidade</InputLabel>
             <Select
               sx={{ width: '100px' }}
@@ -138,7 +184,7 @@ export const EditIngredientDialog: React.FC<EditIngredientDialogProps> = (props)
               onChange={handleSelectChange}
               required
             >
-              {units.map(unit => (
+              {units && units.map(unit => (
                 <MenuItem key={unit.id} value={unit.symbol}>{unit.symbol}</MenuItem>
               ))}
             </Select>
