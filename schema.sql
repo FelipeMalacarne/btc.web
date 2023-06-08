@@ -59,6 +59,8 @@ create table unit (
 create table ingredient (
 	ing_id serial not null,
 	ing_name varchar (255) not null,
+	ing_min decimal (10,2) not null,
+	ing_max decimal (10,2) not null,
 	un_id integer not null,
 	constraint pk_ing_id primary key (ing_id)
 );
@@ -92,6 +94,17 @@ create table stock(
 	ing_id integer not null,
 	constraint pk_stock_id primary key(stock_id)
 );
+
+create table notification(
+	noti_id serial not null,
+	noti_title varchar(255) not null,
+	noti_message text not null,
+	noti_date timestamp not null,
+	constraint pk_noti_id primary key(noti_id)
+);
+
+
+
 /**
 * Alter table fks
 */
@@ -204,31 +217,31 @@ INSERT INTO product_category (prod_id, cat_id) VALUES
 * Insert Ingredients 
 * 
 */
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Batata', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Tilápia', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Carne moída', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Pão de hambúrguer', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo Mussarela', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo Cheddar', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo Gorgonzola', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Cebola roxa', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Alface', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Tomate', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Rúcula', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Queijo parmesão', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Molho Shoyu', 4);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Molho Balsâmico', 4);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Cenoura', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Tomate Cereja', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Maionese', 2);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Limão', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Morango', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Kiwi', 5);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Vodka', 4);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Gin', 4);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Cachaça', 4);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Xarope de curaçau', 4);
-INSERT INTO ingredient(ing_name, un_id) VALUES ('Suco de laranja', 4);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Batata', 2, 1000, 50000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Tilápia', 2, 1000, 30000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Carne moída', 2, 1000, 30000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Pão de hambúrguer', 5, 15 , 100);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Queijo Mussarela', 2, 1000, 8000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Queijo Cheddar', 2, 1000, 9000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Queijo Gorgonzola', 2, 1000, 10000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Cebola roxa', 5, 20, 50);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Alface', 5, 20, 50);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Tomate', 5, 20, 50);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Rúcula', 2, 1000, 5000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Queijo parmesão', 2, 1000, 5000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Molho Shoyu', 4, 1000, 15000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Molho Balsâmico', 4, 1000, 15000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Cenoura', 2, 1000, 16000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Tomate Cereja', 2, 1000, 16000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Maionese', 2, 1000, 16000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Limão', 5, 20, 70);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Morango', 5, 20, 50);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Kiwi', 5, 20, 50);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Vodka', 4, 1000, 15000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Gin', 4, 1000, 15000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Cachaça', 4, 1000, 15000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Xarope de curaçau', 4, 1000, 15000);
+INSERT INTO ingredient(ing_name, un_id, ing_min, ing_max) VALUES ('Suco de laranja', 4, 1000, 15000);
 
 /**
 * Insert ProductIngrendient 
