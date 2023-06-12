@@ -20,7 +20,6 @@ export const SalesPage = () => {
   const [showViewDialog, setShowViewDialog] = useState<boolean>(false);
   const [saleSelected, setSaleSelected] = useState<SaleModel | undefined>(undefined);
 
-  console.log(sales)
 
   const handleViewClick = (params: GridCellParams) => {
     const saleId = params.id as number;

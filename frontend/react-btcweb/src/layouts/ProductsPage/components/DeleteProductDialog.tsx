@@ -9,6 +9,7 @@ interface DeleteModalProps {
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   productId: number
+  setShowWarningDialog: React.Dispatch<React.SetStateAction<boolean>>
   // onDelete: (productId: number) => void
 }
 
@@ -34,6 +35,10 @@ export const DeleteProductDialog: React.FC<DeleteModalProps> = (props) => {
         }
       }
       const response = await fetch(url, requestOptions);
+      if (response.status === 500) {
+        props.setOpen(false);
+        props.setShowWarningDialog(true);
+      }
       const responseData = await response.json();
     }
     fetchDeleteProduct().catch((error: any) => {

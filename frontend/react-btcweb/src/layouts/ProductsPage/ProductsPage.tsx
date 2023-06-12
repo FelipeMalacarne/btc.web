@@ -8,7 +8,8 @@ import {
   DeleteOutlineOutlined as DeleteOutlineOutlinedIcon,
   Edit,
   EditOutlined as EditOutlinedIcon,
-  VisibilityOutlined as VisibilityOutlinedIcon
+  VisibilityOutlined as VisibilityOutlinedIcon,
+  Warning
 } from '@mui/icons-material';
 import { Header } from '../utils/Header';
 import { DeleteProductDialog } from './components/DeleteProductDialog';
@@ -17,6 +18,7 @@ import { EditProductDialog } from './components/EditProductDialog';
 import AuthService from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 import FlexBetween from '../utils/FlexBetween';
+import { WarningDialog } from '../utils/WarningDialog';
 
 export const ProductsPage = () => {
   const theme = useTheme();
@@ -30,6 +32,7 @@ export const ProductsPage = () => {
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [idProductSelected, setIdProductSelected] = useState<number>(0);
   const [productSelected, setProductSelected] = useState<ProductModel | undefined>(undefined);
+  const [showWarningDialog, setShowWarningDialog] = useState<boolean>(false);
 
   const currencyFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
@@ -159,6 +162,7 @@ export const ProductsPage = () => {
           open={showDeleteDialog}
           setOpen={setShowDeleteDialog}
           productId={idProductSelected}
+          setShowWarningDialog={setShowWarningDialog}
         />
       )}
       {showViewDialog && (
@@ -173,6 +177,15 @@ export const ProductsPage = () => {
           setOpen={setShowEditDialog}
           product={productSelected} />
       )}
+      {showWarningDialog && (
+        <WarningDialog
+          open={showWarningDialog}
+          setOpen={setShowWarningDialog}
+          message='Erro ao deletar produto! Para não compremeter a integridade de dados não é possível deletar produtos com vendas associadas.'
+        />
+      )
+
+      }
       <FlexBetween>
         <Header title='Produtos' subtitle='Vizualização de produtos' />
         <Button variant='outlined'
