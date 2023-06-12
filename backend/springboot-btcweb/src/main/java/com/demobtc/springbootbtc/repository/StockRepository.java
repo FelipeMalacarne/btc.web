@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
     Stock findByIngredientId(Long ingredientId);
+
 }
