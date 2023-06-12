@@ -56,6 +56,16 @@ export const ViewIngredientDialog: React.FC<ViewDialogProps> = (props) => {
         >
           Cancelar
         </Button>
+        <Button
+          variant='contained'
+          onClick={() => window.print()}
+          sx={{
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText
+          }}
+        >
+          Exportar
+        </Button>
       </DialogActions>
     </Dialog>
 

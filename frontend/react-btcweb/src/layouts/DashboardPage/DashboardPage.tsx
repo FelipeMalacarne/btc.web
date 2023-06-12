@@ -17,7 +17,7 @@ export const DashboardPage = () => {
         <Header title={'Dashboard'} subtitle={'Bem vindo ao seu dashboard'} />
 
         <Box>
-          <Button
+          {/* <Button
             sx={{
               backgroundColor: theme.palette.secondary.light,
               color: theme.palette.secondary.contrastText,
@@ -28,7 +28,7 @@ export const DashboardPage = () => {
           >
             <DownloadOutlined sx={{mr: '10px'}} />
             Download Reports
-          </Button>
+          </Button> */}
         </Box>
       </FlexBetween>
 

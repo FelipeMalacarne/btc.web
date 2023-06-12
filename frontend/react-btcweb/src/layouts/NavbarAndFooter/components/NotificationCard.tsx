@@ -42,7 +42,7 @@ export const NotificationCard: React.FC<NotificationProps> = (props) => {
           fontSize: '0.8rem',
         }}
       >
-        {dayjs(props.date).format('DD/MM/YYYY HH:mm:ss')}
+        {dayjs(props.date).format('DD/MM/YYYY HH:mm')}
       </Typography>
     </Paper>
   );

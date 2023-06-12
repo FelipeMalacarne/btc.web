@@ -24,6 +24,7 @@ import { WithdrawPage } from './layouts/WithdrawPage/WithdrawPage';
 import { StockHistoryPage } from './layouts/StockHistoryPage/StockHistoryPage';
 import { PerformSalePage } from './layouts/PerformSalePage/PerformSalePage';
 import { DailyPage } from './layouts/DailyPage/DailyPage';
+import { UsersPage } from './layouts/UsersPage/UsersPage';
 
 dayjs.extend(localizedFormat); // Extend
 
@@ -68,6 +69,7 @@ export const App = () => {
           <Route path='/secure/sales-view' element={<SalesPage/>}/>
           <Route path='/secure/perform-sale' element={<PerformSalePage/>}/>
           <Route path='/secure/daily' element={<DailyPage/>}/>
+          <Route path='/secure/users' element={<UsersPage/>}/>
         </Route>
       </Routes>
       </LocalizationProvider>

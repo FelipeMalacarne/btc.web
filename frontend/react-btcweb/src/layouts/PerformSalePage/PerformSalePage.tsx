@@ -57,7 +57,11 @@ export const PerformSalePage = () => {
         setShowSuccessDialog(true);
         setSaleProductList([]);
       } else {
-        // setWarningMessage(response.statusText);
+        const resposeBody = await response.json();
+        const message = resposeBody.message;
+        if (message.includes('"stock" is null')) {
+          setWarningMessage('Não foi possível realizar a venda! Algum produto não possui estoque registrado.');
+        }
         setShowWarningDialog(true);
       } 
 
