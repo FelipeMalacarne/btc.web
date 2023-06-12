@@ -12,7 +12,6 @@ import { useStock } from "../../hooks/useStock";
 export const InventoryPage = () => {
   const theme = useTheme();
   const { stock, isLoading, httpError } = useStock();
-  console.log(stock)
   const columns = [
     { field: 'id', headerName: 'ID', minwidth: 80 },
     {

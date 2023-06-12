@@ -11,6 +11,8 @@ import FlexBetween from "../utils/FlexBetween"
 import { darkTheme, lightTheme } from "../../Theme"
 import { useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
+import { useNotifications } from "../../hooks/useNotifications"
+import { NotificationButton } from "./components/NotificationButton"
 
 
 interface TopbarProps {
@@ -23,7 +25,7 @@ interface TopbarProps {
 export const Topbar: React.FC<TopbarProps> = (props) => {
   const theme = useTheme();
   const { authState, logout } = useAuth();
-
+  const { notifications } = useNotifications();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isOpen = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +57,6 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
       <Toolbar sx={{
         justifyContent: "space-between",
       }} >
-
         {/* LEFTSIDE */}
         <FlexBetween>
           <IconButton onClick={() => props.setIsSidebarOpen(!props.isSidebarOpen)}>
@@ -73,7 +74,6 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
             </IconButton>
           </FlexBetween>
         </FlexBetween>
-
         {/* RIGHTSIDE */}
         <FlexBetween gap='1.5rem'>
           <IconButton onClick={handleTheme} sx={{ color: theme.palette.text.primary }}>
@@ -93,7 +93,7 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
               color: theme.palette.text.primary
             }} />
           </IconButton>
-
+          <NotificationButton notifications={notifications} />
           <FlexBetween>
             <Button
               onClick={handleClick}
@@ -149,7 +149,6 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
           </FlexBetween>
-
         </FlexBetween>
       </Toolbar>
     </AppBar>

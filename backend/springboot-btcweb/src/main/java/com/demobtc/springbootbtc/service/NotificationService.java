@@ -35,10 +35,10 @@ public class NotificationService {
             Notification notification = new Notification().builder()
                     .title("Conferir Estoque de " + ingredient.getName())
                     .message(
-                            "O ingrediente " + ingredient.getName() + " está fora dos limites de estoque. " +
-                            "O limite mínimo é " + ingredient.getMin() + " e o limite máximo é " + ingredient.getMax() + ". " +
-                            "O estoque atual é " + stockRepository.findByIngredientId(ingredient.getId()).getAmount() + ". " +
-                            "Resolva o problema o quanto antes!"
+                            "O ingrediente " + ingredient.getName() + " está fora dos limites de estoque. \n\n" +
+                            "O limite mínimo é: " + ingredient.getMin() + "\nO limite máximo é: " + ingredient.getMax() +
+                            "\nO estoque atual é: " + stockRepository.findByIngredientId(ingredient.getId()).getAmount() + ". \n\n" +
+                            "Algo de errado aconteceu, resolva o problema o quanto antes!"
                     )
                     .date(new Timestamp(System.currentTimeMillis()))
                     .build();
