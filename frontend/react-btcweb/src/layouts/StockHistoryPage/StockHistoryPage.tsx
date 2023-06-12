@@ -58,6 +58,10 @@ export const StockHistoryPage = () => {
               color: theme.palette.text.primary,
               border: 'none',
             },
+            '& .MuiButton-root': {
+              // Defina a cor do texto dos botões na barra de ferramentas
+              color: theme.palette.text.primary,
+            },
           }
         }}
       >
