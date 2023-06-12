@@ -49,10 +49,7 @@ export const InventoryPage = () => {
       field: 'status',
       headerName: 'Status',
       flex: 1,
-      valueGetter: (params: GridValueGetterParams) => 
-        params.row.amount > params.row.ingredient.max ?
-          'Excesso' : params.row.amount < params.row.ingredient.min ?
-          'Falta' : 'Normal'
+      valueGetter: (params: GridValueGetterParams) => params.row.amount > params.row.ingredient.max ? 'Excesso' : params.row.amount < params.row.ingredient.min ? 'Falta' : 'Normal'
     }
   ]
 
