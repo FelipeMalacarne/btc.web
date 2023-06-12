@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListIt
 import React from 'react'
 import SaleModel from '../../../models/SaleModel'
 import dayjs from 'dayjs'
+import FlexBetween from '../../utils/FlexBetween'
 
 interface ViewSaleDialogProps {
   open: boolean,
@@ -104,6 +105,16 @@ export const ViewSaleDialog: React.FC<ViewSaleDialogProps> = (props) => {
           }}
         >
           Cancelar
+        </Button>
+        <Button
+          variant='contained'
+          onClick={() => window.print()}
+          sx={{
+            backgroundColor: theme.palette.secondary.main,
+            color: theme.palette.secondary.contrastText
+          }}
+        >
+          Exportar
         </Button>
       </DialogActions>
     </Dialog>
