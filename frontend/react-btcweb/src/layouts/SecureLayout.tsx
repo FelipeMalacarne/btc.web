@@ -10,11 +10,11 @@ interface SecureLayoutProps {
   themeMode: Theme,
   setThemeMode: React.Dispatch<React.SetStateAction<Theme>>
 }
+
 export const SecureLayout: React.FC<SecureLayoutProps> = (props) => {
   const { authState } = useAuth();
   const isMobile = !useMediaQuery('(min-width: 600px)'); 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
 
   if (!authState.isLoading && !authState.isAuthenticated) {
     return <Navigate to="/signin" />

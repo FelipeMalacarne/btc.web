@@ -35,10 +35,16 @@ export const useNotifications = () => {
   }
 
   useEffect(() => {
-    fetchNotifications().catch((error: any) => {
-      setIsLoading(false);
-      setHttpError(error.message);
-    })
+    const interval = setInterval(() => {
+      fetchNotifications().catch((error: any) => {
+        setIsLoading(false);
+        setHttpError(error.message);
+      })
+    }, 1000);
+
+    return () => {
+      clearInterval(interval); // Cleanup the interval when the component unmounts
+    };
   }, []);
 
   return { notifications, setNotifications, isLoading, httpError}

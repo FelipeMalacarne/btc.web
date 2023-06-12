@@ -46,7 +46,6 @@ export const NotificationButton = (props: NotificationsProps) => {
           width: 400,
           maxHeight: 600,
         }}
-
       >
         {props.notifications.map((notification) => (
           <MenuItem key={notification.id} onClick={handleClose}>

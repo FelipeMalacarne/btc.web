@@ -6,6 +6,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import StockService from "../../services/StockService";
 import WithdrawRequest from "../../models/requests/WithdrawRequest";
+import { useNavigate } from "react-router-dom";
 
 export const WithdrawPage = () => {
   const theme = useTheme();
@@ -28,7 +29,6 @@ export const WithdrawPage = () => {
   const [accountId, setAccountId] = useState<number>(AuthService.getCurrentUser()?.id);
   const [ingredientId, setIngredientId] = useState<number>();
   const [leaveDate, setLeaveDate] = useState<Date>(new Date(dayjs().format()));
-
 
   const isFormValid = () => {
     const floatAmnt = parseFloat(amount);

@@ -3,13 +3,12 @@ import {
   DarkModeOutlined,
   Menu as MenuIcon,
   Search as SearchIcon,
-  SettingsOutlined,
   ArrowDropDownOutlined
 } from "@mui/icons-material"
 import { AppBar, Box, Button, IconButton, InputBase, Menu, MenuItem, Theme, Toolbar, Typography, useTheme } from "@mui/material"
 import FlexBetween from "../utils/FlexBetween"
 import { darkTheme, lightTheme } from "../../Theme"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/useAuth"
 import { useNotifications } from "../../hooks/useNotifications"
 import { NotificationButton } from "./components/NotificationButton"
@@ -27,6 +26,7 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
   const { authState, logout } = useAuth();
   const { notifications } = useNotifications();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const isOpen = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -86,12 +86,6 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
                 sx={{ fontSize: '25px' }}
               />
             }
-          </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{
-              fontSize: '25px',
-              color: theme.palette.text.primary
-            }} />
           </IconButton>
           <NotificationButton notifications={notifications} />
           <FlexBetween>

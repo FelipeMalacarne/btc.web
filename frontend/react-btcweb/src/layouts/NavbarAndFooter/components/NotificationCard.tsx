@@ -31,9 +31,6 @@ export const NotificationCard: React.FC<NotificationProps> = (props) => {
           marginBottom: theme.spacing(1),
           overflow: 'hidden', 
           textOverflow: 'ellipsis',
-          display: '-webkit-box', 
-          '-webkit-line-clamp': 2, 
-          '-webkit-box-orient': 'vertical', 
           whiteSpace: 'pre-line', 
         }}
       >
