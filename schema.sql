@@ -123,7 +123,7 @@ alter table entry_ingredient add constraint fk_ing_id foreign key(ing_id) refere
 alter table entry_ingredient add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
 alter table leave_ingredient add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
 alter table leave_ingredient add constraint fk_acc_id foreign key(acc_id) references account (acc_id);
-alter table stock add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id);
+alter table stock add constraint fk_ing_id foreign key(ing_id) references ingredient (ing_id) ON DELETE CASCADE;
 
 
 /**

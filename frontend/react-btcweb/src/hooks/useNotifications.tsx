@@ -40,7 +40,7 @@ export const useNotifications = () => {
         setIsLoading(false);
         setHttpError(error.message);
       })
-    }, 10000);
+    }, 5000);
 
     return () => {
       clearInterval(interval); // Cleanup the interval when the component unmounts
