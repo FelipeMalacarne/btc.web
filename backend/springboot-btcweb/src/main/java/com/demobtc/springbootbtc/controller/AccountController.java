@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,10 +25,12 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public List<Account> getAllAccounts() {
         return accountService.getAllAccounts();
     }
 
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<?> getAccountById(@PathVariable(value = "id") Long id) {
         try{
@@ -42,6 +45,7 @@ public class AccountController {
     }
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<?> createAccount(@RequestBody PostNewAccountRequest request) {
         try {
@@ -55,6 +59,7 @@ public class AccountController {
 
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateAccount(@RequestBody UpdateAccountRequest request, @PathVariable(value = "id") Long id) {
         try{
             Account updatedAccount = accountService.updateAccount(request, id);
@@ -67,6 +72,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteAccount(@PathVariable(value = "id") Long id) {
         try{
             Account deletedAccount = accountService.deleteAccount(id);

@@ -7,10 +7,13 @@ import dayjs from "dayjs";
 import StockService from "../../services/StockService";
 import WithdrawRequest from "../../models/requests/WithdrawRequest";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export const WithdrawPage = () => {
   const theme = useTheme();
   const { stock, setStock } = useStock();
+  const { authState } = useAuth();
+  const nav = useNavigate();
 
   // form data
   const [stockName, setStockName] = useState<string | null>('');
@@ -76,7 +79,9 @@ export const WithdrawPage = () => {
       setIngredientId(stockSelected.ingredient.id);
     }
   }
-
+  if(authState.user?.roles[0] == "ROLE_USER"){
+    nav('/secure');
+  }
   return (
     <Box m='1rem 3rem' height='calc(100vh - 200px)'>
       <Header title={"Retirada"} subtitle={"Saída de estoque"} />

@@ -6,10 +6,14 @@ import RoleSetRequest from '../../models/requests/RolesSetRequest'
 import AccountRequest from '../../models/requests/AccountRequest'
 import authHeader from '../../services/AuthHeader'
 import { error } from 'console'
+import { useAuth } from '../../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 export const AccountFormsPage = () => {
   const theme = useTheme()
+  const { authState } = useAuth();
+  const nav = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [httpError, setHttpError] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -27,25 +31,25 @@ export const AccountFormsPage = () => {
     role: false
   });
 
-
+  
   const handleCreateAccount = async () => {
     const envUrl = process.env.REACT_APP_API_URL;
     const url = `${envUrl}/api/accounts`;
     const token = authHeader().Authorization;
-
+    
     const rolesSetRequest = [{
       roleId: ERoles[roleName as keyof typeof ERoles].valueOf() + 1
     }] as RoleSetRequest[];
-
+    
     const accountToCreate = new AccountRequest(
       username,
       cpf,
       email,
       password,
       rolesSetRequest
-    );
-    const requestOptions = {
-      method: 'POST',
+      );
+      const requestOptions = {
+        method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token
@@ -54,7 +58,7 @@ export const AccountFormsPage = () => {
     };
     const response = await fetch(url, requestOptions);
     const responseData = await response.json();
-
+    
     if (response.ok) {
       setShowSuccessAlert(true);
       setShowErrorAlert(false);
@@ -70,7 +74,7 @@ export const AccountFormsPage = () => {
       setShowErrorAlert(true);
     }
   }
-
+  
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     if (validateForm()) {
@@ -89,7 +93,7 @@ export const AccountFormsPage = () => {
     const isPasswordValid = password.length >= 6 && password.length <= 70;
     const isEmailValid = email.length >= 6 && email.length <= 70;
     const isRoleValid = roleName.length > 0;
-
+    
     const isValid = isUsernameValid && isCpfValid && isPasswordValid && isEmailValid && isRoleValid
     setIsHelperTextVisible({
       username: !isUsernameValid,
@@ -100,7 +104,9 @@ export const AccountFormsPage = () => {
     })
     return isValid;
   }
-
+  if(authState?.user?.roles[0] === 'ROLE_USER' || authState?.user?.roles[0] === 'ROLE_MODERATOR') {
+    nav('/secure')
+  }
   return (
     <Box m="1rem 3rem" height='calc(100vh - 200px)'>
       <Header title={'Usuários'} subtitle={'Cadastro de Usuários'} />

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -29,6 +30,7 @@ public class StockController {
     private StockService stockService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<List<Stock>> getAllStocks() {
         try {
             List<Stock> stockList = stockService.getAllStocks();
@@ -40,6 +42,7 @@ public class StockController {
     }
 
     @PostMapping("/deposit")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> depositStock(@RequestBody EntryRequest request) {
         try {
             EntryIngredient entryCreated = stockService.registerEntry(request);
@@ -54,6 +57,7 @@ public class StockController {
     }
 
     @PostMapping("/withdraw")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Object> leaveStock(@RequestBody LeaveRequest request){
         try {
             stockService.registerLeave(request);
@@ -68,6 +72,7 @@ public class StockController {
     }
 
     @GetMapping("/deposit")
+    @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Object> getEntryHistory(){
         try {
             List<EntryIngredient> entryList = stockService.getAllEntries();
@@ -79,6 +84,7 @@ public class StockController {
     }
 
     @GetMapping("/withdraw")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Object> getLeaveHistory(){
         try {
             List<LeaveIngredient> leaveList = stockService.getAllLeaves();
@@ -90,6 +96,7 @@ public class StockController {
     }
 
     @GetMapping("/movement")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<Object> getStockMovement(){
         try {
             List<StockMovement> stockMovement = stockService.getStockMovement();

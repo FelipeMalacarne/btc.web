@@ -12,9 +12,13 @@ import IngredientListModel from '../../models/IngredientListModel';
 import { AddIngredientDialog } from '../ProductsPage/components/AddIngredientDialog';
 import Ecategories from '../../models/ECategory';
 import { LinkRouter } from '../utils/LinkRouter';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const ProductFormsPage = () => {
   const theme = useTheme();
+  const { authState } = useAuth();
+  const nav = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string | null>(null);
   const [productName, setProductName] = useState<string>('');
@@ -29,18 +33,18 @@ export const ProductFormsPage = () => {
   const [addIngredientOpen, setAddIngredientOpen] = useState<boolean>(false);
   const [newIngredient, setNewIngredient] = useState<IngredientListModel>(
     {} as IngredientListModel
-  );
-  useEffect(() => {
-    const fetchIngredients = async () => {
-      const envUrl = process.env.REACT_APP_API_URL;
-      const url = envUrl + '/api/ingredients';
-      const token = authHeader().Authorization;
-      const requestOptions = {
-        method: 'GET',
-        headers: {
-          Authorization: token,
-          'Content-Type': 'application/json'
-        }
+    );
+    useEffect(() => {
+      const fetchIngredients = async () => {
+        const envUrl = process.env.REACT_APP_API_URL;
+        const url = envUrl + '/api/ingredients';
+        const token = authHeader().Authorization;
+        const requestOptions = {
+          method: 'GET',
+          headers: {
+            Authorization: token,
+            'Content-Type': 'application/json'
+          }
       }
       const response = await fetch(url, requestOptions);
       const responseData = await response.json();
@@ -66,7 +70,7 @@ export const ProductFormsPage = () => {
       setHttpError(error.message);
     })
   }, [])
-
+  
   const validateForm = () => {
     const price = parseFloat(productPrice);
     const isNameValid = productName.length < 50 && productName.length > 0;
@@ -74,15 +78,15 @@ export const ProductFormsPage = () => {
     const isPriceValid = price > 0 && price < 100000;
     const isCategoryValid = productCategoryName.length > 0;
     const isProductIngredientListValid = productIngredientList.every(ingredient => ingredient.amount > 0 && ingredient.amount <= 100000);
-
+    
     return isNameValid && isDescriptionValid && isPriceValid && isCategoryValid && isProductIngredientListValid;
   }
-
+  
   const handleCreateProduct = async () => {
     const envUrl = process.env.REACT_APP_API_URL;
     const url = envUrl + '/api/products';
     const token = authHeader().Authorization;
-
+    
     const ingredientListRequest = productIngredientList.map((ingredientList) => {
       return {
         ingredientId: ingredientList.ingredient.id,
@@ -92,7 +96,7 @@ export const ProductFormsPage = () => {
     const categoriesSetRequest = [{
       categoryId: Ecategories[productCategoryName as keyof typeof Ecategories].valueOf() + 1
     }] as CategorySetRequest[]
-
+    
     const productToCreate = new ProductRequest(
       productName,
       productDescription,
@@ -100,7 +104,7 @@ export const ProductFormsPage = () => {
       productActive,
       categoriesSetRequest,
       ingredientListRequest
-    )
+      )
 
     const requestOptions = {
       method: 'POST',
@@ -126,7 +130,7 @@ export const ProductFormsPage = () => {
       setShowErrorAlert(true);
     }
   }
-
+  
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     if (validateForm()) {
@@ -158,17 +162,20 @@ export const ProductFormsPage = () => {
       handleAddIngredientClose();
     }
   };
-
+  
+  if(authState?.user?.roles[0] === 'ROLE_USER') {
+    nav('/secure')
+  }
   if (isLoading) return <CircularProgress />
   return (
     <Box m="1rem 3rem" height='calc(100vh - 200px)'>
       {addIngredientOpen && (
         <AddIngredientDialog
-          open={addIngredientOpen}
-          setOpen={setAddIngredientOpen}
-          handleAddIngredient={handleAddIngredient}
-          setNewIngredient={setNewIngredient}
-          productIngredients={productIngredientList}
+        open={addIngredientOpen}
+        setOpen={setAddIngredientOpen}
+        handleAddIngredient={handleAddIngredient}
+        setNewIngredient={setNewIngredient}
+        productIngredients={productIngredientList}
         />
       )}
       <Breadcrumbs aria-label="breadcrumb" sx={{mb: 2}}>
@@ -179,7 +186,7 @@ export const ProductFormsPage = () => {
           underline="hover"
           color="inherit"
           to="/secure/products"
-        >
+          >
           Produtos
         </LinkRouter>
         <Typography color="text.primary">Cadastro</Typography>

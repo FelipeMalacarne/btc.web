@@ -4,11 +4,14 @@ import { useAccounts } from '../../hooks/useAccounts';
 import { Loading } from '../utils/Loading';
 import { Header } from '../utils/Header';
 import { DataGrid, GridToolbar, GridValueGetterParams } from '@mui/x-data-grid';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const UsersPage = () => {
   const theme = useTheme();
+  const { authState } = useAuth();
+  const nav = useNavigate();
   const { accounts, isLoading, httpError } = useAccounts();
-  console.log(accounts)
   const columns = [
     { field: 'id', headerName: 'ID', width: 60 },
     { field: 'name', headerName: 'Nome', minWidth: 100, flex: 1 },
@@ -19,6 +22,9 @@ export const UsersPage = () => {
   ]
 
 
+  if(authState?.user?.roles[0] === 'ROLE_USER' || authState?.user?.roles[0] === 'ROLE_MODERATOR') {
+    nav('/secure')
+  }
   if (isLoading) return <Loading/>
   if (httpError) return <div>{httpError}</div>
   return (
@@ -57,7 +63,7 @@ export const UsersPage = () => {
           },
         }
       }}
-    >
+      >
       <DataGrid
         rows={accounts || []}
         columns={columns}

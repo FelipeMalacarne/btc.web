@@ -14,12 +14,15 @@ import DepositRequest from '../../models/requests/DepositRequest'
 import authHeader from '../../services/AuthHeader'
 import AuthService from '../../services/AuthService'
 import StockService from '../../services/StockService'
+import { useNavigate } from 'react-router-dom'
 
 dayjs.extend(localizedFormat); // Extend
 
 
 export const DepositPage = () => {
   const theme = useTheme();
+  const { authState } = useAuth();
+  const nav = useNavigate();
   const { ingredients, setIngredients } = useIngredients();
   const [ingredientNameSelected, setIngredientNameSelected] = useState<string | null>('');
   const [httpError, setHttpError] = useState<string>('');
@@ -82,6 +85,10 @@ export const DepositPage = () => {
     })
     return isAmountValid && ingredientId;
   }
+  if(authState?.user?.roles[0] === 'ROLE_USER') {
+    nav('/secure')
+  }
+
   return (
     <Box m='1rem 3rem' height='calc(100vh - 200px)'>
       <Header title={'Deposito'} subtitle={'Entrada de Estoque'} />

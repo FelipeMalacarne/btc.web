@@ -1,5 +1,6 @@
 import {
   Box,
+  CircularProgress,
   Divider,
   Drawer,
   IconButton,
@@ -39,6 +40,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FlexBetween from '../utils/FlexBetween'
 import { useAuth } from '../../hooks/useAuth'
+import { useNavItems } from './useNavItems'
 
 interface SidebarProps {
   drawerWidth: string,
@@ -47,107 +49,18 @@ interface SidebarProps {
   isMobile: boolean
 }
 
-const navItems = [
-  {
-    text: "Dashboard",
-    icon: <HomeOutlined />,
-  },
-  {
-    text: "Stock and Products",
-    icon: null
-  },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
-  {
-    text: "Ingredients",
-    icon: <InventoryOutlined />,
-  },
-  {
-    text: "Inventory",
-    icon: <Inventory2Outlined />,
-  },
-  {
-    text: "Deposit",
-    icon: <SouthWestOutlined />,
-  },
-  {
-    text: "Withdraw",
-    icon: <ArrowOutwardOutlined />,
-  },
-  {
-    text: "History",
-    icon: <HistoryOutlined />,
-  },
-  {
-    text: "Sales",
-    icon: null,
-  },
-  {
-    text: "Sales View",
-    icon: <PointOfSaleOutlined />,
-  },
-  // {
-  //   text: "Daily",
-  //   icon: <TodayOutlined />,
-  // },
-  // {
-  //   text: "Monthly",
-  //   icon: <CalendarMonthOutlined />,
-  // },
-  // {
-  //   text: "Breakdown",
-  //   icon: <PieChartOutlined />,
-  // },
-  {
-    text: "Perform Sale",
-    icon: <Inventory2Outlined />,
-  },
-  {
-    text: "Admnistration",
-    icon: null
-  },
-  {
-    text: "Users",
-    icon: <Inventory2Outlined />,
-  },
-  // {
-  //   text: "Perfomance",
-  //   icon: <TrendingUpOutlined />,
-  // },
-  {
-    text: "Registration",
-    icon: null
-  },
-  {
-    text: "Product Registration",
-    icon: <AssignmentOutlined />,
-  },
-  {
-    text: "Ingredient Registration",
-    icon: <AssignmentOutlined />
-  },
-  {
-    text: "Account Registration",
-    icon: <AssignmentOutlined />
-  },
-
-
-]
-
 export const Sidebar: React.FC<SidebarProps> = (props) => {
   const { pathname } = useLocation();
   const { authState, logout } = useAuth();
-  const [active, setActive] = useState("");
-  const navigate = useNavigate();
+  const { items } = useNavItems();
   const theme = useTheme();
+  const navigate = useNavigate();
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     setActive(pathname.substring(8));
     console.log(pathname.substring(8))
   }, [pathname]);
-
   const handleListItemButtonClick = (lcText: string) => {
     navigate(`/secure/${lcText}`)
     setActive(lcText);
@@ -207,7 +120,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
               </FlexBetween>
             </Box>
             <List>
-              {navItems.map(({ text, icon }) => {
+              {items.map(({ text, icon }) => {
                 if (!icon) {
                   return (
                     <Typography

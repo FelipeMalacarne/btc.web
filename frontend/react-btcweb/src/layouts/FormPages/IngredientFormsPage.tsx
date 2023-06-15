@@ -4,9 +4,13 @@ import { Header } from "../utils/Header";
 import authHeader from '../../services/AuthHeader';
 import UnitOfMeasureModel from '../../models/UnitOfMeasureModel';
 import NewIngredientRequest from '../../models/requests/NewIngredientRequest';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 export const IngredientFormsPage = () => {
   const theme = useTheme();
+  const { authState } = useAuth();
+  const nav = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [httpError, setHttpError] = useState<string | null>(null);
   const [units, setUnits] = useState<UnitOfMeasureModel[]>([]);
@@ -25,7 +29,7 @@ export const IngredientFormsPage = () => {
       const envUrl = process.env.REACT_APP_API_URL;
       const Url = envUrl + '/api/units';
       const token = authHeader().Authorization;
-
+      
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -78,7 +82,7 @@ export const IngredientFormsPage = () => {
           Number(ingredientMin),
           Number(ingredientMax),
           ingredientUnit.id
-        )),
+          )),
       }
       console.log(JSON.stringify({
         name: ingredientName,
@@ -102,6 +106,9 @@ export const IngredientFormsPage = () => {
     } else {
       setShowErrorAlert(true);
     }
+  }
+  if(authState?.user?.roles[0] === 'ROLE_USER') {
+    nav('/secure')
   }
   if (isLoading) return <CircularProgress />
   return (

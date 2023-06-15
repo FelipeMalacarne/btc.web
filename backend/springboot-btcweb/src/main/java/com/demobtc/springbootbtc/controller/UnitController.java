@@ -5,6 +5,7 @@ import com.demobtc.springbootbtc.service.UnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class UnitController {
     private UnitService unitService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getAllUnits(){
         try {
             List<Unit> units = unitService.getAllUnits();
@@ -28,6 +30,7 @@ public class UnitController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> getUnitById(@PathVariable(value = "id") Long id){
         try{
             return ResponseEntity.ok(unitService.getUnitById(id));
@@ -39,6 +42,7 @@ public class UnitController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> postNewUnit(@RequestBody Unit unit){
         try{
             return ResponseEntity.ok(unitService.postNewUnit(unit));
@@ -48,6 +52,7 @@ public class UnitController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> updateUnitById(@PathVariable(value = "id") Long id, @RequestBody Unit unit){
         try{
             return ResponseEntity.ok(unitService.updateUniteById(id, unit));
@@ -59,6 +64,7 @@ public class UnitController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUnitById(@PathVariable(value = "id") Long id){
         try{
             unitService.deleteUnitById(id);
