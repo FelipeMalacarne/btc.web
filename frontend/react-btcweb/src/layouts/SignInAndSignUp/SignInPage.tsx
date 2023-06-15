@@ -139,7 +139,7 @@ export const SignInPage = () => {
                                 </Typography>
                             </FormControl>
                         )}
-                        <Grid container>
+                        {/* <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2" color={'text.secondary'}>
                                     Forgot password?
@@ -150,7 +150,7 @@ export const SignInPage = () => {
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
-                        </Grid>
+                        </Grid> */}
                     </Box>
                 </Box>
 

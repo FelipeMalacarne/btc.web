@@ -157,9 +157,9 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                 onChange={(e) => setProductDescription(e.target.value)}
                 type='text'
                 multiline
-                error={productDescription.length >= 200}
-                helperText={productDescription.length >= 200 ?
-                  'Description must be less than 200 characters' : ''
+                error={productDescription.length >= 500}
+                helperText={productDescription.length >= 500 ?
+                  'Description must be less than 500 characters' : ''
                 }
               />
             </FormControl>
@@ -211,8 +211,8 @@ export const EditProductDialog: React.FC<EditProductDialogProps> = (props) => {
                         handleIngredientListChange(event, index)
                       }}}
                     required
-                    error={ingredientListItem.amount < 1 || ingredientListItem.amount >= 1000000}
-                    helperText={ingredientListItem.amount < 1 || ingredientListItem.amount >= 1000000 ?
+                    error={ingredientListItem.amount <= 0 || ingredientListItem.amount >= 1000000}
+                    helperText={ingredientListItem.amount <= 0 || ingredientListItem.amount >= 1000000 ?
                       'Invalid Amount' : ''
                     }
                     sx={{

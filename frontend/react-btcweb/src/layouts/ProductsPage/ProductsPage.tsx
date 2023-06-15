@@ -39,7 +39,6 @@ export const ProductsPage = () => {
     currency: 'BRL',
   });
 
-
   useEffect(() => {
     const fetchProducts = async () => {
       const envUrl = process.env.REACT_APP_API_URL;
@@ -183,9 +182,7 @@ export const ProductsPage = () => {
           setOpen={setShowWarningDialog}
           message='Erro ao deletar produto! Para não compremeter a integridade de dados não é possível deletar produtos com vendas associadas.'
         />
-      )
-
-      }
+      )}
       <FlexBetween>
         <Header title='Produtos' subtitle='Vizualização de produtos' />
         <Button variant='outlined'

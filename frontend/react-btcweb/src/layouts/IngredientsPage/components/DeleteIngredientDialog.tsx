@@ -10,6 +10,7 @@ interface DeleteIngredientDialogProps {
   ingredientId: number
   ingredients: IngredientModel[]
   setIngredients: React.Dispatch<React.SetStateAction<IngredientModel[]>>
+  setShowWarningDialog: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (props) => {
@@ -37,6 +38,10 @@ export const DeleteIngredientDialog: React.FC<DeleteIngredientDialogProps> = (pr
       if(response.ok){
         const newIngredients = props.ingredients.filter(ingredient => ingredient.id !== props.ingredientId);
         props.setIngredients(newIngredients);
+      }
+      if (response.status === 500) {
+        props.setOpen(false);
+        props.setShowWarningDialog(true);
       }
     }
     fetchDeleteIngredient().catch((error: any) => {

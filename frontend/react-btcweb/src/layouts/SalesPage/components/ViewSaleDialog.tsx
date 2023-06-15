@@ -1,8 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Typography, useTheme } from '@mui/material'
-import React from 'react'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, MenuItem, Typography, useTheme } from '@mui/material'
+import React, { useState } from 'react'
 import SaleModel from '../../../models/SaleModel'
 import dayjs from 'dayjs'
 import FlexBetween from '../../utils/FlexBetween'
+import { ViewProductDialog } from '../../ProductsPage/components/ViewProductDialog'
+import { useProducts } from '../../../hooks/useProducts'
+import ProductModel from '../../../models/ProductModel'
 
 interface ViewSaleDialogProps {
   open: boolean,
@@ -16,8 +19,11 @@ const currencyFormatter = new Intl.NumberFormat('pt-BR', {
 
 export const ViewSaleDialog: React.FC<ViewSaleDialogProps> = (props) => {
   const theme = useTheme();
+  const { products } = useProducts();
   const handleClose = () => props.setOpen(false);
-  console.log(props.sale)
+  const [showViewProductDialog, setShowViewProductDialog] = useState(false);
+  const [productSelected, setProductSelected] = useState<ProductModel | undefined>(undefined);
+
 
   return (
     <Dialog
@@ -32,8 +38,15 @@ export const ViewSaleDialog: React.FC<ViewSaleDialogProps> = (props) => {
       }}
       fullWidth
     >
+      {showViewProductDialog && (
+        <ViewProductDialog
+          open={showViewProductDialog}
+          setOpen={setShowViewProductDialog}
+          product={productSelected}
+        />
+      )}
       <DialogTitle id="alert-dialog-title" fontSize={'24px'} fontWeight={'bold'} >
-        {'Venda ' + props.sale?.id }
+        {'Venda ' + props.sale?.id}
       </DialogTitle>
       <DialogContent dividers>
         <Typography
@@ -85,15 +98,21 @@ export const ViewSaleDialog: React.FC<ViewSaleDialogProps> = (props) => {
             borderRadius: '8px',
           }}
         >
-        {props.sale?.productList.map((item) => (
-          <ListItem key={item.product.id}>
-            <ListItemText
-              primary={`${item.amount}x ${item.product.name}`}
-              secondary={currencyFormatter.format(Number(item.product.price * item.amount)) }
+          {props.sale?.productList.map((item) => (
+            <MenuItem key={item.product.id}
+              onClick={() => {
+                setProductSelected(item.product);
+                console.log(productSelected)
+                setShowViewProductDialog(true);
+              }}
+            >
+              <ListItemText
+                primary={`${item.amount}x ${item.product.name}`}
+                secondary={currencyFormatter.format(Number(item.product.price * item.amount))}
 
-            />
-          </ListItem>
-        ))}
+              />
+            </MenuItem>
+          ))}
         </List>
       </DialogContent>
       <DialogActions>

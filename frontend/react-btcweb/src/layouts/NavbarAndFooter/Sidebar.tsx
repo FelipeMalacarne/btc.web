@@ -112,10 +112,10 @@ const navItems = [
     text: "Users",
     icon: <Inventory2Outlined />,
   },
-  {
-    text: "Perfomance",
-    icon: <TrendingUpOutlined />,
-  },
+  // {
+  //   text: "Perfomance",
+  //   icon: <TrendingUpOutlined />,
+  // },
   {
     text: "Registration",
     icon: null

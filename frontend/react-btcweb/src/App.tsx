@@ -43,17 +43,12 @@ export const App = () => {
   return (
     <ThemeProvider theme={themeMode}>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='pt-br'>
-
-
-
       <CssBaseline />
-
       <Routes>
-        <Route path='*' element={<NotFoundPage />} />
+        <Route path='*' element={<NotFoundPage />} />e
         <Route path='/' element={<Navigate to='/secure/dashboard' />} />
         <Route path='/signin' element={<SignInPage />} />
         <Route path='/signup' element={<SignUpPage />} />
-
         <Route path='/secure' element={<SecureLayout themeMode={themeMode} setThemeMode={setThemeMode} />}>
           <Route path='/secure/dashboard' element={<DashboardPage />} />
           <Route path='/secure/inventory' element={<InventoryPage />} />

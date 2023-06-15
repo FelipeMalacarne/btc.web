@@ -11,6 +11,7 @@ import { EditIngredientDialog } from './components/EditIngredientDialog';
 import { useIngredients } from '../../hooks/useIngredients';
 import { useIngredientRows } from './hooks/useIngredientRows';
 import { render } from 'react-dom';
+import { WarningDialog } from '../utils/WarningDialog';
 
 interface rowsModel {
   id: number,
@@ -25,6 +26,7 @@ export const IngredientsPage = () => {
   const [showEditDialog, setShowEditDialog] = useState<boolean>(false);
   const [ingredientSelected, setIngredientSelected] = useState<IngredientModel | undefined>(undefined);
   const [idIngredientSelected, setIdIngredientSelected] = useState<number>(0);
+  const [showWarningDialog, setShowWarningDialog] = useState<boolean>(false);
 
   const handleDeleteClick = (params: GridCellParams) => {
     const ingredientId = params.id as number;
@@ -44,7 +46,7 @@ export const IngredientsPage = () => {
     { field: 'name', headerName: 'Item', flex: 20 },
     { field: 'unitOfMeasure', headerName: 'Unidade', minWidth: 100, flex: 2 },
     {
-      field: 'actions', headerName: 'Ações', minWidth: 150, flex: 3, 
+      field: 'actions', headerName: 'Ações', minWidth: 150, flex: 3,
       renderCell: (params: GridCellParams) => (
         <ButtonGroup>
           <IconButton onClick={() => handleEditClick(params)}>
@@ -72,8 +74,9 @@ export const IngredientsPage = () => {
           ingredientId={idIngredientSelected}
           ingredients={ingredients}
           setIngredients={setIngredients}
+          setShowWarningDialog={setShowWarningDialog}
         />
-      )}      
+      )}
       {showEditDialog && (
         <EditIngredientDialog
           open={showEditDialog}
@@ -81,7 +84,14 @@ export const IngredientsPage = () => {
           ingredient={ingredientSelected}
           ingredients={ingredients}
           setIngredients={setIngredients}
-          />
+        />
+      )}
+      {showWarningDialog && (
+        <WarningDialog
+          open={showWarningDialog}
+          setOpen={setShowWarningDialog}
+          message='Erro ao deletar Ingrediente! Para não compremeter a integridade de dados não é possível deletar Ingrediente com movimentações associadas.'
+        />
       )}
 
       <Header title='Ingredientes' subtitle='Vizualização de ingredientes' />

@@ -70,7 +70,7 @@ export const ProductFormsPage = () => {
   const validateForm = () => {
     const price = parseFloat(productPrice);
     const isNameValid = productName.length < 50 && productName.length > 0;
-    const isDescriptionValid = productDescription.length < 200 && productDescription.length > 0;
+    const isDescriptionValid = productDescription.length < 500 && productDescription.length > 0;
     const isPriceValid = price > 0 && price < 100000;
     const isCategoryValid = productCategoryName.length > 0;
     const isProductIngredientListValid = productIngredientList.every(ingredient => ingredient.amount > 0 && ingredient.amount <= 100000);
@@ -215,9 +215,9 @@ export const ProductFormsPage = () => {
             onChange={(event) => setProductDescription(event.target.value)}
             required
             multiline
-            error={productDescription.length >= 200}
-            helperText={productDescription.length >= 200 ?
-              'Descrição deve conter menos de 200 characteres' : ''
+            error={productDescription.length >= 500}
+            helperText={productDescription.length >= 500 ?
+              'Descrição deve conter menos de 500 characteres' : ''
             }
           />
           <Box display={'flex'} gap={2} sx={{ width: '300px' }}>

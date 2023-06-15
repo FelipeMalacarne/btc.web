@@ -38,7 +38,7 @@ public class NotificationService {
                             "O ingrediente " + ingredient.getName() + " está fora dos limites de estoque. \n\n" +
                             "O limite mínimo é: " + ingredient.getMin() + "\nO limite máximo é: " + ingredient.getMax() +
                             "\nO estoque atual é: " + stockRepository.findByIngredientId(ingredient.getId()).getAmount() + ". \n\n" +
-                            "Algo de errado aconteceu, resolva o problema o quanto antes!"
+                            "Resolva o problema o quanto antes!"
                     )
                     .date(new Timestamp(System.currentTimeMillis()))
                     .build();
