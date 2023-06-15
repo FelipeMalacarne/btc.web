@@ -13,7 +13,6 @@ import { useAuth } from "../../hooks/useAuth"
 import { useNotifications } from "../../hooks/useNotifications"
 import { NotificationButton } from "./components/NotificationButton"
 
-
 interface TopbarProps {
   themeMode: Theme,
   setThemeMode: React.Dispatch<React.SetStateAction<Theme>>,
@@ -62,17 +61,6 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
           <IconButton onClick={() => props.setIsSidebarOpen(!props.isSidebarOpen)}>
             <MenuIcon sx={{ color: theme.palette.text.primary }} />
           </IconButton>
-          <FlexBetween
-            backgroundColor={theme.palette.background.paper}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search" />
-            <IconButton>
-              <SearchIcon sx={{ color: theme.palette.text.primary }} />
-            </IconButton>
-          </FlexBetween>
         </FlexBetween>
         {/* RIGHTSIDE */}
         <FlexBetween gap='1.5rem'>
@@ -131,9 +119,9 @@ export const Topbar: React.FC<TopbarProps> = (props) => {
                 }}
               />
             </Button>
-            <Menu 
-              anchorEl={anchorEl} 
-              open={isOpen} 
+            <Menu
+              anchorEl={anchorEl}
+              open={isOpen}
               onClose={handleClose}
               anchorOrigin={{
                 vertical: 'bottom',
