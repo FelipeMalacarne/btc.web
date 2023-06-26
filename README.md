@@ -52,6 +52,5 @@ Aqui apenas o exemplo de apenas uma das telas da aplicação:
 ![Cadastro de Produtos](./img/TelaCadastroProd.png)
 
 ## 🔬 Conclusão
-
-O projeto aplicou na pratica os conceitos de programação web, subindo uma aplicação fullstack usando Java e React
-- 
+O projeto aplicou na pratica os conceitos de programação web, subindo uma aplicação fullstack usando Java, React e um banco Relacional, explorando as possibilidades de relacionamento de tabelas que melhor garantisse a integridade de dados.
+ 
